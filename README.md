@@ -38,9 +38,9 @@ Open Project and Install dependencies(Maven will take care of this process)
 - Run Project by clickin on the icon file in feature files( Ideally Usage IDE: Intelij)
 
 
-## Optimizations
+## Reports
 
-Performance improvements, accessibility
+The test report will be availabe after the text execeution. You can see the report in the url that can be found at the end of the 'Run' Section
 
 ## Feedback
 
