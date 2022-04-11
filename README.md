@@ -1,18 +1,14 @@
+# Hi, I'm Muhammed! I am a QA Automation Test Engineer👋
+
 # Software  Tester Assignment
 
 This project was created for the Cloudwise Company's Assignment.
-
-# Hi, I'm Muhammed! I am a QA Automation Test Engineer👋
-
-
 ## Environment Variables
 
 - To run this project, you need to click 'Run' Icon button in the feature file. 
 - The parallel test execution is not operating due to the multiple thread issues on web driver. 
 - Please use this option untill the driver thread issue is fixed.
 - You can also change your cofiguration settings from cofiguration.properties file, such as browser options, url, flash and draw elements as well as page titles.
-
-
 ## Run Locally
 
 Clone the project
@@ -44,7 +40,7 @@ The test report will be availabe after the text execeution. You can see the repo
 
 ## Feedback
 
-If you have any feedback, please reach out to us me muhammedzahidakcal@gmail.com 
+If you have any feedback, please reach out to me muhammedzahidakcal@gmail.com 
 
 
 
