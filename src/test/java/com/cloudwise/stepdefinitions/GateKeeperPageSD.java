@@ -103,5 +103,12 @@ public class GateKeeperPageSD {
             GatekeeperPage.fillValueToSecondInput(field.get("Second_Input"));
             GatekeeperPage.assertValueInThirdInput(field.get("Third_Input"));
         }}
+
+    @And("GateKeeperPage: I run a performance test by sending {int} different types of data, and verify the results in less than {int} minutes on defined section: {string}")
+    public void bddrPerformanceTestOnCalculator(Integer numberOfData, Integer time, String sectionName) {
+        GatekeeperPage.performanceTestFunctionOnCalculator(numberOfData,time, sectionName);
+
+    }
+
     }
 

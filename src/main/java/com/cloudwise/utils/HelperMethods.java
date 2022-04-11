@@ -163,10 +163,11 @@ public class HelperMethods {
         }
     }
 
-    public static void refreshPage() {
+    public static void
+    refreshPage() {
         try {
             driver.navigate().refresh();
-            driver.manage().timeouts().implicitlyWait(Constants.IMPLICIT_WAIT_TIME, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(Constants.PAGE_LOAD_WAIT_TIME, TimeUnit.SECONDS);
         } catch (NoSuchContextException e) {
             throw new TestToolException("Some exception occurred while refreshing the page: " + driver.getCurrentUrl() + ": " + e.getCause());
 

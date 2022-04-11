@@ -9,7 +9,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.opera.OperaDriver;
 
 
-
 import java.util.concurrent.TimeUnit;
 
 public class BasePage {
@@ -63,8 +62,12 @@ public class BasePage {
 
 
     /**Close the browser at the end of the test*/
-    public static void tearDown() {if (driver != null) {driver.quit();}
+    public static void tearDown() {
+        if (driver == null) { return; }
+        driver.quit();
+        driver = null;
+    }
 
     }
 
-}
+

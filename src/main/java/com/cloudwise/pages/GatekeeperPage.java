@@ -1,10 +1,13 @@
 package com.cloudwise.pages;
 
 import com.cloudwise.base.ConfigReader;
+import com.cloudwise.utils.Constants;
 import com.cloudwise.utils.HelperMethods;
 
 
 import error.TestToolException;
+import io.cucumber.java.sl.In;
+import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -36,6 +39,9 @@ public class GatekeeperPage {
     @FindBy(xpath = "//div[@class='ng-star-inserted']")
     private static WebElement searchResult;
 
+    @FindBy(xpath = "/html/body/app-root/app-test/div/div/div[1]/div[3]")
+    private static WebElement searchOfUnicornTabArea;
+
     @FindBy(xpath = "//input[@id='mat-input-0']")
     private static WebElement firstFieldToFillWithValues;
 
@@ -66,15 +72,15 @@ public class GatekeeperPage {
         return getElement(By.xpath("//*[@class='_1u8sp']//p[normalize-space(text())='" + sectionName + "']")).getText();
     }
 
-    private static WebElement iconButton(String iconName){
-        if (iconName.equalsIgnoreCase("Calculator")){
+    private static WebElement iconButton(String iconName) {
+        if (iconName.equalsIgnoreCase("Calculator")) {
             iconName = iconName + "-alt";
         }
         return getElement(By.xpath("//i[@class='fal fa-" + iconName.toLowerCase(Locale.ROOT) + "']"));
     }
 
-    private static WebElement section(String sectionName){
-        return getElement(By.xpath("//p[contains(text(),'" + sectionName +"')]"));
+    private static WebElement section(String sectionName) {
+        return getElement(By.xpath("//p[contains(text(),'" + sectionName + "')]"));
     }
 
     public static String getTextFromFieldInPage(String text) {
@@ -107,6 +113,16 @@ public class GatekeeperPage {
             throw new TestToolException(doGetText(mainPage) + " does not contain value of: " + text);
         }
 
+    }
+
+    public static boolean verifyTextIsLocatedOnUnicornTabArea(String text) {
+        final String method = "GatekeeperPage.getPartOfTextIsLocatedOnFieldPage: ";
+        printInfoMethodStarted(method);
+        printInfoMethodEnded(method);
+        waitForVisibility(searchOfUnicornTabArea);
+        flash(searchOfUnicornTabArea);
+        drawBorder(searchOfUnicornTabArea);
+        return doGetText(searchOfUnicornTabArea).contains(text);
     }
 
     public static void switchFrame(String frameName) {
@@ -208,13 +224,20 @@ public class GatekeeperPage {
         printInfoMethodStarted(method);
         waitForVisibility(searchField);
         doSendTextAndPressEnter(searchField, data);
-        if (data.equalsIgnoreCase("bobi") || driver.findElements(By.xpath("//div[@class='ng-star-inserted']")).size() != 0) {
+        if (data.equalsIgnoreCase("bobi") || (verifyTextIsLocatedOnUnicornTabArea(Constants.LOST_UNICORN_NAME))){
             if ((searchResult.isDisplayed())) {
                 throw new TestToolException("A valid search criteria has been identified: " + data + " is valid! Search Result: " + searchResult.getText());
             }
         }
-        refreshPage();
+        scrollPageDown();
+        waitForVisibility(searchField);
+        doSendTextAndPressEnter(searchField, data);
+        scrollPageTillTheEnd();
+        flash(searchField);
         waitForSeconds(2);
+        drawBorder(searchField);
+        waitForSeconds(2);
+        refreshPage();
         printInfoMethodEnded(method);
 
     }
@@ -244,7 +267,7 @@ public class GatekeeperPage {
         final String method = "GatekeeperPage.fillValueToFirstInput: ";
         printInfoMethodStarted(method);
         waitForVisibility(firstFieldToFillWithValues);
-        sendText(firstFieldToFillWithValues,firstInputValue);
+        sendText(firstFieldToFillWithValues, firstInputValue);
         printInfoMethodEnded(method);
 
     }
@@ -253,7 +276,7 @@ public class GatekeeperPage {
         final String method = "GatekeeperPage.fillValueToSecondInput: ";
         printInfoMethodStarted(method);
         waitForVisibility(secondFieldToFillWithValues);
-        sendText(secondFieldToFillWithValues,secondInputValue);
+        sendText(secondFieldToFillWithValues, secondInputValue);
         printInfoMethodEnded(method);
 
     }
@@ -261,13 +284,40 @@ public class GatekeeperPage {
     public static void assertValueInThirdInput(String expectedValue) {
         final String method = "GatekeeperPage.assertValueInThirdInput: ";
         waitForVisibility(thirdFieldToAssertValues);
-        if(!thirdFieldToAssertValues.getAttribute("value").equals(expectedValue)){
+        if (!thirdFieldToAssertValues.getAttribute("value").equals(expectedValue)) {
             throw new TestToolException(expectedValue + " not found after the assertion!" + " Found Value: " + thirdFieldToAssertValues.getText());
         }
         refreshPage();
         printInfoMethodEnded(method);
 
     }
+
+
+    public static void performanceTestFunctionOnCalculator(Integer numberOfData, Integer time, String sectionName) {
+        DateTime dt = new DateTime();
+        final String method = "GatekeeperPage.performanceTestFunctionOnCalculator ";
+        final int getMinutesBeforePeformanceTest = dt.getMinuteOfHour();
+        printInfoMethodStarted(method);
+
+        verifySectionName(sectionName);
+
+        for (int i = 1; i <numberOfData ; i++) {
+            fillValueToFirstInput(String.valueOf(i * 10));
+            fillValueToSecondInput(String.valueOf(i * 100));
+            int result = (i * 10) + (i * 100) ;
+            assertValueInThirdInput(String.valueOf(result));
+        }
+        int getMinutesAfterPeformanceTest = dt.getMinuteOfHour();
+
+        int timeDifferenceAfterPerformanceTest = getMinutesAfterPeformanceTest - getMinutesBeforePeformanceTest;
+        if(!(timeDifferenceAfterPerformanceTest <= time)){
+            throw new TestToolException(method + " failed! " + timeDifferenceAfterPerformanceTest + " minutes took performance test " +
+                    "to verify: " +  numberOfData + " different type of combinations!" );
+        }
+        printInfoMethodEnded(method);
+
+    }
+
     public static void verifyIconButtonOnDefinedSection(String iconName, String sectionName) {
         final String method = "GatekeeperPage.verifyIconButton: ";
         printInfoMethodStarted(method);

@@ -3,14 +3,14 @@
 
 @All
 @Performance
-@Cloud-Wise_Workflow
+@001_Cloudwise_Assignment_DuplicateNames
 @Assignment_01
 
 Feature: [Assignment Par 1]: Output The Duplicate Names Within Cloudwise for 9 Departments
 
   Rule: [Assignment Part 1]:  There can be more than one duplicate names. The test should be able to find duplicate names and print it
 
-    @Cloud-Wise_Assignment_001_OutputDuplicateNames
+
     Scenario: Output The Duplicate Names Within Cloudwise in Departments
 
       Given I open the environment and see the home page

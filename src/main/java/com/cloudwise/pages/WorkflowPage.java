@@ -68,7 +68,6 @@ public class WorkflowPage {
        try {
            WebElement department= driver.findElement(By.xpath((departmentXpath)));
            WebElement flipBox= driver.findElement(By.xpath((flipBoxXpath)));
-           closeCookies();
            moveToElementAndClick(department);
            moveToElementAndClick(flipBox);
 

@@ -66,7 +66,7 @@ public class MenuPage {
             printInfo(methodName + "is failed: " + e.getCause());
             e.printStackTrace();
         }
-        getWaitObject();
+        waitForSeconds(3);
         helperMethods.setBrowserSizeToMaximize();
         printInfoMethodEnded(methodName);
     }
@@ -139,7 +139,7 @@ public class MenuPage {
         final String methodName = "MenuPage.navigatingToBackPage: ";
         try {
             printInfoMethodStarted(methodName);
-            getWaitObject();
+            waitForSeconds(3);
             HelperMethods.navigateToBackPage();
             waitForSeconds(3);
             checkPageIsReady(methodName + "Page Title: " + doGetPageTitle() + "Page Url: " + driver.getCurrentUrl() + ": ");
