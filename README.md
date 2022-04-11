@@ -44,7 +44,7 @@ The test report will be availabe after the text execeution. You can see the repo
 
 ## Feedback
 
-If you have any feedback, please reach out to us at muhammedzahidakcal@gmail.com 
+If you have any feedback, please reach out to us me muhammedzahidakcal@gmail.com 
 
 
 
