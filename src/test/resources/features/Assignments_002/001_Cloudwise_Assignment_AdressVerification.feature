@@ -2,7 +2,6 @@
 # Ticket Number: [Assignment -2]
 
 @All
-@Performance
 @Assignment_02
 @001_Cloudwise_Assignment_AdressVerification
 
