@@ -43,8 +43,7 @@ public class GenericSD {
      * @param message - alert message
      */
     @And("^Generic: I generate a message with text: \"([^\"]*)\"$")
-    public void bddGenerateAlertMessage(String message) {
-        JavaScriptUtil.generateAlert(message);
+    public void bddGenerateAlertMessage(String message) {JavaScriptUtil.generateAlert(message);
 
 
     }

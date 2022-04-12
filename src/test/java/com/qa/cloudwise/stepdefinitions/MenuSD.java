@@ -64,7 +64,6 @@ public class MenuSD {
      * @param url - the url which will be navigated by the browser
      */
     @When("^Menu: I navigate to the page: \"([^\"]*)\"$")
-    public void bddNavigateToPage(String url) {
-        MenuPage.navigateToThePage(url);
+    public void bddNavigateToPage(String url) {MenuPage.navigateToThePage(url);
     }
 }
