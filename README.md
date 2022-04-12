@@ -9,6 +9,7 @@ This project was created as part of the assignment for the Cloudwise Company.
 - Due to various thread issues with the web driver, parallel test execution is not available for now.
 - Please use this option until the issue with the driver thread is resolved.
 - You may also alter your setup settings, such as browser options, url, flash and draw elements, and page titles, through the configuration.properties file. 
+- https://github.com/makcal1/Cloudwise-B.V./blob/main/src/test/resources/configuration/configuration.properties
 - Clone the project
 ```bash
   git clone https://github.com/makcal1/Cloudwise-B.V..git
