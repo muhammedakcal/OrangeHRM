@@ -1,4 +1,4 @@
-#### Hi, I'm Muhammed! I am a QA Automation Test Engineer👋
+#### Hi!👋 I'm Mami!🙂 I am a QA Automation Test Engineer
 
 #### Software  Tester Assignment
 This project was created as part of the assignment for the Cloudwise Company.
