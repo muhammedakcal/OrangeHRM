@@ -12,7 +12,7 @@
 - https://github.com/makcal1/Cloudwise-B.V./blob/main/src/test/resources/configuration/configuration.properties
 - Clone the project
 ```bash
-  git clone https://github.com/makcal1/Cloudwise-B.V..git
+  git clone https://github.com/makcal1/Cloudwise-B.V.
 ```
 #### Go to the project directory;
 
