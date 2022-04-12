@@ -51,7 +51,7 @@
 - Add it to path variable with: %Maven_Home%\bin.
 - Open cmd and ask for mvn -version in desktop.
 
-#### Maven Environment Variables For Mac
+#### Maven Environment Variables For Mac:
 - https://www.journaldev.com/2348/install-maven-mac-os
 
 
