@@ -1,8 +1,6 @@
-package com.cloudwise.pages;
+package com.qa.cloudwise.pages;
 
-import error.TestToolException;
-
-import static com.cloudwise.utils.HelperMethods.printInfo;
+import com.qa.cloudwise.TestToolException;
 
 public class WaitingPage {
 

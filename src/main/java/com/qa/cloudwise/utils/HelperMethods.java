@@ -1,19 +1,19 @@
-package com.cloudwise.utils;
+package com.qa.cloudwise.utils;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.*;
 
 
-import com.cloudwise.base.ConfigReader;
-import error.TestToolException;
+import com.qa.cloudwise.base.ConfigReader;
+import com.qa.cloudwise.TestToolException;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static com.cloudwise.base.BasePage.*;
+import static com.qa.cloudwise.base.BasePage.*;
 
 
 import java.time.Duration;
@@ -22,8 +22,8 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import static com.cloudwise.pages.WaitingPage.waitForSeconds;
-import static com.cloudwise.utils.JavaScriptUtil.flash;
+import static com.qa.cloudwise.pages.WaitingPage.waitForSeconds;
+import static com.qa.cloudwise.utils.JavaScriptUtil.flash;
 import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class HelperMethods {

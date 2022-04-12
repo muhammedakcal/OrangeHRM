@@ -1,7 +1,7 @@
-package com.cloudwise.base;
+package com.qa.cloudwise.base;
 
 
-import com.cloudwise.utils.Constants;
+import com.qa.cloudwise.utils.Constants;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

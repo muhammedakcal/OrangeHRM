@@ -1,6 +1,6 @@
-package com.cloudwise.stepdefinitions;
+package com.qa.cloudwise.stepdefinitions;
 
-import com.cloudwise.pages.WorkflowPage;
+import com.qa.cloudwise.pages.WorkflowPage;
 import io.cucumber.java.en.And;
 
 

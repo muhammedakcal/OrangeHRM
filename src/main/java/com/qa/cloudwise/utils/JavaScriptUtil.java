@@ -1,17 +1,15 @@
-package com.cloudwise.utils;
+package com.qa.cloudwise.utils;
 
-import com.cloudwise.pages.WaitingPage;
-import error.TestToolException;
+import com.qa.cloudwise.TestToolException;
 import org.openqa.selenium.JavascriptExecutor;
 
 import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebElement;
 
 
-import static com.cloudwise.base.BasePage.driver;
+import static com.qa.cloudwise.base.BasePage.driver;
 
-import static com.cloudwise.pages.WaitingPage.waitForSeconds;
-import static com.cloudwise.utils.HelperMethods.printInfo;
+import static com.qa.cloudwise.pages.WaitingPage.waitForSeconds;
 
 
 public class JavaScriptUtil {
@@ -181,7 +179,7 @@ public class JavaScriptUtil {
     public static void checkPageIsReady(String methodName) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         if (js.executeScript("return document.readyState").toString().equals("complete")) {
-            printInfo(methodName + " is loaded!");
+            HelperMethods.printInfo(methodName + " is loaded!");
         }
 
     }

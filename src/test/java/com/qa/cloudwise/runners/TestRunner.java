@@ -1,4 +1,4 @@
-package com.cloudwise.runners;
+package com.qa.cloudwise.runners;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;

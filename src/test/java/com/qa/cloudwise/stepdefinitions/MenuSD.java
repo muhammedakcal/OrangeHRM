@@ -1,8 +1,8 @@
-package com.cloudwise.stepdefinitions;
+package com.qa.cloudwise.stepdefinitions;
 
-import com.cloudwise.pages.MenuPage;
-import com.cloudwise.utils.Constants;
-import com.cloudwise.utils.HelperMethods;
+import com.qa.cloudwise.pages.MenuPage;
+import com.qa.cloudwise.utils.Constants;
+import com.qa.cloudwise.utils.HelperMethods;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

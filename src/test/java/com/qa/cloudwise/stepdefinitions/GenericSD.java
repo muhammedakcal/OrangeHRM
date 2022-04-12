@@ -1,15 +1,13 @@
-package com.cloudwise.stepdefinitions;
+package com.qa.cloudwise.stepdefinitions;
 
 
-import com.cloudwise.pages.WaitingPage;
-import com.cloudwise.utils.HelperMethods;
-import com.cloudwise.utils.JavaScriptUtil;
+import com.qa.cloudwise.utils.HelperMethods;
+import com.qa.cloudwise.utils.JavaScriptUtil;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 
 
-import static com.cloudwise.pages.WaitingPage.waitForSeconds;
 import static org.junit.Assert.assertEquals;
 
 

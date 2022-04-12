@@ -1,6 +1,6 @@
-package com.cloudwise.stepdefinitions;
+package com.qa.cloudwise.stepdefinitions;
 
-import com.cloudwise.pages.WaitingPage;
+import com.qa.cloudwise.pages.WaitingPage;
 import io.cucumber.java.en.When;
 
 

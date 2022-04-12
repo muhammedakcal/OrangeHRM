@@ -1,4 +1,4 @@
-package com.cloudwise.base;
+package com.qa.cloudwise.base;
 
 import java.io.FileInputStream;
 import java.io.IOException;

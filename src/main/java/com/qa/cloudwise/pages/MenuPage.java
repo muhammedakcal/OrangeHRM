@@ -1,23 +1,21 @@
-package com.cloudwise.pages;
+package com.qa.cloudwise.pages;
 
 
-import com.cloudwise.utils.HelperMethods;
+import com.qa.cloudwise.utils.HelperMethods;
 
 
-import error.TestToolException;
+import com.qa.cloudwise.TestToolException;
+import com.qa.cloudwise.utils.JavaScriptUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 
-import static com.cloudwise.pages.WaitingPage.waitForSeconds;
-import static com.cloudwise.utils.HelperMethods.*;
+import static com.qa.cloudwise.pages.WaitingPage.waitForSeconds;
 
-import static com.cloudwise.base.BasePage.driver;
+import static com.qa.cloudwise.base.BasePage.driver;
 
 
-import static com.cloudwise.utils.JavaScriptUtil.checkPageIsReady;
-import static com.cloudwise.utils.JavaScriptUtil.clickElementByJS;
 import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class MenuPage {
@@ -37,7 +35,7 @@ public class MenuPage {
 
     public static Object verifyPageTitle() {
         String pageTitle = HelperMethods.doGetPageTitle();
-        printInfo(("Page Title Name: " + pageTitle));
+        HelperMethods.printInfo(("Page Title Name: " + pageTitle));
         return pageTitle;
     }
 
@@ -53,20 +51,20 @@ public class MenuPage {
 
         helperMethods.setBrowserSizeAsMedium();
         WebElement languageFlag;
-        printInfoMethodStarted(methodName);
+        HelperMethods.printInfoMethodStarted(methodName);
 
         if (driver.findElements((By.xpath(languageFlagXpathWhenMenuNavigatorIsEnabled))).size() != 0
                 &&
                 driver.findElement(By.xpath(languageFlagXpathWhenMenuNavigatorIsEnabled)).isEnabled()) {
-            languageFlag = getElement(By.xpath(languageFlagXpathWhenMenuNavigatorIsEnabled));
+            languageFlag = HelperMethods.getElement(By.xpath(languageFlagXpathWhenMenuNavigatorIsEnabled));
 
         } else {
-            languageFlag = getElement(By.xpath(languageFlagXpathWhenMenuNavigatorIsDisabled));
+            languageFlag = HelperMethods.getElement(By.xpath(languageFlagXpathWhenMenuNavigatorIsDisabled));
         }
         try {
             closeCookies();
-            doClick(menuNavigator);
-            doClick(languageFlag);
+            HelperMethods.doClick(menuNavigator);
+            HelperMethods.doClick(languageFlag);
             waitForSeconds(3);
             helperMethods.setBrowserSizeToMaximize();
 
@@ -75,7 +73,7 @@ public class MenuPage {
 
         }
 
-        printInfoMethodEnded(methodName);
+        HelperMethods.printInfoMethodEnded(methodName);
     }
 
 
@@ -89,7 +87,7 @@ public class MenuPage {
         final String methodName = "MenuPage.selectMenu: ";
         String menuIconAngleDownXpath;
         String menuXpath;
-        printInfoMethodStarted(methodName);
+        HelperMethods.printInfoMethodStarted(methodName);
 
         if (menuOption.contains("->")) {
             menuIconAngleDownXpath = "//a[normalize-space()='" + menuOption.split("->")[0] + "']//span[@class='sf-sub-indicator']//i";
@@ -102,11 +100,11 @@ public class MenuPage {
         try {
             closeCookies();
             helperMethods.setBrowserSizeAsMedium();
-            doClick(menuNavigator);
+            HelperMethods.doClick(menuNavigator);
             WebElement iconAngleDownElement = driver.findElement(By.xpath(menuIconAngleDownXpath));
             WebElement menuElement = driver.findElement(By.xpath(menuXpath));
-            doClick(iconAngleDownElement);
-            moveToElementAndClick(menuElement);
+            HelperMethods.doClick(iconAngleDownElement);
+            HelperMethods.moveToElementAndClick(menuElement);
 
         } catch (TestToolException e) {
             e.printStackTrace();
@@ -114,7 +112,7 @@ public class MenuPage {
         }
 
         helperMethods.setBrowserSizeToMaximize();
-        printInfoMethodEnded(methodName);
+        HelperMethods.printInfoMethodEnded(methodName);
 
     }
 
@@ -123,21 +121,21 @@ public class MenuPage {
      */
     public static void closeCookies() {
         final String methodName = "MenuPage.closeCookies: ";
-        printInfoMethodStarted(methodName);
+        HelperMethods.printInfoMethodStarted(methodName);
         try {
             if (driver.findElements(By.xpath("//*[@id='CybotCookiebotDialogBodyButtonAccept']")).size() == 1) {
-                clickElementByJS(acceptCookies);
-                printInfo(methodName + "are closed by clicking on the accept button!");
+                JavaScriptUtil.clickElementByJS(acceptCookies);
+                HelperMethods.printInfo(methodName + "are closed by clicking on the accept button!");
             }
             if (driver.findElements(By.xpath("//*[contains(@id,'leadinModal')]/div[2]/button")).size() == 1) {
-                clickElementByJS(closeTabOnCookies);
-                printInfo(methodName + " are disabled!");
+                JavaScriptUtil.clickElementByJS(closeTabOnCookies);
+                HelperMethods.printInfo(methodName + " are disabled!");
             }
         } catch (TestToolException e) {
             e.printStackTrace();
-            printInfo(methodName + "is failed: " + e.getCause());
+            HelperMethods.printInfo(methodName + "is failed: " + e.getCause());
         }
-        printInfoMethodEnded(methodName);
+        HelperMethods.printInfoMethodEnded(methodName);
     }
 
     /**
@@ -146,16 +144,16 @@ public class MenuPage {
     public static void navigateToBackPage() {
         final String methodName = "MenuPage.navigatingToBackPage: ";
         try {
-            printInfoMethodStarted(methodName);
+            HelperMethods.printInfoMethodStarted(methodName);
             waitForSeconds(3);
             HelperMethods.navigateToBackPage();
             waitForSeconds(3);
-            checkPageIsReady(methodName + "Page Title: " + doGetPageTitle() + "Page Url: " + driver.getCurrentUrl() + ": ");
-            printInfoMethodEnded(methodName);
+            JavaScriptUtil.checkPageIsReady(methodName + "Page Title: " + HelperMethods.doGetPageTitle() + "Page Url: " + driver.getCurrentUrl() + ": ");
+            HelperMethods.printInfoMethodEnded(methodName);
 
         } catch (TestToolException e) {
             e.printStackTrace();
-            printInfo(methodName + "is failed: " + e.getCause());
+            HelperMethods.printInfo(methodName + "is failed: " + e.getCause());
         }
     }
 
@@ -165,16 +163,16 @@ public class MenuPage {
     public static void navigateToPage(String url) {
         final String methodName = "MenuPage.navigateToPage: ";
         try {
-            printInfoMethodStarted(methodName);
+            HelperMethods.printInfoMethodStarted(methodName);
             waitForSeconds(4);
             driver.navigate().to(url);
-            checkPageIsReady(methodName + "Page Title: " + doGetPageTitle() + "Page Url: " + driver.getCurrentUrl() + ": ");
-            getWaitObject();
-            printInfoMethodEnded(methodName);
+            JavaScriptUtil.checkPageIsReady(methodName + "Page Title: " + HelperMethods.doGetPageTitle() + "Page Url: " + driver.getCurrentUrl() + ": ");
+            HelperMethods.getWaitObject();
+            HelperMethods.printInfoMethodEnded(methodName);
 
         } catch (TestToolException e) {
             e.printStackTrace();
-            printInfo(methodName + "is failed: " + e.getCause());
+            HelperMethods.printInfo(methodName + "is failed: " + e.getCause());
         }
 
     }

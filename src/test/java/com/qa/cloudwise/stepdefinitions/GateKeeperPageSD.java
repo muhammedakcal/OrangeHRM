@@ -1,7 +1,7 @@
-package com.cloudwise.stepdefinitions;
+package com.qa.cloudwise.stepdefinitions;
 
-import com.cloudwise.pages.GateKeeperPage;
-import com.cloudwise.utils.HelperMethods;
+import com.qa.cloudwise.pages.GateKeeperPage;
+import com.qa.cloudwise.utils.HelperMethods;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;

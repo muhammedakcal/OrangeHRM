@@ -1,4 +1,4 @@
-package com.cloudwise.utils;
+package com.qa.cloudwise.utils;
 
 
 

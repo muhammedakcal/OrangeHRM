@@ -1,4 +1,4 @@
-package error;
+package com.qa.cloudwise;
 
 import java.util.NoSuchElementException;
 
