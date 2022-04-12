@@ -42,7 +42,7 @@
 
 #### How to add Maven to the Path variable?
 
-#### JMaven Environment Variables For Mac;
+#### JMaven Environment Variables For Windows;
 - Right click on my computer.
 - Properties.
 - Advanced System Setting.
