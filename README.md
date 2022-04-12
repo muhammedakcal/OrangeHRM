@@ -6,7 +6,7 @@
 #### Run Locally:
 - Install dependencies by opening the project and installing the dependencies. (Maven will handle this for you.)
 - To run this project, go to the feature file and click the 'Run' Icon button.
-- Due to various thread issues with the web driver, parallel test execution is not available for now.
+- Due to multiple thread issues with the web driver configuration, parallel test execution is not available for now.
 - Please use this option until the issue with the driver thread is resolved.
 - You may also alter your setup settings, such as browser options, url, flash and draw elements, and page titles, through the configuration.properties file. 
 - https://github.com/makcal1/Cloudwise-B.V./blob/main/src/test/resources/configuration/configuration.properties
