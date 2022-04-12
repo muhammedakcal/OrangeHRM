@@ -20,7 +20,7 @@ This project was created as part of the assignment for the Cloudwise Company.
   cd my-project
 ```
 - Please use Intelij's Gherking Plugins to execute tests from feature files.
-- Gherking, Cucumber for Java (Settings->Plugins)
+- (Settings->Plugins) -> Gherking, Cucumber for Java 
 - Verify that you have Java, Maven, and Google Chrome installed.
 - Launch the project by double-clicking the icon file under the feature files ( Ideally Usage IDE: Intelij)
 
