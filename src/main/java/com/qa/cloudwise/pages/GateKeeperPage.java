@@ -2,7 +2,6 @@ package com.qa.cloudwise.pages;
 
 import com.qa.cloudwise.base.ConfigReader;
 import com.qa.cloudwise.utils.Constants;
-import com.qa.cloudwise.utils.HelperMethods;
 
 
 import com.qa.cloudwise.TestToolException;
@@ -17,13 +16,13 @@ import java.util.*;
 
 import static com.qa.cloudwise.base.BasePage.driver;
 import static com.qa.cloudwise.pages.WaitingPage.waitForSeconds;
+import static com.qa.cloudwise.utils.HelperMethods.*;
 import static com.qa.cloudwise.utils.JavaScriptUtil.*;
 import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class GateKeeperPage {
 
     private static final TreeMap<String, String> defeatedCostsInformation = new TreeMap();
-    public static HelperMethods helperMethods;
     @FindBy(xpath = "//app-test/div/div/div[1]")
     private static WebElement mainPage;
     @FindBy(xpath = "//i[@class='fal fa-bullseye-arrow ng-star-inserted' and @style='color: orange; cursor: pointer;']")
@@ -43,7 +42,6 @@ public class GateKeeperPage {
 
     public GateKeeperPage() {
         initElements(driver, this);
-        helperMethods = new HelperMethods();
     }
 
     /**
@@ -73,7 +71,7 @@ public class GateKeeperPage {
      * @return - Customized x path
      */
     private static WebElement frameElement(String frameName) {
-        return HelperMethods.getElement((By.xpath("//body[@class='mat-typography']//iframe[@id='" + frameName + "']")));
+        return getElement((By.xpath("//body[@class='mat-typography']//iframe[@id='" + frameName + "']")));
     }
 
     /**
@@ -83,7 +81,7 @@ public class GateKeeperPage {
      * @return - Customized x path
      */
     private static String sectionXpathInFrame(String sectionName) {
-        return HelperMethods.getElement(By.xpath("//*[@class='_1u8sp']//p[normalize-space(text())='" + sectionName + "']")).getText();
+        return getElement(By.xpath("//*[@class='_1u8sp']//p[normalize-space(text())='" + sectionName + "']")).getText();
     }
 
     /**
@@ -96,7 +94,7 @@ public class GateKeeperPage {
         if (iconName.equalsIgnoreCase("Calculator")) {
             iconName = iconName + "-alt";
         }
-        return HelperMethods.getElement(By.xpath("//i[@class='fal fa-" + iconName.toLowerCase(Locale.ROOT) + "']"));
+        return getElement(By.xpath("//i[@class='fal fa-" + iconName.toLowerCase(Locale.ROOT) + "']"));
     }
 
     /**
@@ -106,7 +104,7 @@ public class GateKeeperPage {
      * @return - Customized x path
      */
     private static WebElement section(String sectionName) {
-        return HelperMethods.getElement(By.xpath("//p[contains(text(),'" + sectionName + "')]"));
+        return getElement(By.xpath("//p[contains(text(),'" + sectionName + "')]"));
     }
 
     /**
@@ -117,11 +115,11 @@ public class GateKeeperPage {
      */
     public static String getTextFromFieldInPage(String text) {
         final String method = "GateKeeperPage.getTextFromFieldInPage: ";
-        HelperMethods.printInfoMethodStarted(method);
-        HelperMethods.printInfoMethodEnded(method);
-        WebElement textElement = HelperMethods.getElement(By.xpath(xPathGeneratorForGettingTextFromPage(text)));
-        HelperMethods.waitForVisibility(textElement);
-        return HelperMethods.doGetText(textElement);
+        printInfoMethodStarted(method);
+        printInfoMethodEnded(method);
+        WebElement textElement = getElement(By.xpath(xPathGeneratorForGettingTextFromPage(text)));
+        waitForVisibility(textElement);
+        return doGetText(textElement);
     }
 
     /**
@@ -132,11 +130,11 @@ public class GateKeeperPage {
      */
     public static String getTextFromFieldFromFrame(String text) {
         final String method = "GateKeeperPage.getTextFromField:getTextFromFieldFromFrame: ";
-        HelperMethods.printInfoMethodStarted(method);
-        HelperMethods.printInfoMethodEnded(method);
-        WebElement textElement = HelperMethods.getElement(By.xpath(xPathGeneratorForGettingTextFromFrame(text)));
-        HelperMethods.waitForVisibility(textElement);
-        return HelperMethods.doGetText(textElement);
+        printInfoMethodStarted(method);
+        printInfoMethodEnded(method);
+        WebElement textElement = getElement(By.xpath(xPathGeneratorForGettingTextFromFrame(text)));
+        waitForVisibility(textElement);
+        return doGetText(textElement);
     }
 
     /**
@@ -146,13 +144,13 @@ public class GateKeeperPage {
      */
     public static void verifyPartOfTextIsLocatedOnFieldPage(String text) {
         final String method = "GateKeeperPage.getPartOfTextFromField: ";
-        HelperMethods.printInfoMethodStarted(method);
-        HelperMethods.printInfoMethodEnded(method);
-        HelperMethods.waitForVisibility(mainPage);
+        printInfoMethodStarted(method);
+        printInfoMethodEnded(method);
+        waitForVisibility(mainPage);
         flash(mainPage);
         drawBorder(mainPage);
-        if (!HelperMethods.doGetText(mainPage).contains(text)) {
-            throw new TestToolException(HelperMethods.doGetText(mainPage) + " does not contain value of: " + text);
+        if (!doGetText(mainPage).contains(text)) {
+            throw new TestToolException(doGetText(mainPage) + " does not contain value of: " + text);
         }
 
     }
@@ -165,12 +163,12 @@ public class GateKeeperPage {
      */
     public static boolean verifyTextIsLocatedOnUnicornTabArea(String text) {
         final String method = "GateKeeperPage.getPartOfTextIsLocatedOnFieldPage: ";
-        HelperMethods.printInfoMethodStarted(method);
-        HelperMethods.printInfoMethodEnded(method);
-        HelperMethods.waitForVisibility(searchOfUnicornTabArea);
+        printInfoMethodStarted(method);
+        printInfoMethodEnded(method);
+        waitForVisibility(searchOfUnicornTabArea);
         flash(searchOfUnicornTabArea);
         drawBorder(searchOfUnicornTabArea);
-        return HelperMethods.doGetText(searchOfUnicornTabArea).contains(text);
+        return doGetText(searchOfUnicornTabArea).contains(text);
     }
 
     /**
@@ -180,10 +178,10 @@ public class GateKeeperPage {
      */
     public static void switchFrame(String frameName) {
         final String method = "GateKeeperPage.switchFrame: ";
-        HelperMethods.printInfoMethodStarted(method);
+        printInfoMethodStarted(method);
         driver.switchTo().frame((frameElement(frameName)));
         waitForSeconds(5);
-        HelperMethods.printInfoMethodEnded(method);
+        printInfoMethodEnded(method);
     }
 
     /**
@@ -193,8 +191,8 @@ public class GateKeeperPage {
      */
     public static String getSectionNameInFrame(String sectionName) {
         final String method = "GateKeeperPage.getSectionNameInFrame: ";
-        HelperMethods.printInfoMethodStarted(method);
-        HelperMethods.printInfoMethodEnded(method);
+        printInfoMethodStarted(method);
+        printInfoMethodEnded(method);
         return sectionXpathInFrame(sectionName);
 
     }
@@ -207,10 +205,10 @@ public class GateKeeperPage {
     public static void clickOnPopup(String popupName) {
         final String method = "GateKeeperPage.clickOnPopup: ";
         final String popupXpath = "//span[@class='mat-button-wrapper' and text()='" + popupName + "']";
-        HelperMethods.printInfoMethodStarted(method);
-        HelperMethods.doClick(HelperMethods.getElement(By.xpath(popupXpath)));
+        printInfoMethodStarted(method);
+        doClick(getElement(By.xpath(popupXpath)));
         waitForSeconds(2);
-        HelperMethods.printInfoMethodEnded(method);
+        printInfoMethodEnded(method);
 
     }
 
@@ -222,9 +220,9 @@ public class GateKeeperPage {
     public static void verifyNumberOfPorts(int portNumber) {
         final String method = "GateKeeperPage.verifyNumberOfPorts: ";
         final String portsXpath = "//i[@class='fal fa-bullseye-arrow ng-star-inserted']";
-        HelperMethods.printInfoMethodStarted(method);
+        printInfoMethodStarted(method);
         int actualNumberOfPorts = driver.findElements(By.xpath(portsXpath)).size();
-        HelperMethods.printInfoMethodEnded(method);
+        printInfoMethodEnded(method);
         if (actualNumberOfPorts != portNumber) {
             throw new TestToolException(method + "failed! Expected Number of Ports: 9" +
                     " Actual NumberOfPorts: " + actualNumberOfPorts);
@@ -240,7 +238,7 @@ public class GateKeeperPage {
     public static void verifyPortsSize(String width, String height) {
         final String method = "GateKeeperPage.verifyNumberOfPorts: ";
         final String portsXpath = "//i[@class='fal fa-bullseye-arrow ng-star-inserted']";
-        HelperMethods.printInfoMethodStarted(method);
+        printInfoMethodStarted(method);
 
         if (defeatCost.getSize().getWidth() != Integer.parseInt(String.valueOf(width)) &&
                 defeatCost.getSize().getHeight() != Integer.parseInt(String.valueOf(height))
@@ -249,7 +247,7 @@ public class GateKeeperPage {
                     "Expected Size: (" + width + ")," + height + ")" +
                     " Actual Size: " + defeatCost.getSize());
         }
-        HelperMethods.printInfoMethodEnded(method);
+        printInfoMethodEnded(method);
     }
 
     /**
@@ -257,10 +255,10 @@ public class GateKeeperPage {
      */
     public static void defeatCostInTheThermalExhaustPort() {
         final String method = "GateKeeperPage.defeatCostInTheThermalExhaustPort: ";
-        HelperMethods.printInfoMethodStarted(method);
-        HelperMethods.doClick(defeatCost);
+        printInfoMethodStarted(method);
+        doClick(defeatCost);
         waitForSeconds(2);
-        HelperMethods.printInfoMethodEnded(method);
+        printInfoMethodEnded(method);
     }
 
     /**
@@ -270,7 +268,7 @@ public class GateKeeperPage {
      */
     public static void defeatCostNumberOfTimesAndStoreInfoToTheList(int times) {
         final String method = "GateKeeperPage.defeatCostAndStoreNumberOfCostInAndStoreInTheList: ";
-        HelperMethods.printInfoMethodStarted(method);
+        printInfoMethodStarted(method);
 
         try {
             for (int i = 0; i < times; i++) {
@@ -283,15 +281,15 @@ public class GateKeeperPage {
                 waitForSeconds(1);
             }
 
-            HelperMethods.printInfo("Defeated Cost Information According To the Iteration:");
-            HelperMethods.printInfo("");
+            printInfo("Defeated Cost Information According To the Iteration:");
+            printInfo("");
 
             for (Map.Entry<String, String> generalInfo : defeatedCostsInformation.entrySet()) {
-                HelperMethods.printInfo("<------------------------------------------------------------------------------------------------------------>");
+                printInfo("<------------------------------------------------------------------------------------------------------------>");
                 System.out.println(generalInfo.getKey() + " = " + generalInfo.getValue());
-                HelperMethods.printInfo("<------------------------------------------------------------------------------------------------------------>");
-                HelperMethods.printInfo("");
-                HelperMethods.printInfoMethodEnded(method);
+                printInfo("<------------------------------------------------------------------------------------------------------------>");
+                printInfo("");
+                printInfoMethodEnded(method);
 
             }
 
@@ -301,30 +299,30 @@ public class GateKeeperPage {
     }
 
     /**
-     * Search unicorn with a valid data
+     * Search unicorn with an invalid data
      *
      * @param data - it will be asserted to verify that the data is invalid
      */
     public static void searchUnicornWithInvalidData(String data) {
         final String method = "GateKeeperPage.searchUnicornWithInvalidData: ";
-        HelperMethods.printInfoMethodStarted(method);
-        HelperMethods.waitForVisibility(searchField);
-        HelperMethods.doSendTextAndPressEnter(searchField, data);
+        printInfoMethodStarted(method);
+        waitForVisibility(searchField);
+        doSendTextAndPressEnter(searchField, data);
         if (data.equalsIgnoreCase("bobi") || (verifyTextIsLocatedOnUnicornTabArea(Constants.LOST_UNICORN_NAME))) {
             if ((searchResult.isDisplayed())) {
                 throw new TestToolException("A valid search criteria has been identified: " + data + " is valid! Search Result: " + searchResult.getText());
             }
         }
         scrollPageDown();
-        HelperMethods.waitForVisibility(searchField);
-        HelperMethods.doSendTextAndPressEnter(searchField, data);
+        waitForVisibility(searchField);
+        doSendTextAndPressEnter(searchField, data);
         scrollPageTillTheEnd();
         flash(searchField);
         waitForSeconds(2);
         drawBorder(searchField);
         waitForSeconds(2);
-        HelperMethods.refreshPage();
-        HelperMethods.printInfoMethodEnded(method);
+        refreshPage();
+        printInfoMethodEnded(method);
 
     }
 
@@ -335,22 +333,22 @@ public class GateKeeperPage {
      */
     public static void searchValidUnicornWithInvalidData(String data, String searchResultExpectation) {
         final String method = "GateKeeperPage.searchValidUnicornWithInvalidData: ";
-        HelperMethods.printInfoMethodStarted(method);
+        printInfoMethodStarted(method);
         if (!data.equalsIgnoreCase("bobi")) {
             throw new TestToolException("An invalid valid search criteria has been identified: " + data +
                     searchResultExpectation + " is not found in the search result: " + searchResult.getText());
         }
         scrollPageDown();
-        HelperMethods.waitForVisibility(searchField);
-        HelperMethods.doSendTextAndPressEnter(searchField, data);
-        HelperMethods.waitForVisibility(searchResult);
+        waitForVisibility(searchField);
+        doSendTextAndPressEnter(searchField, data);
+        waitForVisibility(searchResult);
         scrollPageTillTheEnd();
         flash(searchResult);
         waitForSeconds(3);
         drawBorder(searchResult);
         waitForSeconds(3);
-        HelperMethods.refreshPage();
-        HelperMethods.printInfoMethodEnded(method);
+        refreshPage();
+        printInfoMethodEnded(method);
 
     }
 
@@ -361,10 +359,10 @@ public class GateKeeperPage {
      */
     public static void fillValueToFirstInput(String firstInputValue) {
         final String method = "GateKeeperPage.fillValueToFirstInput: ";
-        HelperMethods.printInfoMethodStarted(method);
-        HelperMethods.waitForVisibility(firstFieldToFillWithValues);
-        HelperMethods.sendText(firstFieldToFillWithValues, firstInputValue);
-        HelperMethods.printInfoMethodEnded(method);
+        printInfoMethodStarted(method);
+        waitForVisibility(firstFieldToFillWithValues);
+        sendText(firstFieldToFillWithValues, firstInputValue);
+        printInfoMethodEnded(method);
 
     }
 
@@ -375,10 +373,10 @@ public class GateKeeperPage {
      */
     public static void fillValueToSecondInput(String secondInputValue) {
         final String method = "GateKeeperPage.fillValueToSecondInput: ";
-        HelperMethods.printInfoMethodStarted(method);
-        HelperMethods.waitForVisibility(secondFieldToFillWithValues);
-        HelperMethods.sendText(secondFieldToFillWithValues, secondInputValue);
-        HelperMethods.printInfoMethodEnded(method);
+        printInfoMethodStarted(method);
+        waitForVisibility(secondFieldToFillWithValues);
+        sendText(secondFieldToFillWithValues, secondInputValue);
+        printInfoMethodEnded(method);
 
     }
 
@@ -389,12 +387,12 @@ public class GateKeeperPage {
      */
     public static void assertValueInThirdInput(String expectedValue) {
         final String method = "GateKeeperPage.assertValueInThirdInput: ";
-        HelperMethods.waitForVisibility(thirdFieldToAssertValues);
+        waitForVisibility(thirdFieldToAssertValues);
         if (!thirdFieldToAssertValues.getAttribute("value").equals(expectedValue)) {
             throw new TestToolException(expectedValue + " not found after the assertion!" + " Found Value: " + thirdFieldToAssertValues.getText());
         }
-        HelperMethods.refreshPage();
-        HelperMethods.printInfoMethodEnded(method);
+        refreshPage();
+        printInfoMethodEnded(method);
 
     }
 
@@ -409,7 +407,7 @@ public class GateKeeperPage {
         DateTime dt = new DateTime();
         final String method = "GateKeeperPage.performanceTestFunctionOnCalculator ";
         final int getMinutesBeforePeformanceTest = dt.getMinuteOfHour();
-        HelperMethods.printInfoMethodStarted(method);
+        printInfoMethodStarted(method);
 
         verifySectionName(sectionName);
 
@@ -426,7 +424,7 @@ public class GateKeeperPage {
             throw new TestToolException(method + " failed! " + timeDifferenceAfterPerformanceTest + " minutes took performance test " +
                     "to verify: " + numberOfData + " different type of combinations!");
         }
-        HelperMethods.printInfoMethodEnded(method);
+        printInfoMethodEnded(method);
 
     }
 
@@ -438,10 +436,10 @@ public class GateKeeperPage {
      */
     public static void verifyIconButtonOnDefinedSection(String iconName, String sectionName) {
         final String method = "GateKeeperPage.verifyIconButton: ";
-        HelperMethods.printInfoMethodStarted(method);
+        printInfoMethodStarted(method);
         verifySectionName(sectionName);
-        HelperMethods.waitForVisibility(iconButton(iconName));
-        HelperMethods.printInfoMethodEnded(method);
+        waitForVisibility(iconButton(iconName));
+        printInfoMethodEnded(method);
 
     }
 
@@ -452,9 +450,9 @@ public class GateKeeperPage {
      */
     public static void verifySectionName(String sectionName) {
         final String method = "GateKeeperPage.verifySectionName: ";
-        HelperMethods.printInfoMethodStarted(method);
-        HelperMethods.waitForVisibility(section(sectionName));
-        HelperMethods.printInfoMethodEnded(method);
+        printInfoMethodStarted(method);
+        waitForVisibility(section(sectionName));
+        printInfoMethodEnded(method);
 
     }
 

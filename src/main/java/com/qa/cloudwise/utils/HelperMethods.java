@@ -325,7 +325,7 @@ public class HelperMethods {
      * Set browser size to medium
      * Dimension can be modified from configuration.properties file
      */
-    public void setBrowserSizeAsMedium() {
+    public static void setBrowserSizeAsMedium() {
         try {
             int width = Integer.parseInt(ConfigReader.getProperty("width"));
             int height = Integer.parseInt(ConfigReader.getProperty("height"));
@@ -339,7 +339,7 @@ public class HelperMethods {
      * Set browser size to maximize
      * Dimension can be modified from configuration.properties file
      */
-    public void setBrowserSizeToMaximize() {
+    public static void setBrowserSizeToMaximize() {
         try {
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(Constants.IMPLICIT_WAIT_TIME, TimeUnit.SECONDS);
