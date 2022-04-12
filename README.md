@@ -1,7 +1,7 @@
 #### Hi!👋 I'm Mami!🙂 I am a QA Automation Test Engineer
 
-#### Software  Tester Assignment
-This project was created as part of the assignment for the Cloudwise Company.
+#### Software  Tester Assignment:
+- This project was created as part of the assignment for the Cloudwise Company.
 
 #### Run Locally
 - Install dependencies by opening the project and installing the dependencies. (Maven will handle this for you.)
