@@ -162,7 +162,7 @@ public class GateKeeperPageSD {
      */
     @And("^GateKeeperPage: I enter the search data: \"([^\"]*)\", and verify if the unicorn is visible with text: \"([^\"]*)\"$")
     public void bddSearchUnicornWithValidData(String searchData, String searchResultExpectation) {
-        GateKeeperPage.searchValidUnicornWithInvalidData(searchData, searchResultExpectation);
+        GateKeeperPage.searchUnicornWithInvalidData(searchData, searchResultExpectation);
     }
 
     /**

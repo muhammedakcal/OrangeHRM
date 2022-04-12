@@ -331,11 +331,11 @@ public class GateKeeperPage {
      *
      * @param data - it will be asserted to verify that the data is valid
      */
-    public static void searchValidUnicornWithInvalidData(String data, String searchResultExpectation) {
+    public static void searchUnicornWithInvalidData(String data, String searchResultExpectation) {
         final String method = "GateKeeperPage.searchValidUnicornWithInvalidData: ";
         printInfoMethodStarted(method);
         if (!data.equalsIgnoreCase("bobi")) {
-            throw new TestToolException("An invalid valid search criteria has been identified: " + data +
+            throw new TestToolException("An valid search criteria has been identified: " + data +
                     searchResultExpectation + " is not found in the search result: " + searchResult.getText());
         }
         scrollPageDown();
