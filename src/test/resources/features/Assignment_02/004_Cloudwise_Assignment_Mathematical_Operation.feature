@@ -22,6 +22,7 @@ Feature: [Assignment Part 2] - Mathematical Operation
       And GateKeeperPage: I see the icon "Calculator" on defined section: "Please fill in the following input fields with some values"
       Then GateKeeperPage: I fill the input fields and assert number to verify if the results are correct;
         |<[FIRST OPERATION]>              |<[SECOND OPERATION]>            |<[VERIFICATION]>          |
+        |0                                |0                               |0                         |
         |1                                |2                               |3                         |
         |100                              |-2                              |98                        |
         |-100                             |6                               |-94                       |
@@ -38,7 +39,7 @@ Feature: [Assignment Part 2] - Mathematical Operation
         |199999999999999999999            |0                               |200000000000000000000     |
         |199999999999999999999            |11                              |200000000000000000000     |
 
-      # Calculation process is stopped in the process of Functional Test! [Line:32]
+      # Calculation process is stopped in the process of Functional Test! [Line:33]
       And Menu: I refresh the page
       # Make a Performance Test
       And GateKeeperPage: I run a performance test by sending 50 different types of data, and verify the results in less than 4 minutes on defined section: "Please fill in the following input fields with some values"
