@@ -1,6 +1,6 @@
-### Hi, I'm Muhammed! I am a QA Automation Test Engineer👋
+#### Hi, I'm Muhammed! I am a QA Automation Test Engineer👋
 
-### Software  Tester Assignment
+#### Software  Tester Assignment
 This project was created as part of the assignment for the Cloudwise Company.
 
 #### Run Locally
@@ -14,7 +14,7 @@ This project was created as part of the assignment for the Cloudwise Company.
 ```bash
   git clone https://github.com/makcal1/Cloudwise-B.V..git
 ```
-Go to the project directory
+#### Go to the project directory
 
 ```bash
   cd my-project
