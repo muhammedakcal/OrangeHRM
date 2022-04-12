@@ -1,4 +1,4 @@
-#### Hi!👋 I'm Mami!🙂 I am a QA Automation Test Engineer.
+#### Hi! I'm Mami! I am a QA Automation Test Engineer.👋
 
 #### Software  Tester Assignment:
 - This project was created as part of the assignment for the Cloudwise Company.
@@ -58,7 +58,7 @@
 ## Reports:
 - After the text has been processed, the test report will be available. The report can be seen using the link mentioned at the bottom of the 'Run' Section.
 
-## Feedback:
+## Feedback: 🙂
 - If you have any feedback, please reach out to me muhammedzahidakcal@gmail.com 
 
 
