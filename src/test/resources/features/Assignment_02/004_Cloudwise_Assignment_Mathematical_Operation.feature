@@ -43,6 +43,7 @@ Feature: [Assignment Part 2] - Mathematical Operation
       # Make a Performance Test
       And GateKeeperPage: I run a performance test by sending 50 different types of data, and verify the results in less than 4 minutes on defined section: "Please fill in the following input fields with some values"
       And GateKeeperPage: I see the icon "Calculator" on defined section: "Please fill in the following input fields with some values"
+      And Generic: I generate a message with text: "[Assignment Part 2 - Mathematical Operation]: Test Passed!"
       Examples:
         | Test Type                        | FIELD -1:[FIRST OPERATOR] | FIELD -2:[SECOND OPERATOR] | FIELD -3:[VERIFICATION] |
         | Performance and Functional Test: | First_Input               | Second_Input               | Third_Input             |

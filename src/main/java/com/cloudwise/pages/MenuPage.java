@@ -22,6 +22,7 @@ import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class MenuPage {
 
+    public static HelperMethods helperMethods;
     @FindBy(xpath = "//a[@id='toggle-nav']//span")
     private static WebElement menuNavigator;
     @FindBy(xpath = "//*[@id='CybotCookiebotDialogBodyButtonAccept']")
@@ -29,11 +30,14 @@ public class MenuPage {
     @FindBy(xpath = "//*[contains(@id,'leadinModal')]/div[2]/button")
     private static WebElement closeTabOnCookies;
 
-    public static HelperMethods helperMethods;
-    public MenuPage() {initElements(driver, this);helperMethods = new HelperMethods();}
+    public MenuPage() {
+        initElements(driver, this);
+        helperMethods = new HelperMethods();
+    }
 
     public static Object verifyPageTitle() {
-        String pageTitle = HelperMethods.doGetPageTitle();printInfo(("Page Title Name: " + pageTitle));
+        String pageTitle = HelperMethods.doGetPageTitle();
+        printInfo(("Page Title Name: " + pageTitle));
         return pageTitle;
     }
 
@@ -46,30 +50,34 @@ public class MenuPage {
         final String methodName = "MenuPage.selectLanguage: ";
         final String languageFlagXpathWhenMenuNavigatorIsEnabled = "//div[@id='mobile-menu']//div[@class='container']//li[contains(@class,'lang-item')]//a//img[@alt='" + language + "' and @title='" + language + "']";
         final String languageFlagXpathWhenMenuNavigatorIsDisabled = "//ul[@class='sf-menu sf-js-enabled sf-arrows']//a//img[@title='" + language + "' and @title='" + language + "']";
+
         helperMethods.setBrowserSizeAsMedium();
         WebElement languageFlag;
         printInfoMethodStarted(methodName);
 
-        if (driver.findElements((By.xpath(languageFlagXpathWhenMenuNavigatorIsEnabled))).size() != 0 &&
+        if (driver.findElements((By.xpath(languageFlagXpathWhenMenuNavigatorIsEnabled))).size() != 0
+                &&
                 driver.findElement(By.xpath(languageFlagXpathWhenMenuNavigatorIsEnabled)).isEnabled()) {
-            languageFlag = getElement(By.xpath(languageFlagXpathWhenMenuNavigatorIsEnabled));}
+            languageFlag = getElement(By.xpath(languageFlagXpathWhenMenuNavigatorIsEnabled));
 
-        else {
-            languageFlag = getElement(By.xpath(languageFlagXpathWhenMenuNavigatorIsDisabled));}
-
+        } else {
+            languageFlag = getElement(By.xpath(languageFlagXpathWhenMenuNavigatorIsDisabled));
+        }
         try {
             closeCookies();
             doClick(menuNavigator);
             doClick(languageFlag);
-        } catch (TestToolException e) {
-            printInfo(methodName + "x path : " + languageFlag);
-            printInfo(methodName + "is failed: " + e.getCause());
-            e.printStackTrace();
+            waitForSeconds(3);
+            helperMethods.setBrowserSizeToMaximize();
+
+        } catch (Exception e) {
+            throw new TestToolException(methodName + "x path : " + languageFlag + methodName + "is failed: " + e.getCause());
+
         }
-        waitForSeconds(3);
-        helperMethods.setBrowserSizeToMaximize();
+
         printInfoMethodEnded(methodName);
     }
+
 
     /**
      * Select the menu option from main menu
@@ -151,23 +159,23 @@ public class MenuPage {
         }
     }
 
-        /**
-         * This function is navigating page to the new page
-         */
-        public static void navigateToPage(String url) {
-            final String methodName = "MenuPage.navigateToPage: ";
-            try {
-                printInfoMethodStarted(methodName);
-                waitForSeconds(4);
-                driver.navigate().to(url);
-                checkPageIsReady(methodName + "Page Title: " + doGetPageTitle() + "Page Url: " + driver.getCurrentUrl() + ": ");
-                getWaitObject();
-                printInfoMethodEnded(methodName);
+    /**
+     * This function is navigating page to the new page
+     */
+    public static void navigateToPage(String url) {
+        final String methodName = "MenuPage.navigateToPage: ";
+        try {
+            printInfoMethodStarted(methodName);
+            waitForSeconds(4);
+            driver.navigate().to(url);
+            checkPageIsReady(methodName + "Page Title: " + doGetPageTitle() + "Page Url: " + driver.getCurrentUrl() + ": ");
+            getWaitObject();
+            printInfoMethodEnded(methodName);
 
-            } catch (TestToolException e) {
-                e.printStackTrace();
-                printInfo(methodName + "is failed: " + e.getCause());
-            }
+        } catch (TestToolException e) {
+            e.printStackTrace();
+            printInfo(methodName + "is failed: " + e.getCause());
+        }
 
     }
 

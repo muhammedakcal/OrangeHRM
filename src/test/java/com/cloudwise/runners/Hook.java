@@ -8,11 +8,17 @@ import io.cucumber.java.Scenario;
 
 public class Hook {
 
+    /**
+     * This step wil be activated before the test scenario
+     */
     @Before
     public void start() {
         BasePage.initializeDriver();
     }
 
+    /**
+     * This step wil be activated after the test scenario
+     */
     @After
     public void end(Scenario scenario) {
 

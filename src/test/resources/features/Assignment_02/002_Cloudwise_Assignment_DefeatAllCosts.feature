@@ -24,6 +24,7 @@ Feature: [Assignment Part 2] - Gatekeeper Challenge Automation E2E Test -Defeat 
       And GateKeeperPage: I check the cost's size with the following information: Weight: "29", Height: "30"
       And GateKeeperPage: I defeat the cost in the thermal exhaust port
       Then GateKeeperPage: I defeat the cost for 9 times, and print out the ports information
+      And Generic: I generate a message with text: "[Assignment Part 2 - Defeat Costs]: Test Passed!"
 
 
 

@@ -14,6 +14,11 @@ import static com.cloudwise.base.BasePage.driver;
 
 public class TestUtil extends PageManager {
 
+    /**
+     * Get time stamp
+     *
+     * @return - formatted time stamp
+     */
     private static String getTimeStamp() {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
@@ -21,6 +26,12 @@ public class TestUtil extends PageManager {
 
     }
 
+    /**
+     * Take screenshot and save it
+     *
+     * @param filename - file name
+     * @return - picBytes
+     */
     public static byte[] takeScreenshot(String filename) {
         TakesScreenshot ts = (TakesScreenshot) driver;
         byte[] picBytes = ts.getScreenshotAs(OutputType.BYTES);
@@ -35,9 +46,6 @@ public class TestUtil extends PageManager {
         }
         return picBytes;
     }
-
-
-
 
 
 }

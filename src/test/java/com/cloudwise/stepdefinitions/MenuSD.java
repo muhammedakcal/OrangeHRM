@@ -1,4 +1,5 @@
 package com.cloudwise.stepdefinitions;
+
 import com.cloudwise.pages.MenuPage;
 import com.cloudwise.utils.Constants;
 import com.cloudwise.utils.HelperMethods;
@@ -45,18 +46,25 @@ public class MenuSD {
      * This step is going back to the previous page
      */
     @And("^Menu: I go back to previous page$")
-    public void bddNavigateBackToThePage() {MenuPage.navigateToBackPage();}
+    public void bddNavigateBackToThePage() {
+        MenuPage.navigateToBackPage();
+    }
 
     /**
      * This step will refresh the page
      */
     @And("^Menu: I refresh the page$")
-    public void bddRefreshThePage() {HelperMethods.refreshPage();}
+    public void bddRefreshThePage() {
+        HelperMethods.refreshPage();
+    }
 
     /**
      * This step is navigating forward to another page
+     *
      * @param url - the url which will be navigated by the browser
      */
     @When("^Menu: I navigate to the page: \"([^\"]*)\"$")
-    public void bddNavigateToPage(String url) {MenuPage.navigateToPage(url);}
+    public void bddNavigateToPage(String url) {
+        MenuPage.navigateToPage(url);
+    }
 }

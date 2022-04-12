@@ -11,10 +11,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 
-import java.util.List;
+import java.util.*;
 
-import java.util.NoSuchElementException;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.cloudwise.base.BasePage.driver;
@@ -109,7 +107,8 @@ public class WorkflowPage {
     }
 
     /**
-     * This function prints duplicate names from the "WorkflowPage.createOrUseListToAddNamesInDefinedSection" method-created list
+     * - This function prints duplicate names
+     * - "WorkflowPage.createOrUseListToAddNamesInDefinedSection" method-created list
      */
     public static void outputDuplicateNamesInTheList() {
         final String methodName = "WorkflowPage.outputTheDuplicateNamesInTheList: ";
@@ -134,7 +133,7 @@ public class WorkflowPage {
                     findElements(By.xpath(namesInTheSectionXpath));
             printInfo("The size of the list is : " + list.size());
 
-            if (!HelperMethods.verifyIfThereIsNoDuplicatedNameInTheeInList(list)) {
+            if (!HelperMethods.verifyIfThereIsNoDuplicatedNameInList(list)) {
                 throw new TestToolException(sectionName + " has a duplicated name!");
             }
         }

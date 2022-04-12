@@ -42,3 +42,5 @@ Feature: [Assignment Part 2] [Assignment Part 2] - Gatekeeper Challenge Automati
         |bobi.          |
         |bobi,          |
         |,bobi          |
+      And Generic: I generate a message with text: "[Assignment Part2 - Search Unicorn]: Test Passed!"
+

@@ -69,5 +69,5 @@ Feature: [Assignment Par 1]: Output The Duplicate Names Within Cloudwise for 9 D
 
       # Let the test find all users in the list and output the duplicate names within cloudwise
       And Workflow: I print out the names that were stored in the list that were duplicated
-      # I also added such functions to verify whether if it has a duplicate names in the single Department. I haven't used it due to the fact that it was not needed!
-      Then Menu: I go back to previous page
+      # I also added such functions to verify whether if it has a duplicate names in the Department. I haven't used it due to the fact that it was not needed!
+      Then Generic: I generate a message with text: "[Assignment Part 1 - Output The Duplicate Names Within Cloud-wise]: Test Passed!"

@@ -5,21 +5,23 @@ import com.cloudwise.utils.HelperMethods;
 
 public class PageManager {
 
+
     public static MenuPage menuPage;
     public static WaitingPage waitingPage;
     public static WorkflowPage workflowPage;
     public static HelperMethods helperMethods;
-    public static GatekeeperPage gatekeeperPage;
+    public static GateKeeperPage gatekeeperPage;
 
 
-
-    // initialize pages
+    /**
+     * Initialize pages
+     */
     public static void initialize() {
         menuPage = new MenuPage();
         waitingPage = new WaitingPage();
         workflowPage = new WorkflowPage();
         helperMethods = new HelperMethods();
-        gatekeeperPage = new GatekeeperPage();
+        gatekeeperPage = new GateKeeperPage();
 
     }
 }

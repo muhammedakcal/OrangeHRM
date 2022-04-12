@@ -28,38 +28,56 @@ import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class HelperMethods {
 
+    /**
+     * Create Public Useful Methods In order to be used in Pages Package
+     *
+     */
+    public HelperMethods() {initElements(driver, this);}
 
-    public HelperMethods() {
-        initElements(driver, this);
-    }
     public static Actions actions = new Actions(driver);
 
-    public static void printInfo(Object line) {
-        System.out.println(line);
-    }
+    /**
+     * Print system.info in a shorter way
+     * @param line - line that will be printed
+     */
+    public static void printInfo(Object line) {System.out.println(line);}
 
-    public static void printInfoMethodStarted(Object line) {
-        System.out.println(line + "start!");
-    }
+    /**
+     * Print system.info in a shorter way to declare that the function operation is started!
+     * @param line - line that will be printed
+     */
+    public static void printInfoMethodStarted(Object line) {System.out.println(line + "start!");}
 
-    public static void printInfoMethodEnded(Object line) {
-        System.out.println(line + "end!");
-    }
+    /**
+     * Print system.info in a shorter way to declare that the function operation is ended!
+     * @param line - line that will be printed
+     */
+    public static void printInfoMethodEnded(Object line) {System.out.println(line + "end!");}
 
-    public static WebDriverWait getWaitObject() {
-        return new WebDriverWait(driver, Constants.EXPLICIT_WAIT_TIME);
-    }
+    /**
+     * Get wait Object
+     * @return - web element
+     */
+    public static WebDriverWait getWaitObject() {return new WebDriverWait(driver, Constants.EXPLICIT_WAIT_TIME);}
 
+    /**
+     * Wait until the element is presented
+     * @param element - web element
+     */
     public static void waitForVisibility(WebElement element) {
-        try{
 
+        try{
         getWaitObject().until(ExpectedConditions.visibilityOf(element));
-        }
-        catch(NoSuchElementException e){
+
+        } catch(NoSuchElementException e)
+        {
             throw new TestToolException(element + " is not visible!");
         }
     }
-
+    /**
+     * Wait until the element is clickable
+     * @param element - web element
+     */
     public static void waitForClickability(WebElement element) {
         try{
             getWaitObject().until(ExpectedConditions.elementToBeClickable(element));
@@ -69,6 +87,11 @@ public class HelperMethods {
         }
     }
 
+    /**
+     *  Get Element and use flash and draw if it's selected as 'yes' in the configuration.properties file
+     * @param locator - web element locator
+     * @return - locator
+     */
     public static WebElement getElement(By locator) {
         WebElement element = null;
 
@@ -88,6 +111,12 @@ public class HelperMethods {
         return element;
     }
 
+    /**
+     * Send text to the element
+     *
+     * @param element - web element
+     * @param text - text
+     */
     public static void sendText(WebElement element, String text) {
         try {
             waitForVisibility(element);
@@ -106,8 +135,12 @@ public class HelperMethods {
 
     }
 
+    /**
+     * Send text and press Enter by using Robot Class
+     * @param element - web element
+     * @param text - text
+     */
     public static void doSendTextAndPressEnter(WebElement element, String text) {
-
         try {
             Robot robot = new Robot();
             waitForVisibility(element);
@@ -126,6 +159,10 @@ public class HelperMethods {
 
     }
 
+    /**
+     * Click on the element by using action class
+     * @param element - web element
+     */
     public static void doClick(WebElement element) {
         try {
             actions.click(element).pause(Duration.ofMillis(2000)).build().perform();
@@ -134,6 +171,11 @@ public class HelperMethods {
 
         }
     }
+
+    /**
+     * Move and Click the element by using action class
+     * @param element - web element
+     */
 
     public static void moveToElementAndClick(WebElement element) {
         try {
@@ -145,6 +187,10 @@ public class HelperMethods {
         }
     }
 
+    /**
+     * Move to the element by using action class
+     * @param element - web element
+     */
     public static void moveToElement(WebElement element) {
         try {
             actions.moveToElement(element).pause(Duration.ofMillis(1000)).build().perform();
@@ -154,6 +200,9 @@ public class HelperMethods {
         }
     }
 
+    /**
+     * Get Page Title
+     */
     public static String doGetPageTitle() {
         try {
             return driver.getTitle();
@@ -163,8 +212,10 @@ public class HelperMethods {
         }
     }
 
-    public static void
-    refreshPage() {
+    /**
+     * Refresh Page and wait till the page is loaded to avoid potential exception
+     */
+    public static void refreshPage() {
         try {
             driver.navigate().refresh();
             driver.manage().timeouts().implicitlyWait(Constants.PAGE_LOAD_WAIT_TIME, TimeUnit.SECONDS);
@@ -174,6 +225,9 @@ public class HelperMethods {
         }
     }
 
+    /**
+     * Navigate to the page and wait till the page is loaded to avoid potential exception
+     */
     public static void navigateToBackPage() {
         try {
             driver.navigate().back();
@@ -184,6 +238,11 @@ public class HelperMethods {
         }
     }
 
+    /**
+     * Get text from the element
+     * @param element - web element
+     * @return - element
+     */
     public static String doGetText(WebElement element) {
         try {
             return element.getText();
@@ -193,6 +252,11 @@ public class HelperMethods {
         }
     }
 
+    /**
+     * Verify if the element is displayed
+     * @param element - web element
+     * @return - element
+     */
     public static boolean isDisplayed(WebElement element) {
         try {
             getWaitObject();
@@ -203,7 +267,12 @@ public class HelperMethods {
 
     }
 
-    public static boolean verifyIfThereIsNoDuplicatedNameInTheeInList(List<WebElement> list) {
+    /**
+     * Verify if there is no duplicated name in the list
+     * @param list - list
+     * @return verification result as true or false
+     */
+    public static boolean verifyIfThereIsNoDuplicatedNameInList(List<WebElement> list) {
         HashMap<Integer, String> hMap = new HashMap<Integer, String>();
         for (int i = 0; i < list.size(); i++) {
             //hashmap doesn't contain any value if the condition is true
@@ -218,6 +287,11 @@ public class HelperMethods {
 
     }
 
+    /**
+     * Verify if there is no duplicated value in the list
+     * @param list - list
+     * @return verification result as true or false
+     */
     public static boolean findNotDuplicatedValueInList(List<WebElement> list, String name) {
         HashMap<Integer, String> hMap = new HashMap<>();
         for (int i = 0; i < list.size(); i++) {
@@ -233,6 +307,12 @@ public class HelperMethods {
         return Objects.equals(hMap.get(list.size() + 2), name);
     }
 
+    /**
+     * Find the duplicate value by set
+     * @param list - list name
+     * @param <T> - Object Type
+     * @return - duplicated names
+     */
     public static <T> Set<T> findDuplicateBySetAdd(List<T> list) {
         Set<T> items = new HashSet<>();
         return list.stream()
@@ -241,6 +321,10 @@ public class HelperMethods {
 
     }
 
+    /**
+     * Set browser size to medium
+     * It can be changed dimension in the configuration.properties value
+     */
     public void setBrowserSizeAsMedium() {
         try {
             int width = Integer.parseInt(ConfigReader.getProperty("width"));
@@ -251,7 +335,10 @@ public class HelperMethods {
             throw new TestToolException("Some exception occurred while setting the window size " + ": " + e.getCause());
         }
     }
-
+    /**
+     * Set browser size to maximize
+     * It can be changed dimension in the configuration.properties value
+     */
     public void setBrowserSizeToMaximize() {
         try {
             driver.manage().window().maximize();
