@@ -1,6 +1,6 @@
 package com.qa.cloudwise.base;
 
-import com.cloudwise.pages.*;
+import com.qa.cloudwise.pages.*;
 import com.qa.cloudwise.pages.GateKeeperPage;
 import com.qa.cloudwise.pages.MenuPage;
 import com.qa.cloudwise.pages.WaitingPage;

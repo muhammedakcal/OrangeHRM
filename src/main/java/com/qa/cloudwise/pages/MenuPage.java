@@ -160,7 +160,7 @@ public class MenuPage {
     /**
      * This function is navigating page to the new page
      */
-    public static void navigateToPage(String url) {
+    public static void navigateToThePage(String url) {
         final String methodName = "MenuPage.navigateToPage: ";
         try {
             HelperMethods.printInfoMethodStarted(methodName);
