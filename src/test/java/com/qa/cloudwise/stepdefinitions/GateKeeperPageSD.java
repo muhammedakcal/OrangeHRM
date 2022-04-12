@@ -142,7 +142,7 @@ public class GateKeeperPageSD {
     }
 
     /**
-     * Search unicorn with a valid data
+     * Search unicorn with a invalid data
      *
      * @param dataTable - it will be asserted to verify data the data is invalid
      */
