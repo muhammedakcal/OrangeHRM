@@ -42,7 +42,8 @@ Feature: [Assignment Part 2] - Mathematical Operation
       # Calculation process is stopped in the process of Functional Test! [Line:33]
       And Menu: I refresh the page
       # Make a Performance Test
-      And GateKeeperPage: I run a performance test by sending 50 different types of data, and verify the results in less than 4 minutes on defined section: "Please fill in the following input fields with some values"
+      And GateKeeperPage: I execute a performance test by sending 50 different sorts of data and verifying the results in less than 4 minutes on defined section: "Please fill in the following input fields with some values"
+      # Verify "Calculator Icon" if it's visible after the performance test
       And GateKeeperPage: I see the icon "Calculator" on defined section: "Please fill in the following input fields with some values"
       And Generic: I generate a message with text: "[Assignment Part 2 - Mathematical Operation]: Test Passed!"
       Examples:

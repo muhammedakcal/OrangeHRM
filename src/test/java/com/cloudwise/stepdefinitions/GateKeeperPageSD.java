@@ -187,7 +187,7 @@ public class GateKeeperPageSD {
      * @param time         - It will be used to verify if numberOfData has been sent and verified before in defined time
      * @param sectionName  - Section Name
      */
-    @And("GateKeeperPage: I run a performance test by sending {int} different types of data, and verify the results in less than {int} minutes on defined section: {string}")
+    @And("GateKeeperPage: I execute a performance test by sending {int} different sorts of data and verifying the results in less than {int} minutes on defined section: {string}")
     public void bddrPerformanceTestOnCalculator(Integer numberOfData, Integer time, String sectionName) {
         GateKeeperPage.performanceTestFunctionOnCalculator(numberOfData, time, sectionName);
 
