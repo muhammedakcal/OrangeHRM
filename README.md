@@ -1,14 +1,14 @@
 # Hi, I'm Muhammed! I am a QA Automation Test Engineer👋
 
 # Software  Tester Assignment
+This project was created as part of a assignment for the Cloudwise Company
 
-This project was created for the Cloudwise Company's Assignment.
 ## Environment Variables
 
-- To run this project, you need to click 'Run' Icon button in the feature file. 
-- The parallel test execution is not operating due to the multiple thread issues on web driver. 
-- Please use this option untill the driver thread issue is fixed.
-- You can also change your cofiguration settings from cofiguration.properties file, such as browser options, url, flash and draw elements as well as page titles.
+- To run this project, go to the feature file and click the 'Run' Icon button.
+- Due to various thread issues with the web driver, parallel test execution is not available for now.
+- Please use this option until the issue with the driver thread is resolved.
+- You may also alter your setup settings, such as browser options, url, flash and draw elements, and page titles, through the configuration.properties file.
 ## Run Locally
 
 Clone the project
@@ -22,25 +22,18 @@ Go to the project directory
 ```bash
   cd my-project
 ```
-
-Open Project and Install dependencies(Maven will take care of this process)
-
-- PLease use Gherking Plugins in Intelij to run test from feature file.
-
-- Settings->Plugins-> Gherking, Cucumber for Java
-
-- Make sure that you installed java, maven and Google Chrome 
-
-- Run Project by clickin on the icon file in feature files( Ideally Usage IDE: Intelij)
+Install dependencies by opening the project and installing the dependencies. (Maven will handle this for you.)
+- Please use Intelij's Gherking Plugins to execute tests from feature files.
+- Gherking, Cucumber for Java (Settings->Plugins)
+- Verify that you have Java, Maven, and Google Chrome installed.
+- Launch the project by double-clicking the icon file under the feature files ( Ideally Usage IDE: Intelij)
 
 
 ## Reports
-
-The test report will be availabe after the text execeution. You can see the report in the url that can be found at the end of the 'Run' Section
+- After the text has been processed, the test report will be available. The report can be seen using the link mentioned at the bottom of the 'Run' Section.
 
 ## Feedback
-
-If you have any feedback, please reach out to me muhammedzahidakcal@gmail.com 
+- If you have any feedback, please reach out to me muhammedzahidakcal@gmail.com 
 
 
 
