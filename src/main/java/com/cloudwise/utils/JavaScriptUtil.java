@@ -16,7 +16,7 @@ import static com.cloudwise.utils.HelperMethods.printInfo;
 
 public class JavaScriptUtil {
     /**
-     * Create Public Useful Methods In order to be used in where it's needed
+     * Create Public and Useful Methods in order to use where it's needed
      *
      */
 
@@ -63,7 +63,7 @@ public class JavaScriptUtil {
     }
 
     /**
-     * Generate an alert
+     * Generate an alert message
      *
      * @param message - alert message
      */

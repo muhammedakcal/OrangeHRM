@@ -29,7 +29,7 @@ import static org.openqa.selenium.support.PageFactory.initElements;
 public class HelperMethods {
 
     /**
-     * Create Public Useful Methods In order to be used in Pages Package
+     * Create Public and Useful Methods in order to use in "Pages Package"
      *
      */
     public HelperMethods() {initElements(driver, this);}
@@ -37,25 +37,25 @@ public class HelperMethods {
     public static Actions actions = new Actions(driver);
 
     /**
-     * Print system.info in a shorter way
+     * Print "System.out.println" in a shorter way
      * @param line - line that will be printed
      */
     public static void printInfo(Object line) {System.out.println(line);}
 
     /**
-     * Print system.info in a shorter way to declare that the function operation is started!
+     * Print system.info in a shorter way to define that the functional operation is started!
      * @param line - line that will be printed
      */
     public static void printInfoMethodStarted(Object line) {System.out.println(line + "start!");}
 
     /**
-     * Print system.info in a shorter way to declare that the function operation is ended!
+     * Print system.info in a shorter way to declare that the functional operation is ended!
      * @param line - line that will be printed
      */
     public static void printInfoMethodEnded(Object line) {System.out.println(line + "end!");}
 
     /**
-     * Get wait Object
+     * General Selenium Wait that can be modified in Constants by changing the "EXPLICIT_WAIT_TIME"
      * @return - web element
      */
     public static WebDriverWait getWaitObject() {return new WebDriverWait(driver, Constants.EXPLICIT_WAIT_TIME);}
@@ -160,7 +160,7 @@ public class HelperMethods {
     }
 
     /**
-     * Click on the element by using action class
+     * Click on the web-element by using "Action Class"
      * @param element - web element
      */
     public static void doClick(WebElement element) {
@@ -173,7 +173,7 @@ public class HelperMethods {
     }
 
     /**
-     * Move and Click the element by using action class
+     * Move and Click the web-element by using "Action Class"
      * @param element - web element
      */
 
@@ -188,7 +188,7 @@ public class HelperMethods {
     }
 
     /**
-     * Move to the element by using action class
+     * Move to the defined web-element by using "Action Class"
      * @param element - web element
      */
     public static void moveToElement(WebElement element) {
@@ -213,7 +213,7 @@ public class HelperMethods {
     }
 
     /**
-     * Refresh Page and wait till the page is loaded to avoid potential exception
+     * Refresh Page and wait till the page is loaded to avoid potential exception error
      */
     public static void refreshPage() {
         try {
@@ -226,7 +226,7 @@ public class HelperMethods {
     }
 
     /**
-     * Navigate to the page and wait till the page is loaded to avoid potential exception
+     * Navigate to the page and wait till the page is loaded to avoid potential exception error
      */
     public static void navigateToBackPage() {
         try {
@@ -323,7 +323,7 @@ public class HelperMethods {
 
     /**
      * Set browser size to medium
-     * It can be changed dimension in the configuration.properties value
+     * Dimension can be modified from configuration.properties file
      */
     public void setBrowserSizeAsMedium() {
         try {
@@ -337,7 +337,7 @@ public class HelperMethods {
     }
     /**
      * Set browser size to maximize
-     * It can be changed dimension in the configuration.properties value
+     * Dimension can be modified from configuration.properties file
      */
     public void setBrowserSizeToMaximize() {
         try {

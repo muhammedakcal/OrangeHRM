@@ -52,7 +52,7 @@ public class WorkflowPage {
     }
 
     /**
-     * Click Flip Box Element to go to the department that
+     * Click Flip Box Element to go to the selected department
      *
      * @param departmentName - Flix-box element is located inside the department. Flip-box x-path will identify the department
      * @param sectionName    - Section Name
@@ -99,7 +99,7 @@ public class WorkflowPage {
         }
 
         else {
-            throw new TestToolException("The condition should be create or user! ");
+            throw new TestToolException("The condition should be 'create' or 'use''! -> " + condition);
         }
 
         printInfo(method + "Names in the List Placed On " + sectionName + " Section: " + listForSavingNamesInTheSection);
@@ -107,7 +107,9 @@ public class WorkflowPage {
     }
 
     /**
-     * - This function prints duplicate names
+     * - This function will print the duplicate names (It's available to see these names
+     *  in the command prompt at the end of the test. These names can also be added to the log message
+     *  when this project is integrated with CI Platform.(such as Jenkins)
      * - "WorkflowPage.createOrUseListToAddNamesInDefinedSection" method-created list
      */
     public static void outputDuplicateNamesInTheList() {
@@ -119,7 +121,7 @@ public class WorkflowPage {
     }
 
     /**
-     * This function is checking if names are duplicated in the list.
+     * This function is checking if names (which have been listed) are duplicated in the list:
      * @param sectionName - Section Name
      */
     public static void verifyIfThereAreNoDuplicateNamesInTheSection(String sectionName) {
@@ -134,7 +136,7 @@ public class WorkflowPage {
             printInfo("The size of the list is : " + list.size());
 
             if (!HelperMethods.verifyIfThereIsNoDuplicatedNameInList(list)) {
-                throw new TestToolException(sectionName + " has a duplicated name!");
+                throw new TestToolException(sectionName + " has a duplicated name! -> " + list);
             }
         }
 

@@ -17,8 +17,10 @@ Feature: [Assignment Part 2] [Assignment Part 2] - Gatekeeper Challenge Automati
       Given GateKeeperPage: I see the part of the text: "In search of the unicorn.." defined on page with title: "Gatekeeper"
       When Generic: I scroll page down
       # This step will refresh the page automatically [Line: 21,22 and 23]
+      # Happy Path(Positive) Testing: [Line: 21 and 22]
       Then GateKeeperPage: I enter the search data: "BOBI", and verify if the unicorn is visible with text: "Bobi Codeshake"
       And GateKeeperPage: I enter the search data: "bobi", and verify if the unicorn is visible with text: "Bobi Codeshake"
+     # Negative Testing: [Line: 24 - 45] 
       But GateKeeperPage: I enter incorrect information with following data, and verify if the unicorn is not visible
         |Unicorn_Name   |
         |BO             |

@@ -19,7 +19,7 @@ Feature: [Assignment Par 1]: Output The Duplicate Names Within Cloudwise for 9 D
       And Menu: I select the menu option: "Dit is Cloudwise"
       And Workflow: I see the section with label: "Dit is Cloudwise"
 
-       # Go to 'Alle Cloudwisers'! Note: Menu selection can be also done like this: ["Dit is Cloudwise->Alle Cloudwisers"] Arraw configuration is available to go to "Alle Cloudwisers Section" directly
+       # Go to 'Alle Cloudwisers'! Note: Menu selection can also be like this: ["Dit is Cloudwise->Alle Cloudwisers"] Arraw configuration is available to go to "Alle Cloudwisers Section" directly
       When Waiting: I wait for 5 seconds
       Then Workflow: I click on the flip-box button with name: "Ontmoet het team" inside the department: "Alle Cloudwisers" placed on section having label: "Dit is Cloudwise"
       And Workflow: I see the section with label: "Alle Cloudwisers"

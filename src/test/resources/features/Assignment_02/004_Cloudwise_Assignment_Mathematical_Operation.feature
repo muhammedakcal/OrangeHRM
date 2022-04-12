@@ -13,7 +13,7 @@ Feature: [Assignment Part 2] - Mathematical Operation
       Given Menu: I navigate to the page: "https://gatekeeper.codeshake.dev/test"
       Then Generic: I see the page title with name: "Gatekeeper"
 
-    Scenario Outline: [<Test Type>]: Fill in the input fields with some values and assert that the result is correct
+    Scenario Outline: [<Type>]: Fill in the input fields with some values and assert that the result is correct
       Given GateKeeperPage: I see the part of the text: "A little bit of math." defined on page with title: "Gatekeeper"
       When Generic: I scroll page down
       And GateKeeperPage: I see the section with name: "Please fill in the following input fields with some values and assert that the result is correct."
@@ -21,7 +21,7 @@ Feature: [Assignment Part 2] - Mathematical Operation
       And GateKeeperPage: I see the icon "Equals" on defined section: "Please fill in the following input fields with some values"
       And GateKeeperPage: I see the icon "Calculator" on defined section: "Please fill in the following input fields with some values"
       Then GateKeeperPage: I fill the input fields and assert number to verify if the results are correct;
-        |<FIELD -1:[FIRST OPERATOR]>      |<FIELD -2:[SECOND OPERATOR]>    |<FIELD -3:[VERIFICATION]> |
+        |<[FIRST OPERATION]>              |<[SECOND OPERATION]>            |<[VERIFICATION]>          |
         |1                                |2                               |3                         |
         |100                              |-2                              |98                        |
         |-100                             |6                               |-94                       |
@@ -45,8 +45,8 @@ Feature: [Assignment Part 2] - Mathematical Operation
       And GateKeeperPage: I see the icon "Calculator" on defined section: "Please fill in the following input fields with some values"
       And Generic: I generate a message with text: "[Assignment Part 2 - Mathematical Operation]: Test Passed!"
       Examples:
-        | Test Type                        | FIELD -1:[FIRST OPERATOR] | FIELD -2:[SECOND OPERATOR] | FIELD -3:[VERIFICATION] |
-        | Performance and Functional Test: | First_Input               | Second_Input               | Third_Input             |
+        | Type                            | [FIRST OPERATION]  | [SECOND OPERATION] | [VERIFICATION]  |
+        | Functional/Performance Test:    | First_Input        | Second_Input       | Third_Input     |
 
 
 
