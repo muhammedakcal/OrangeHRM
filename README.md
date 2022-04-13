@@ -60,7 +60,7 @@ https://www.journaldev.com/2348/install-maven-mac-os
 
 ### Reports: ###
 ``` bash
-After the text has been processed, the test report will be available. The report can be seen using the link mentioned at the bottom of the 'Run' Section.
+Cucumber test report will be available after the test execution. The report can be seeen by using the link that is mentioned at the bottom of the 'Run' Section.
 ```
 
 ### Feedback: 🙂 ###
