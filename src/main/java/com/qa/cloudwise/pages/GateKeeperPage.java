@@ -288,13 +288,14 @@ public class GateKeeperPage {
                 System.out.println(generalInfo.getKey() + " = " + generalInfo.getValue());
                 printInfo("<------------------------------------------------------------------------------------------------------------>");
                 printInfo("");
-                printInfoMethodEnded(method);
+
 
             }
 
         } catch (NumberFormatException e) {
             throw new TestToolException(method + "failed! " + e.getCause() + e.getMessage());
         }
+        printInfoMethodEnded(method);
     }
 
     /**
