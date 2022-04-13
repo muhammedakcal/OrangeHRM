@@ -20,7 +20,8 @@
 2-) Please use Intelij's Gherking Plugins to execute tests from feature files.
 3-) (Settings->Plugins) -> Gherking, Cucumber for Java 
 4-) Verify that you have Java, Maven, and Google Chrome installed.
-5-) Launch the project by double-clicking the icon file under the feature files (Ideally Usage IDE: Intelij https://www.jetbrains.com/idea/_ 
+5-) Launch the project by clickingon the green icon which is in the feature files.
+6-) Ideally Usage IDE: Intelij: https://www.jetbrains.com/idea/_ 
 ```
 #### Java Environment Variables For Windows: ####
 ``` bash
@@ -47,7 +48,7 @@
 2-) Properties.
 3-) Advanced System Setting.
 4-) Environment Variable.
-5-) New user variable and added Maven_Home with value C:\apache-maven-3.5. ...
+5-) User variable and added Maven_Home with value C:\apache-maven-3.5. ...
 6-) Add it to path variable with: %Maven_Home%\bin.
 7-) Open cmd and ask for mvn -version in desktop.
 ```
@@ -64,7 +65,7 @@ After the text has been processed, the test report will be available. The report
 
 ### Feedback: 🙂 ###
 ``` bash
-- If you have any feedback, please reach out to me muhammedzahidakcal@gmail.com 
+- If you have any feedback, please reach out to me --> muhammedzahidakcal@gmail.com 
 ```
 
 
