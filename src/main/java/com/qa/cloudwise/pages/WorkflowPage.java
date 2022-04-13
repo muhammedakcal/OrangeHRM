@@ -80,7 +80,7 @@ public class WorkflowPage {
         final String method = "WorkflowPage.findDuplicatedNameIntheSection: ";
         final String pageXpath = "//div[@class='inner']//h3";
 
-        printInfo(method + " start!");
+        printInfoMethodStarted(method);
         isDisplayed(getElement(By.xpath(sectionXpathGenerator(sectionName))));
         isDisplayed(getElement(By.xpath(pageXpath)));
 
@@ -95,7 +95,7 @@ public class WorkflowPage {
         }
 
         printInfo(method + "Names in the List Placed On " + sectionName + " Section: " + listForSavingNamesInTheSection);
-        printInfo(method + " end!");
+        printInfoMethodEnded(method);
     }
 
     /**
@@ -108,8 +108,8 @@ public class WorkflowPage {
         final String methodName = "WorkflowPage.outputTheDuplicateNamesInTheList: ";
         printInfoMethodStarted(methodName);
         Set<String> result = findDuplicateBySetAdd(listForSavingNamesInTheSection);
-        printInfoMethodEnded(methodName);
         printInfo(methodName + "Duplicate Names: " + result.toString());
+        printInfoMethodEnded(methodName);
     }
 
     /**

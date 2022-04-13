@@ -116,9 +116,9 @@ public class GateKeeperPage {
     public static String getTextFromFieldInPage(String text) {
         final String method = "GateKeeperPage.getTextFromFieldInPage: ";
         printInfoMethodStarted(method);
-        printInfoMethodEnded(method);
         WebElement textElement = getElement(By.xpath(xPathGeneratorForGettingTextFromPage(text)));
         waitForVisibility(textElement);
+        printInfoMethodEnded(method);
         return doGetText(textElement);
     }
 
@@ -131,9 +131,9 @@ public class GateKeeperPage {
     public static String getTextFromFieldFromFrame(String text) {
         final String method = "GateKeeperPage.getTextFromField:getTextFromFieldFromFrame: ";
         printInfoMethodStarted(method);
-        printInfoMethodEnded(method);
         WebElement textElement = getElement(By.xpath(xPathGeneratorForGettingTextFromFrame(text)));
         waitForVisibility(textElement);
+        printInfoMethodEnded(method);
         return doGetText(textElement);
     }
 
@@ -145,14 +145,13 @@ public class GateKeeperPage {
     public static void verifyPartOfTextIsLocatedOnFieldPage(String text) {
         final String method = "GateKeeperPage.getPartOfTextFromField: ";
         printInfoMethodStarted(method);
-        printInfoMethodEnded(method);
         waitForVisibility(mainPage);
         flash(mainPage);
         drawBorder(mainPage);
         if (!doGetText(mainPage).contains(text)) {
             throw new TestToolException(doGetText(mainPage) + " does not contain value of: " + text);
         }
-
+        printInfoMethodEnded(method);
     }
 
     /**
@@ -164,10 +163,10 @@ public class GateKeeperPage {
     public static boolean verifyTextIsLocatedOnUnicornTabArea(String text) {
         final String method = "GateKeeperPage.getPartOfTextIsLocatedOnFieldPage: ";
         printInfoMethodStarted(method);
-        printInfoMethodEnded(method);
         waitForVisibility(searchOfUnicornTabArea);
         flash(searchOfUnicornTabArea);
         drawBorder(searchOfUnicornTabArea);
+        printInfoMethodEnded(method);
         return doGetText(searchOfUnicornTabArea).contains(text);
     }
 
@@ -222,11 +221,11 @@ public class GateKeeperPage {
         final String portsXpath = "//i[@class='fal fa-bullseye-arrow ng-star-inserted']";
         printInfoMethodStarted(method);
         int actualNumberOfPorts = driver.findElements(By.xpath(portsXpath)).size();
-        printInfoMethodEnded(method);
         if (actualNumberOfPorts != portNumber) {
             throw new TestToolException(method + "failed! Expected Number of Ports: 9" +
                     " Actual NumberOfPorts: " + actualNumberOfPorts);
         }
+        printInfoMethodEnded(method);
     }
 
     /**

@@ -2,19 +2,19 @@ package com.qa.cloudwise.pages;
 
 
 import com.qa.cloudwise.TestToolException;
-import com.qa.cloudwise.utils.JavaScriptUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 
-import static com.qa.cloudwise.base.PageManager.helperMethods;
 import static com.qa.cloudwise.pages.WaitingPage.waitForSeconds;
 
 import static com.qa.cloudwise.base.BasePage.driver;
 
 
 import static com.qa.cloudwise.utils.HelperMethods.*;
+import static com.qa.cloudwise.utils.JavaScriptUtil.checkPageIsReady;
+import static com.qa.cloudwise.utils.JavaScriptUtil.clickElementByJS;
 import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class MenuPage {
@@ -123,11 +123,11 @@ public class MenuPage {
         printInfoMethodStarted(methodName);
         try {
             if (driver.findElements(By.xpath("//*[@id='CybotCookiebotDialogBodyButtonAccept']")).size() == 1) {
-                JavaScriptUtil.clickElementByJS(acceptCookies);
+                clickElementByJS(acceptCookies);
                 printInfo(methodName + "are closed by clicking on the accept button!");
             }
             if (driver.findElements(By.xpath("//*[contains(@id,'leadinModal')]/div[2]/button")).size() == 1) {
-                JavaScriptUtil.clickElementByJS(closeTabOnCookies);
+                clickElementByJS(closeTabOnCookies);
                 printInfo(methodName + " are disabled!");
             }
         } catch (TestToolException e) {
@@ -147,13 +147,13 @@ public class MenuPage {
             waitForSeconds(3);
             navigateToBackPage();
             waitForSeconds(3);
-            JavaScriptUtil.checkPageIsReady(methodName + "Page Title: " + doGetPageTitle() + "Page Url: " + driver.getCurrentUrl() + ": ");
-            printInfoMethodEnded(methodName);
+            checkPageIsReady(methodName + "Page Title: " + doGetPageTitle() + "Page Url: " + driver.getCurrentUrl() + ": ");
 
         } catch (TestToolException e) {
             e.printStackTrace();
             printInfo(methodName + "is failed: " + e.getCause());
         }
+        printInfoMethodEnded(methodName);
     }
 
     /**
@@ -165,14 +165,14 @@ public class MenuPage {
             printInfoMethodStarted(methodName);
             waitForSeconds(4);
             driver.navigate().to(url);
-            JavaScriptUtil.checkPageIsReady(methodName + "Page Title: " + doGetPageTitle() + "Page Url: " + driver.getCurrentUrl() + ": ");
+            checkPageIsReady(methodName + "Page Title: " + doGetPageTitle() + "Page Url: " + driver.getCurrentUrl() + ": ");
             getWaitObject();
-            printInfoMethodEnded(methodName);
 
         } catch (TestToolException e) {
             e.printStackTrace();
             printInfo(methodName + "is failed: " + e.getCause());
         }
+        printInfoMethodEnded(methodName);
 
     }
 
