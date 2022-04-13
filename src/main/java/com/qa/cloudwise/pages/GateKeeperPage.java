@@ -299,18 +299,18 @@ public class GateKeeperPage {
     }
 
     /**
-     * Search unicorn with an invalid data
+     * Search unicorn with a valid data (BOBI/bobi)
      *
-     * @param data - it will be asserted to verify that the data is invalid
+     * @param data - it will be asserted to verify that the data is valid
      */
-    public static void searchUnicornWithInvalidData(String data) {
-        final String method = "GateKeeperPage.searchUnicornWithInvalidData: ";
+    public static void searchUnicornWithValidData(String data) {
+        final String method = "GateKeeperPage.searchUnicornWithValidData: ";
         printInfoMethodStarted(method);
         waitForVisibility(searchField);
         doSendTextAndPressEnter(searchField, data);
         if (data.equalsIgnoreCase("bobi") || (verifyTextIsLocatedOnUnicornTabArea(Constants.LOST_UNICORN_NAME))) {
             if ((searchResult.isDisplayed())) {
-                throw new TestToolException("A valid search criteria has been identified: " + data + " is valid! Search Result: " + searchResult.getText());
+                throw new TestToolException("An invalid search criteria has been identified: " + data + " is valid! Search Result: " + searchResult.getText());
             }
         }
         scrollPageDown();
@@ -327,15 +327,15 @@ public class GateKeeperPage {
     }
 
     /**
-     * Search unicorn with a valid data
+     * Search unicorn with an invalid data
      *
-     * @param data - it will be asserted to verify that the data is valid
+     * @param data - it will be asserted to verify that the data is invalid
      */
     public static void searchUnicornWithInvalidData(String data, String searchResultExpectation) {
         final String method = "GateKeeperPage.searchValidUnicornWithInvalidData: ";
         printInfoMethodStarted(method);
         if (!data.equalsIgnoreCase("bobi")) {
-            throw new TestToolException("An valid search criteria has been identified: " + data +
+            throw new TestToolException("A valid search criteria has been identified: " + data +
                     searchResultExpectation + " is not found in the search result: " + searchResult.getText());
         }
         scrollPageDown();

@@ -150,7 +150,7 @@ public class GateKeeperPageSD {
     public void bddSearchUnicornWithInvalidData(DataTable dataTable) {
         List<Map<String, String>> searchList = dataTable.asMaps(String.class, String.class);
         for (Map<String, String> field : searchList) {
-            GateKeeperPage.searchUnicornWithInvalidData(field.get("Unicorn_Name"));
+            GateKeeperPage.searchUnicornWithValidData(field.get("Unicorn_Name"));
         }
     }
 
