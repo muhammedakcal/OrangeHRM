@@ -2,6 +2,7 @@ package com.qa.cloudwise.pages;
 
 
 import com.qa.cloudwise.TestToolException;
+import com.qa.cloudwise.utils.HelperMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -64,7 +65,6 @@ public class MenuPage {
             closeCookies();
             doClick(menuNavigator);
             doClick(languageFlag);
-            waitForSeconds(3);
             setBrowserSizeToMaximize();
 
         } catch (Exception e) {
@@ -144,8 +144,7 @@ public class MenuPage {
         final String methodName = "MenuPage.navigatingToBackPage: ";
         try {
             printInfoMethodStarted(methodName);
-            waitForSeconds(3);
-            navigateToBackPage();
+            HelperMethods.navigateToBackPage();
             waitForSeconds(3);
             checkPageIsReady(methodName + "Page Title: " + doGetPageTitle() + "Page Url: " + driver.getCurrentUrl() + ": ");
 
