@@ -63,9 +63,7 @@ public class BasePage {
 
     /**Close the browser at the end of the test*/
     public static void tearDown() {
-        if (driver == null) { return; }
         driver.quit();
-        driver = null;
     }
 
     }

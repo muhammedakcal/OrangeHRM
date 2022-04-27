@@ -408,13 +408,18 @@ public class GateKeeperPage {
         final String method = "GateKeeperPage.performanceTestFunctionOnCalculator ";
         final int getMinutesBeforePeformanceTest = dt.getMinuteOfHour();
         printInfoMethodStarted(method);
-
         verifySectionName(sectionName);
 
+        int min = -50;
+        int max = 900;
+        //Generate random int value from -50 to +900
+        int randomNumber1 = (int)Math.floor(Math.random()*(max-min+1)+min);
+        int randomNumber2 = (int)Math.floor(Math.random()*(max-min+1)+min);
+
         for (int i = 1; i < numberOfData; i++) {
-            fillValueToFirstInput(String.valueOf(i * 10));
-            fillValueToSecondInput(String.valueOf(i * 100));
-            int result = (i * 10) + (i * 100);
+            fillValueToFirstInput(String.valueOf(i * randomNumber1));
+            fillValueToSecondInput(String.valueOf(i * randomNumber2));
+            int result = (i * randomNumber1) + (i * randomNumber2);
             assertValueInThirdInput(String.valueOf(result));
         }
         int getMinutesAfterPeformanceTest = dt.getMinuteOfHour();

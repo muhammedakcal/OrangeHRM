@@ -39,8 +39,6 @@ Feature: [Assignment Part 2] - Mathematical Operation
         |199999999999999999999            |0                               |200000000000000000000     |
         |199999999999999999999            |11                              |200000000000000000000     |
 
-      # Calculation process is stopped in the process of Functional Test! [Line:33]
-      And Menu: I refresh the page
       # Make a Performance Test[Note: The number of data and minutes can be increased or decreased]
       And GateKeeperPage: I execute a performance test by sending 50 different sorts of data and verifying the results in less than 4 minutes on defined section: "Please fill in the following input fields with some values"
       # Verify "Calculator Icon" if it's visible after the performance test
