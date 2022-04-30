@@ -43,11 +43,6 @@ public class BasePage {
                 driver = new FirefoxDriver(OptionsManager.getFirefoxOptions());
                 break;
 
-            case "opera":
-                WebDriverManager.operadriver().setup();
-                driver = new OperaDriver();
-                break;
-
             default:
                 throw new RuntimeException("Invalid browser name...!");
         }
@@ -61,11 +56,8 @@ public class BasePage {
     }
 
 
-    /**Close the browser at the end of the test*/
     public static void tearDown() {
         driver.quit();
     }
 
-    }
-
-
+}

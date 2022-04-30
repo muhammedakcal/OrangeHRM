@@ -5,10 +5,14 @@ import com.qa.cloudwise.utils.Constants;
 
 
 import com.qa.cloudwise.TestToolException;
+import com.qa.cloudwise.utils.HelperMethods;
+
 import org.joda.time.DateTime;
 import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
 
 
 import java.util.*;
@@ -23,6 +27,8 @@ import static org.openqa.selenium.support.PageFactory.initElements;
 public class GateKeeperPage {
 
     private static final TreeMap<String, String> defeatedCostsInformation = new TreeMap();
+    public static HelperMethods helperMethods = new HelperMethods();
+
     @FindBy(xpath = "//app-test/div/div/div[1]")
     private static WebElement mainPage;
     @FindBy(xpath = "//i[@class='fal fa-bullseye-arrow ng-star-inserted' and @style='color: orange; cursor: pointer;']")
@@ -38,56 +44,17 @@ public class GateKeeperPage {
     @FindBy(xpath = "//input[@id='mat-input-1']")
     private static WebElement secondFieldToFillWithValues;
     @FindBy(xpath = "//input[@id='mat-input-2']")
-    private static WebElement thirdFieldToAssertValues;
+    private static WebElement thirdFieldToAssertValue;
 
     public GateKeeperPage() {
         initElements(driver, this);
     }
 
-    /**
-     * X path Generator For Frame
-     *
-     * @param text - The text which will identify to customize x-path
-     * @return - Customized x path
-     */
-    private static String xPathGeneratorForGettingTextFromFrame(String text) {
-        return ".//span[contains(@class, 'color') and contains(text(),'" + text + "')]";
-    }
-
-    /**
-     * X path Generator For Page
-     *
-     * @param text - The text which will identify to customize x-path
-     * @return - Customized x path
-     */
-    private static String xPathGeneratorForGettingTextFromPage(String text) {
-        return ".//span[not (contains(@class, 'color')) and contains(text(),'" + text + "')]";
-    }
-
-    /**
-     * X path Generator For Element
-     *
-     * @param frameName - The text which will identify to customize x-path
-     * @return - Customized x path
-     */
-    private static WebElement frameElement(String frameName) {
-        return getElement((By.xpath("//body[@class='mat-typography']//iframe[@id='" + frameName + "']")));
-    }
-
-    /**
-     * X path Generator For Section Element In The Frame
-     *
-     * @param sectionName - The text which will identify to customize x-path
-     * @return - Customized x path
-     */
-    private static String sectionXpathInFrame(String sectionName) {
-        return getElement(By.xpath("//*[@class='_1u8sp']//p[normalize-space(text())='" + sectionName + "']")).getText();
-    }
 
     /**
      * X path Generator For Icon Element
      *
-     * @param iconName - The text which will identify to customize x-path
+     * @param iconName - which will identify to customize x-path
      * @return - Customized x path
      */
     private static WebElement iconButton(String iconName) {
@@ -108,329 +75,19 @@ public class GateKeeperPage {
     }
 
     /**
-     * Get text from the field in the page
+     * Verify Section Name
      *
-     * @param text - text name
-     * @return - text
+     * @param sectionName - Section Name
      */
-    public static String getTextFromFieldInPage(String text) {
-        final String method = "GateKeeperPage.getTextFromFieldInPage: ";
-        printInfoMethodStarted(method);
-        WebElement textElement = getElement(By.xpath(xPathGeneratorForGettingTextFromPage(text)));
-        waitForVisibility(textElement);
-        printInfoMethodEnded(method);
-        return doGetText(textElement);
-    }
-
-    /**
-     * Get text from the field in the frame
-     *
-     * @param text - text name
-     * @return - text
-     */
-    public static String getTextFromFieldFromFrame(String text) {
-        final String method = "GateKeeperPage.getTextFromField:getTextFromFieldFromFrame: ";
-        printInfoMethodStarted(method);
-        WebElement textElement = getElement(By.xpath(xPathGeneratorForGettingTextFromFrame(text)));
-        waitForVisibility(textElement);
-        printInfoMethodEnded(method);
-        return doGetText(textElement);
-    }
-
-    /**
-     * Get part of text from the field in the page
-     *
-     * @param text - text name
-     */
-    public static void verifyPartOfTextIsLocatedOnFieldPage(String text) {
-        final String method = "GateKeeperPage.getPartOfTextFromField: ";
-        printInfoMethodStarted(method);
-        waitForVisibility(mainPage);
-        flash(mainPage);
-        drawBorder(mainPage);
-        if (!doGetText(mainPage).contains(text)) {
-            throw new TestToolException(doGetText(mainPage) + " does not contain value of: " + text);
-        }
-        printInfoMethodEnded(method);
-    }
-
-    /**
-     * Verify Text If it's located on unicorn tab area
-     *
-     * @param text - text name that will be verified
-     * @return - text
-     */
-    public static boolean verifyTextIsLocatedOnUnicornTabArea(String text) {
-        final String method = "GateKeeperPage.getPartOfTextIsLocatedOnFieldPage: ";
-        printInfoMethodStarted(method);
-        waitForVisibility(searchOfUnicornTabArea);
-        flash(searchOfUnicornTabArea);
-        drawBorder(searchOfUnicornTabArea);
-        printInfoMethodEnded(method);
-        return doGetText(searchOfUnicornTabArea).contains(text);
-    }
-
-    /**
-     * Switch Driver To Frame
-     *
-     * @param frameName - frame name
-     */
-    public static void switchFrame(String frameName) {
-        final String method = "GateKeeperPage.switchFrame: ";
-        printInfoMethodStarted(method);
-        driver.switchTo().frame((frameElement(frameName)));
-        waitForSeconds(5);
-        printInfoMethodEnded(method);
-    }
-
-    /**
-     * Get Section in Frame
-     *
-     * @param sectionName - Section name
-     */
-    public static String getSectionNameInFrame(String sectionName) {
-        final String method = "GateKeeperPage.getSectionNameInFrame: ";
-        printInfoMethodStarted(method);
-        printInfoMethodEnded(method);
-        return sectionXpathInFrame(sectionName);
-
-    }
-
-    /**
-     * Click on Pop-up
-     *
-     * @param popupName - Pop-up name
-     */
-    public static void clickOnPopup(String popupName) {
-        final String method = "GateKeeperPage.clickOnPopup: ";
-        final String popupXpath = "//span[@class='mat-button-wrapper' and text()='" + popupName + "']";
-        printInfoMethodStarted(method);
-        doClick(getElement(By.xpath(popupXpath)));
-        waitForSeconds(2);
-        printInfoMethodEnded(method);
-
-    }
-
-    /**
-     * Verify Number Of Ports
-     *
-     * @param portNumber - that wil be asserted to the actual number
-     */
-    public static void verifyNumberOfPorts(int portNumber) {
-        final String method = "GateKeeperPage.verifyNumberOfPorts: ";
-        final String portsXpath = "//i[@class='fal fa-bullseye-arrow ng-star-inserted']";
-        printInfoMethodStarted(method);
-        int actualNumberOfPorts = driver.findElements(By.xpath(portsXpath)).size();
-        if (actualNumberOfPorts != portNumber) {
-            throw new TestToolException(method + "failed! Expected Number of Ports: 9" +
-                    " Actual NumberOfPorts: " + actualNumberOfPorts);
-        }
-        printInfoMethodEnded(method);
-    }
-
-    /**
-     * Verify  Port Size
-     *
-     * @param width  - width
-     * @param height - height
-     */
-    public static void verifyPortsSize(String width, String height) {
-        final String method = "GateKeeperPage.verifyNumberOfPorts: ";
-        final String portsXpath = "//i[@class='fal fa-bullseye-arrow ng-star-inserted']";
-        printInfoMethodStarted(method);
-
-        if (defeatCost.getSize().getWidth() != Integer.parseInt(String.valueOf(width)) &&
-                defeatCost.getSize().getHeight() != Integer.parseInt(String.valueOf(height))
-        ) {
-            throw new TestToolException(method + "failed! " +
-                    "Expected Size: (" + width + ")," + height + ")" +
-                    " Actual Size: " + defeatCost.getSize());
-        }
-        printInfoMethodEnded(method);
-    }
-
-    /**
-     * Defeat/Click & Cost/Element which will be presented in the popup
-     */
-    public static void defeatCostInTheThermalExhaustPort() {
-        final String method = "GateKeeperPage.defeatCostInTheThermalExhaustPort: ";
-        printInfoMethodStarted(method);
-        doClick(defeatCost);
-        waitForSeconds(2);
-        printInfoMethodEnded(method);
-    }
-
-    /**
-     * Performance/ Functional Method to defeat cost as much as wanted in the function
-     *
-     * @param times - Number of times - that will be defeated cost
-     */
-    public static void defeatCostNumberOfTimesAndStoreInfoToTheList(int times) {
-        final String method = "GateKeeperPage.defeatCostAndStoreNumberOfCostInAndStoreInTheList: ";
-        printInfoMethodStarted(method);
-
+    public static void verifySectionName(String sectionName) {
+        final String methodName = "GateKeeperPage.verifySectionName: ";
         try {
-            for (int i = 0; i < times; i++) {
-                String iterationKey = "[Iteration Number: " + i + "] --> ";
-                clickOnPopup(ConfigReader.getProperty("popupName"));
-                defeatedCostsInformation.put(iterationKey, "Location: " + defeatCost.getLocation() +
-                        " Rectangle Number: " + defeatCost.getRect().toString().split("@")[1] +
-                        " Size: " + defeatCost.getSize());
-                defeatCostInTheThermalExhaustPort();
-                waitForSeconds(1);
-            }
-
-            printInfo("Defeated Cost Information According To the Iteration:");
-            printInfo("");
-
-            for (Map.Entry<String, String> generalInfo : defeatedCostsInformation.entrySet()) {
-                printInfo("<------------------------------------------------------------------------------------------------------------>");
-                System.out.println(generalInfo.getKey() + " = " + generalInfo.getValue());
-                printInfo("<------------------------------------------------------------------------------------------------------------>");
-                printInfo("");
-
-
-            }
-
-        } catch (NumberFormatException e) {
-            throw new TestToolException(method + "failed! " + e.getCause() + e.getMessage());
+            helperMethods.printInfoMethodStarted(methodName)
+                    .and().waitForVisibility(section(sectionName))
+                    .and().printInfoMethodEnded(methodName);
+        } catch (NoSuchElementException e) {
+            throw new TestToolException(methodName + " failed! " + e.getCause());
         }
-        printInfoMethodEnded(method);
-    }
-
-    /**
-     * Search unicorn with a valid data (BOBI/bobi)
-     *
-     * @param data - it will be asserted to verify that the data is valid
-     */
-    public static void searchUnicornWithValidData(String data) {
-        final String method = "GateKeeperPage.searchUnicornWithValidData: ";
-        printInfoMethodStarted(method);
-        waitForVisibility(searchField);
-        doSendTextAndPressEnter(searchField, data);
-        if (data.equalsIgnoreCase("bobi") || (verifyTextIsLocatedOnUnicornTabArea(Constants.LOST_UNICORN_NAME))) {
-            if ((searchResult.isDisplayed())) {
-                throw new TestToolException("An invalid search criteria has been identified: " + data + " is valid! Search Result: " + searchResult.getText());
-            }
-        }
-        scrollPageDown();
-        waitForVisibility(searchField);
-        doSendTextAndPressEnter(searchField, data);
-        scrollPageTillTheEnd();
-        flash(searchField);
-        waitForSeconds(2);
-        drawBorder(searchField);
-        waitForSeconds(2);
-        refreshPage();
-        printInfoMethodEnded(method);
-
-    }
-
-    /**
-     * Search unicorn with an invalid data
-     *
-     * @param data - it will be asserted to verify that the data is invalid
-     */
-    public static void searchUnicornWithInvalidData(String data, String searchResultExpectation) {
-        final String method = "GateKeeperPage.searchValidUnicornWithInvalidData: ";
-        printInfoMethodStarted(method);
-        if (!data.equalsIgnoreCase("bobi")) {
-            throw new TestToolException("A valid search criteria has been identified: " + data +
-                    searchResultExpectation + " is not found in the search result: " + searchResult.getText());
-        }
-        scrollPageDown();
-        waitForVisibility(searchField);
-        doSendTextAndPressEnter(searchField, data);
-        waitForVisibility(searchResult);
-        scrollPageTillTheEnd();
-        flash(searchResult);
-        waitForSeconds(3);
-        drawBorder(searchResult);
-        waitForSeconds(3);
-        refreshPage();
-        printInfoMethodEnded(method);
-
-    }
-
-    /**
-     * Mathematical Operation - First field
-     *
-     * @param firstInputValue - First input
-     */
-    public static void fillValueToFirstInput(String firstInputValue) {
-        final String method = "GateKeeperPage.fillValueToFirstInput: ";
-        printInfoMethodStarted(method);
-        waitForVisibility(firstFieldToFillWithValues);
-        sendText(firstFieldToFillWithValues, firstInputValue);
-        printInfoMethodEnded(method);
-
-    }
-
-    /**
-     * Mathematical Operation - Second Field
-     *
-     * @param secondInputValue - Second input
-     */
-    public static void fillValueToSecondInput(String secondInputValue) {
-        final String method = "GateKeeperPage.fillValueToSecondInput: ";
-        printInfoMethodStarted(method);
-        waitForVisibility(secondFieldToFillWithValues);
-        sendText(secondFieldToFillWithValues, secondInputValue);
-        printInfoMethodEnded(method);
-
-    }
-
-    /**
-     * Mathematical Operation Third Field Verify Result
-     *
-     * @param expectedValue - Third input
-     */
-    public static void assertValueInThirdInput(String expectedValue) {
-        final String method = "GateKeeperPage.assertValueInThirdInput: ";
-        waitForVisibility(thirdFieldToAssertValues);
-        if (!thirdFieldToAssertValues.getAttribute("value").equals(expectedValue)) {
-            throw new TestToolException(expectedValue + " not found after the assertion!" + " Found Value: " + thirdFieldToAssertValues.getText());
-        }
-        refreshPage();
-        printInfoMethodEnded(method);
-
-    }
-
-    /**
-     * Mathematical Operation Performance Method
-     *
-     * @param numberOfData - Number of data which will be sent to the page
-     * @param time         - It will be used to verify if numberOfData has been sent and verified before in defined time
-     * @param sectionName  - Section Name
-     */
-    public static void performanceTestFunctionOnCalculator(Integer numberOfData, Integer time, String sectionName) {
-        DateTime dt = new DateTime();
-        final String method = "GateKeeperPage.performanceTestFunctionOnCalculator ";
-        final int getMinutesBeforePeformanceTest = dt.getMinuteOfHour();
-        printInfoMethodStarted(method);
-        verifySectionName(sectionName);
-
-        int min = -50;
-        int max = 900;
-        //Generate random int value from -50 to +900
-        int randomNumber1 = (int)Math.floor(Math.random()*(max-min+1)+min);
-        int randomNumber2 = (int)Math.floor(Math.random()*(max-min+1)+min);
-
-        for (int i = 1; i < numberOfData; i++) {
-            fillValueToFirstInput(String.valueOf(i * randomNumber1));
-            fillValueToSecondInput(String.valueOf(i * randomNumber2));
-            int result = (i * randomNumber1) + (i * randomNumber2);
-            assertValueInThirdInput(String.valueOf(result));
-        }
-        int getMinutesAfterPeformanceTest = dt.getMinuteOfHour();
-
-        int timeDifferenceAfterPerformanceTest = getMinutesAfterPeformanceTest - getMinutesBeforePeformanceTest;
-        if (!(timeDifferenceAfterPerformanceTest <= time)) {
-            throw new TestToolException(method + " failed! " + timeDifferenceAfterPerformanceTest + " minutes took performance test " +
-                    "to verify: " + numberOfData + " different type of combinations!");
-        }
-        printInfoMethodEnded(method);
-
     }
 
     /**
@@ -440,27 +97,263 @@ public class GateKeeperPage {
      * @param sectionName - Section Name
      */
     public static void verifyIconButtonOnDefinedSection(String iconName, String sectionName) {
-        final String method = "GateKeeperPage.verifyIconButton: ";
-        printInfoMethodStarted(method);
-        verifySectionName(sectionName);
-        waitForVisibility(iconButton(iconName));
-        printInfoMethodEnded(method);
+        final String methodName = "GateKeeperPage.verifyIconButton: ";
+        try {
+            helperMethods.printInfoMethodStarted(methodName)
+                    .and().waitForVisibility(section(sectionName))
+                    .and().printInfoMethodEnded(methodName)
+                    .then().waitForVisibility(iconButton(iconName));
+        } catch (NoSuchElementException e) {
+            throw new TestToolException(methodName + " failed! " + e.getCause());
+        }
 
     }
 
     /**
-     * Verify Section Name
+     * Get text from the field in the page
      *
-     * @param sectionName - Section Name
+     * @param address - text name
+     * @return - text
      */
-    public static void verifySectionName(String sectionName) {
-        final String method = "GateKeeperPage.verifySectionName: ";
-        printInfoMethodStarted(method);
-        waitForVisibility(section(sectionName));
-        printInfoMethodEnded(method);
+    public static String extractAddressAndVerify(String address) {
+        final String methodName = "GateKeeperPage.getTextFromFieldInPage: ";
+        final String addressXpath = ".//span[not (contains(@class, 'color')) and contains(text(),'" + address + "')]";
+        try {
+            helperMethods.printInfoMethodStarted(methodName)
+                    .waitForVisibility(getElement(getXpath(addressXpath)))
+                    .and().printInfoMethodEnded(methodName);
+
+        } catch (NoSuchElementException e) {
+            throw new TestToolException(methodName + "failed! " + e.getCause());
+        }
+
+        return doGetText(getElement(getXpath(addressXpath)));
+    }
+    /**
+     * Verify Text If it's located on unicorn tab area
+     *
+     * @param text - text name that will be verified
+     * @return - text
+     */
+    public static boolean verifyTextIsLocatedOnUnicornTabArea(String text) {
+        final String methodName = "GateKeeperPage.getPartOfTextIsLocatedOnFieldPage: ";
+
+        try {
+            helperMethods.printInfoMethodStarted(methodName)
+                    .waitForVisibility(searchOfUnicornTabArea)
+                    .and().printInfoMethodEnded(methodName);
+
+        } catch (Exception e) {
+            throw new TestToolException(methodName + " failed! " + e.getCause());
+        }
+        return doGetText(searchOfUnicornTabArea).contains(text);
+    }
+    /**
+     * Click on Pop-up
+     *
+     * @param popupName - Pop-up name
+     */
+    public static void clickOnPopup(String popupName) {
+        final String methodName = "GateKeeperPage.clickOnPopup: ";
+        final String popupXpath = "//span[@class='mat-button-wrapper' and text()='" + popupName + "']";
+        try {
+            helperMethods.printInfoMethodStarted(methodName)
+                    .and().waitForVisibility(getElement(getXpath(popupXpath)))
+                    .and().doClick(getElement(getXpath(popupXpath)))
+                    .then().printInfoMethodEnded(methodName);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new TestToolException(methodName + " failed! " + e.getCause());
+        }
+
+    }
+    /**
+     * Verify Number Of Ports
+     *
+     * @param portNumber - that wil be asserted to the actual number
+     */
+    public static void verifyNumberOfPorts(int portNumber) {
+        final String methodName = "GateKeeperPage.verifyNumberOfPorts: ";
+        final String numberOfPorts = "//i[@class='fal fa-bullseye-arrow ng-star-inserted']";
+
+        try {
+            helperMethods.printInfoMethodStarted(methodName);
+            int actualNumberOfPorts = driver.findElements(getXpath(numberOfPorts)).size();
+            if (actualNumberOfPorts != portNumber) {
+                throw new TestToolException(methodName + "failed! Expected Number of Ports: 9" +
+                        " Actual NumberOfPorts: " + actualNumberOfPorts);
+            }
+            helperMethods.printInfoMethodEnded(methodName);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new TestToolException(methodName + " failed! " + e.getCause());
+        }
+    }
+
+    /**
+     * Defeat/Click & Cost/Element which will be presented in the popup
+     */
+    public static void defeatCostInTheThermalExhaustPort() {
+        final String methodName = "GateKeeperPage.defeatCostInTheThermalExhaustPort: ";
+        try {
+            helperMethods.printInfoMethodStarted(methodName)
+                    .doClick(defeatCost)
+                    .and().printInfoMethodEnded(methodName);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new TestToolException(methodName + " failed! " + e.getCause());
+        }
 
     }
 
+    /**
+     * Performance/ Functional Method to defeat cost as much as wanted in the function
+     *
+     * @param time - Number of times the cost will be defeated
+     */
+    public static void defeatCostNumberOfTimesAndStoreInfoToTheList(int time) {
+        final String methodName = "GateKeeperPage.defeatCostAndStoreNumberOfCostInAndStoreInTheList: ";
+        helperMethods.printInfoMethodStarted(methodName);
+        try {
+            for (int i = 0; i < time; i++) {
+                String iterationKey = "[Iteration Number: " + i + "] --> ";
+                clickOnPopup(ConfigReader.getProperty("popupName"));
+                defeatedCostsInformation.put(iterationKey, "Location: " + defeatCost.getLocation() +
+                        " Rectangle Number: " + defeatCost.getRect().toString().split("@")[1] +
+                        " Size: " + defeatCost.getSize());
+                defeatCostInTheThermalExhaustPort();
+            }
+            for (Map.Entry<String, String> generalInfo : defeatedCostsInformation.entrySet()) {
+                helperMethods.printInfo("<------------------------------------------------------------------------------------------------------------>")
+                        .printInfo(generalInfo.getKey() + " = " + generalInfo.getValue())
+                        .printInfo("<------------------------------------------------------------------------------------------------------------>")
+                        .printInfo("").and().printInfoMethodEnded(methodName);
+
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            throw new TestToolException(methodName + "failed! " + e.getCause() + ": " + e.getMessage());
+        }
+
+    }
+
+    /**
+     * Search unicorn with a valid data (BOBI/bobi)
+     *
+     * @param expectedUnicornName  - unicorn name data
+     * @param expectedSearchResult - expected result after the search
+     */
+    public static void searchUnicornWithValidData(String expectedUnicornName, String expectedSearchResult) {
+        final String methodName = "GateKeeperPage.searchUnicornWithValidData: ";
+        try {
+            helperMethods.printInfoMethodStarted(methodName)
+                    .and().doSendTextAndPressEnter(searchField, expectedUnicornName);
+
+            if (!expectedUnicornName.equalsIgnoreCase(Constants.LOST_UNICORN_NAME)) {
+                throw new TestToolException("Unicorn name is not correct! -> Search Data: " + expectedUnicornName + " Expected Name: " + Constants.LOST_UNICORN_NAME);
+            }
+            if (!doGetText(searchResult).equalsIgnoreCase(expectedSearchResult)) {
+                throw new TestToolException(" The search result is not matches with the expected name! -> Expected: " + expectedUnicornName + " Found: " + doGetText(searchResult));
+            }
+            helperMethods.refreshPageByWebElement(searchField).and().printInfoMethodEnded(methodName);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new TestToolException(methodName + " failed! " + e.getCause());
+        }
+
+    }
+
+    /**
+     * Search unicorn with an invalid data
+     *
+     * @param expectedUnicornInvalidName - invalid unicorn name data
+     */
+    public static void searchUnicornWithInvalidData(String expectedUnicornInvalidName) {
+        final String methodName = "GateKeeperPage.searchUnicornWithInvalidData: ";
+        try {
+            helperMethods.printInfoMethodStarted(methodName).waitForVisibility(searchField)
+                    .and().doSendTextAndPressEnter(searchField, expectedUnicornInvalidName);
+
+            if (expectedUnicornInvalidName.equalsIgnoreCase(Constants.LOST_UNICORN_NAME)) {
+                throw new TestToolException("Valid unicorn name has been identified! -> Unicorn Name Data In The Test: " + expectedUnicornInvalidName
+                        + " Search Result: " + searchResult.getText());
+            }
+            helperMethods.refreshPageByWebElement(searchField).and().printInfoMethodEnded(methodName);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new TestToolException(methodName + " failed! " + e.getCause());
+        }
+
+    }
+
+    /**
+     * Mathematical Operation - First field
+     *
+     * @param firstInputValue - First input
+     */
+    public static void fillInputFieldsAndAssertResult(String firstInputValue, String secondInputValue, String expectedValue) {
+        final String methodName = "GateKeeperPage.fillInputFieldsAndAssertResult: ";
+        try {
+            helperMethods.printInfoMethodStarted(methodName)
+                    .sendText(firstFieldToFillWithValues, firstInputValue)
+                    .sendText(secondFieldToFillWithValues, secondInputValue);
+            helperMethods.waitForVisibility(thirdFieldToAssertValue);
+            if (!thirdFieldToAssertValue.getAttribute("value").equals(String.valueOf(expectedValue))) {
+                throw new TestToolException("First Input: "+ firstInputValue + " Second Input: "+ secondInputValue + " Expected Result: " + expectedValue
+                        + " not found after the assertion! ->" + " Found Value: " + thirdFieldToAssertValue.getAttribute("value"));
+            }
+            helperMethods.refreshPageByWebElement(firstFieldToFillWithValues).and().printInfoMethodEnded(methodName);
+
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+            throw new TestToolException(methodName + " failed! " + e.getCause());
+        }
+
+    }
+
+    /**
+     * Mathematical Operation Performance Method
+     *
+     * @param numberOfData - Number of data which will be sent to the page
+     * @param expectedTime - which will be used to verify if numberOfData has been sent and verified before in defined time
+     * @param sectionName  - Section Name
+     */
+    public static void performanceTestFunctionOnCalculator(String numberOfData, Integer expectedTime, String sectionName) {
+        final String methodName = "GateKeeperPage.performanceTestFunctionOnCalculator ";
+        DateTime dt1 = new DateTime();
+        int getSecondsBeforePefTest = dt1.getSecondOfDay();
+
+        helperMethods.printInfo("[Get Seconds Of Day Before Peformance Test: " + getSecondsBeforePefTest);
+        //Generate random int value between [-50 and +900]
+        int firstRandomNumber = helperMethods.getRandomNumberUsingNextInt(-50,900);
+        int secondRandomNumber = helperMethods.getRandomNumberUsingNextInt(-50,900);;
+
+        helperMethods.printInfoMethodStarted(methodName);
+        verifySectionName(sectionName);
+        for (int i = 1; i < Integer.parseInt(numberOfData); i++) {
+            String firstInput = String.valueOf(i * firstRandomNumber);
+            String secondInput = String.valueOf(i * secondRandomNumber);
+            int result  = (i * firstRandomNumber) + (i * secondRandomNumber);
+            fillInputFieldsAndAssertResult(firstInput, secondInput,String.valueOf(result));
+        }
+        DateTime dt2 = new DateTime();
+        int getSecondsAfterPefTest = dt2.getSecondOfDay();
+        helperMethods.printInfo("Get Seconds Of Day After Peformance Test: " + getSecondsAfterPefTest);
+        int timeDifferenceAfterPerformanceTest = getSecondsAfterPefTest - getSecondsBeforePefTest;
+        helperMethods.printInfo(timeDifferenceAfterPerformanceTest + " seconds passed after the peformance Test: ");
+
+            if(timeDifferenceAfterPerformanceTest >= expectedTime) {
+                throw new TestToolException(methodName + " failed! [" + timeDifferenceAfterPerformanceTest + "] seconds took to verify "
+                        + numberOfData + " different sorts of random data->" +
+                        " [Expected Time: " + expectedTime + " seconds] -  [Actual Time: " + timeDifferenceAfterPerformanceTest + " seconds]!");
+
+            }
+    }
 
 }
 

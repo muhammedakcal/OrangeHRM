@@ -8,7 +8,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import static org.junit.Assert.assertEquals;
+import static org.testng.Assert.assertEquals;
+
 
 public class MenuSD {
 
@@ -50,13 +51,6 @@ public class MenuSD {
         MenuPage.navigateToBackPage();
     }
 
-    /**
-     * This step will refresh the page
-     */
-    @And("^Menu: I refresh the page$")
-    public void bddRefreshThePage() {
-        HelperMethods.refreshPage();
-    }
 
     /**
      * This step is navigating forward to another page
@@ -64,6 +58,7 @@ public class MenuSD {
      * @param url - the url which will be navigated by the browser
      */
     @When("^Menu: I navigate to the page: \"([^\"]*)\"$")
-    public void bddNavigateToPage(String url) {MenuPage.navigateToThePage(url);
+    public void bddNavigateToPage(String url) {
+        HelperMethods.navigateToPage(url);
     }
 }

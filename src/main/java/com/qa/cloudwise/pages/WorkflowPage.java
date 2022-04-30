@@ -2,16 +2,14 @@ package com.qa.cloudwise.pages;
 
 
 import com.qa.cloudwise.TestToolException;
+import com.qa.cloudwise.utils.HelperMethods;
 import com.qa.cloudwise.utils.JavaScriptUtil;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import org.openqa.selenium.support.PageFactory;
 
-
 import java.util.*;
 
-import java.util.stream.Collectors;
 
 import static com.qa.cloudwise.base.BasePage.driver;
 import static com.qa.cloudwise.utils.HelperMethods.*;
@@ -19,7 +17,9 @@ import static com.qa.cloudwise.utils.HelperMethods.*;
 
 public class WorkflowPage {
 
-    private static List<String> listForSavingNamesInTheSection = null;
+    private static final List<String> employeeListInCloudWise = new ArrayList<>();
+    public static HelperMethods helperMethods = new HelperMethods();
+
 
     public WorkflowPage() {
         PageFactory.initElements(driver, this);
@@ -36,109 +36,56 @@ public class WorkflowPage {
      */
     public static void verifySectionVisibility(String sectionName) {
         final String methodName = "WorkflowPage.verifySectionVisibility: ";
-        printInfoMethodStarted(methodName);
+
         try {
             JavaScriptUtil.checkPageIsReady(methodName + sectionName);
+            helperMethods.printInfoMethodStarted(methodName).and().printInfoMethodEnded(methodName);
+
         } catch (NoSuchElementException e) {
             throw new TestToolException("method + sectionName + failed!" + e.getCause());
         }
-        printInfoMethodEnded(methodName);
     }
 
     /**
-     * Click Flip Box Element to go to the selected department
-     *
-     * @param departmentName - Flix-box element is located inside the department. Flip-box x-path will identify the department
-     * @param sectionName    - Section Name
+     * This function will visit each department and print duplicate names
      */
-    public static void clickFlipBoxInDepartmentDefinedInSection(String flipBoxName, String departmentName, String sectionName) {
-        final String methodName = "WorkflowPage.clickFlipBoxInDepartmentDefinedInSection: ";
-        final String departmentXpath = "*//div//h3[normalize-space()='" + departmentName + "']";
-        final String flipBoxXpath = departmentXpath.concat("//parent::div//parent::div//a//span[contains(text(),'" + flipBoxName + "')]");
-        printInfoMethodStarted(methodName);
+    public static void visitDepartmentsAndPrintDuplicateNames() {
+        final String methodName = "WorkflowPage.visitDepartmentsAndPrintDuplicateNames: ";
+        final By flipBox = By.xpath(".//a[@class='nectar-button large see-through']//span");
+        final By department = By.xpath("//div[@class='flip-box-front']//h3");
+        final By employees = By.xpath("//div[@class='vc_column-inner']//h3");
 
         try {
-            WebElement department = driver.findElement(By.xpath((departmentXpath)));
-            WebElement flipBox = driver.findElement(By.xpath((flipBoxXpath)));
-            moveToElementAndClick(department);
-            moveToElementAndClick(flipBox);
+            int numberOfDepartments = driver.findElements(flipBox).size();
+            helperMethods.printInfoMethodStarted(methodName).printInfo("Number of Departments: " + numberOfDepartments);
 
-        } catch (NoSuchElementException e) {
-            throw new TestToolException(methodName + "failed!" + e.getCause());
-        }
+            for (int i = 0; i < numberOfDepartments; i++) {
+                String departmentName = driver.findElements((department)).get(i).getText();
+                helperMethods.moveToElementAndClick(driver.findElements(flipBox).get(i));
 
-        printInfoMethodEnded(methodName);
-    }
+                int size = driver.findElements((employees)).size();
+                List<String> singleDepartmentEmployeeList = new ArrayList<>();
 
-    /**
-     * This method is creating or using a list to add names into the list in the defined section
-     *
-     * @param condition   - create or use a list
-     * @param sectionName - it will be used to verify names under the section
-     */
-    public static void createOrUseListToAddNamesInDefinedSection(String condition, String sectionName) {
-        final String method = "WorkflowPage.findDuplicatedNameIntheSection: ";
-        final String pageXpath = "//div[@class='inner']//h3";
+                for (int y = 0; y < size; y++) {
+                    singleDepartmentEmployeeList.add((driver.findElements((employees)).get(y).getText()));
+                    employeeListInCloudWise.add((driver.findElements(employees)).get(y).getText());
+                }
 
-        printInfoMethodStarted(method);
-        isDisplayed(getElement(By.xpath(sectionXpathGenerator(sectionName))));
-        isDisplayed(getElement(By.xpath(pageXpath)));
+                helperMethods.printInfo(departmentName + ": --> " + singleDepartmentEmployeeList).and().navigateToBackPage();
 
-        if (condition.equalsIgnoreCase("create")) {
-            listForSavingNamesInTheSection = getElement(By.xpath(sectionXpathGenerator(sectionName))).findElements(By.xpath(pageXpath))
-                    .stream().map(WebElement::getText).collect(Collectors.toList());
-        } else if (condition.equalsIgnoreCase("use")) {
-            listForSavingNamesInTheSection.addAll(getElement(By.xpath(sectionXpathGenerator(sectionName))).findElements(By.xpath(pageXpath))
-                    .stream().map(WebElement::getText).collect(Collectors.toList()));
-        } else {
-            throw new TestToolException("The condition should be 'create' or 'use''! -> " + condition);
-        }
-
-        printInfo(method + "Names in the List Placed On " + sectionName + " Section: " + listForSavingNamesInTheSection);
-        printInfoMethodEnded(method);
-    }
-
-    /**
-     * - This function will print the duplicate names (It's available to see these names
-     * in the command prompt at the end of the test. These names can also be added to the log message
-     * when this project is integrated with CI Platform.(such as Jenkins)
-     * - "WorkflowPage.createOrUseListToAddNamesInDefinedSection" method-created list
-     */
-    public static void outputDuplicateNamesInTheList() {
-        final String methodName = "WorkflowPage.outputTheDuplicateNamesInTheList: ";
-        printInfoMethodStarted(methodName);
-        Set<String> result = findDuplicateBySetAdd(listForSavingNamesInTheSection);
-        printInfo(methodName + "Duplicate Names: " + result.toString());
-        printInfoMethodEnded(methodName);
-    }
-
-    /**
-     * This function is checking if names (which have been listed) are duplicated in the list:
-     *
-     * @param sectionName - Section Name
-     */
-    public static void verifyIfThereAreNoDuplicateNamesInTheSection(String sectionName) {
-        final String methodName = "WorkflowPage.verifyIfThereAreNoDuplicateNamesInTheSection: ";
-        final String namesInTheSectionXpath = ("//div[@class='inner']//h3");
-        printInfoMethodStarted(methodName);
-        waitForVisibility(getElement(By.xpath(sectionXpathGenerator(sectionName))));
-
-        try {
-            List<WebElement> list = getElement(By.xpath(sectionXpathGenerator(sectionName))).
-                    findElements(By.xpath(namesInTheSectionXpath));
-            printInfo("The size of the list is : " + list.size());
-
-            if (!verifyIfThereIsNoDuplicatedNameInList(list)) {
-                throw new TestToolException(sectionName + " has a duplicated name! -> " + list);
             }
+
+            findAndPrintDuplicateNamesInTheList(employeeListInCloudWise);
+            findAndPrintTriplicateNamesInTheList(employeeListInCloudWise);
+            helperMethods.printInfo("").printInfoMethodEnded(methodName);
         } catch (Exception e) {
-            throw new TestToolException(methodName + "failed! " + e.getCause());
+            e.printStackTrace();
+            throw new TestToolException(methodName + " failed: " + e.getCause());
         }
-
-        printInfoMethodEnded(methodName);
-
 
     }
 
 
 }
+
+

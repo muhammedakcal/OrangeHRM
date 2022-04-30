@@ -10,7 +10,10 @@ import com.qa.cloudwise.TestToolException;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.qa.cloudwise.base.BasePage.*;
@@ -20,75 +23,43 @@ import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.qa.cloudwise.pages.WaitingPage.waitForSeconds;
+
+
+import static com.qa.cloudwise.utils.JavaScriptUtil.clickElementByJS;
 import static com.qa.cloudwise.utils.JavaScriptUtil.flash;
 import static org.openqa.selenium.support.PageFactory.initElements;
 
-public class HelperMethods {
+public class HelperMethods<statıc> {
+
+    @FindBy(xpath = "//*[@id='CybotCookiebotDialogBodyButtonAccept']")
+    private static WebElement acceptCookies;
+    @FindBy(xpath = "//*[contains(@id,'leadinModal')]/div[2]/button")
+    private static WebElement closeTabOnCookies;
+
+
+    public Actions actions = new Actions(driver);
+    FluentWait<WebDriver> wait = new FluentWait<>(driver);
 
     /**
      * Create Public and Useful Methods in order to use in "Pages Package"
-     *
      */
     public HelperMethods() {initElements(driver, this);}
-
-    public static Actions actions = new Actions(driver);
-
-    /**
-     * Print "System.out.println" in a shorter way
-     * @param line - line that will be printed
-     */
-    public static void printInfo(Object line) {System.out.println(line);}
-
-    /**
-     * Print system.info in a shorter way to define that the functional operation is started!
-     * @param line - line that will be printed
-     */
-    public static void printInfoMethodStarted(Object line) {System.out.println(line + "start!");}
-
-    /**
-     * Print system.info in a shorter way to declare that the functional operation is ended!
-     * @param line - line that will be printed
-     */
-    public static void printInfoMethodEnded(Object line) {System.out.println(line + "end!");}
+    public HelperMethods then() {return this;}
+    public HelperMethods and() {return this;}
 
     /**
      * General Selenium Wait that can be modified in Constants by changing the "EXPLICIT_WAIT_TIME"
+     *
      * @return - web element
      */
     public static WebDriverWait getWaitObject() {return new WebDriverWait(driver, Constants.EXPLICIT_WAIT_TIME);}
 
     /**
-     * Wait until the element is presented
-     * @param element - web element
-     */
-    public static void waitForVisibility(WebElement element) {
-
-        try{
-        getWaitObject().until(ExpectedConditions.visibilityOf(element));
-
-        } catch(NoSuchElementException e)
-        {
-            throw new TestToolException(element + " is not visible!");
-        }
-    }
-    /**
-     * Wait until the element is clickable
-     * @param element - web element
-     */
-    public static void waitForClickability(WebElement element) {
-        try{
-            getWaitObject().until(ExpectedConditions.elementToBeClickable(element));
-        }
-        catch(NoSuchElementException e){
-            throw new TestToolException(element + " is not clickable!");
-        }
-    }
-
-    /**
-     *  Get Element and use flash and draw if it's selected as 'yes' in the configuration.properties file
+     * Get Element and use flash and draw if it's selected as 'yes' in the configuration.properties file
+     *
      * @param locator - web element locator
      * @return - locator
      */
@@ -96,6 +67,7 @@ public class HelperMethods {
         WebElement element = null;
 
         try {
+            getWaitObject();
             element = driver.findElement(locator);
             if (highlightElement) {
                 flash(element);
@@ -112,93 +84,11 @@ public class HelperMethods {
     }
 
     /**
-     * Send text to the element
+     * Get Element and use flash and draw if it's selected as 'yes' in the configuration.properties file
      *
-     * @param element - web element
-     * @param text - text
+     * @return - locator
      */
-    public static void sendText(WebElement element, String text) {
-        try {
-            waitForVisibility(element);
-            element.clear();
-            element.sendKeys(text);
-            flash(element);
-            if (highlightElement) {
-                flash(element);
-            }
-            if (drowBorderOnElement) {
-                JavaScriptUtil.drawBorder(element);
-            }
-        } catch (NoSuchElementException e) {
-            throw new TestToolException("Some exception got occurred while getting the web element: " + element + ": " + e.getCause());
-        }
-
-    }
-
-    /**
-     * Send text and press Enter by using Robot Class
-     * @param element - web element
-     * @param text - text
-     */
-    public static void doSendTextAndPressEnter(WebElement element, String text) {
-        try {
-            Robot robot = new Robot();
-            waitForVisibility(element);
-            element.click();
-            element.clear();
-            element.sendKeys(text);
-            robot.keyPress(KeyEvent.VK_ENTER);
-            waitForSeconds(2);
-            robot.keyRelease(KeyEvent.VK_ENTER);
-            waitForSeconds(2);
-
-        } catch (AWTException e) {
-            e.printStackTrace();
-            throw new TestToolException("Error occurred while pressing sending and pressing enter to value: " + text);
-        }
-
-    }
-
-    /**
-     * Click on the web-element by using "Action Class"
-     * @param element - web element
-     */
-    public static void doClick(WebElement element) {
-        try {
-            actions.click(element).pause(Duration.ofMillis(2000)).build().perform();
-        } catch (NoSuchContextException e) {
-            throw new TestToolException("Some exception occurred while clicking to the web element: " + element + ": " + e.getCause());
-
-        }
-    }
-
-    /**
-     * Move and Click the web-element by using "Action Class"
-     * @param element - web element
-     */
-
-    public static void moveToElementAndClick(WebElement element) {
-        try {
-            moveToElement(element);
-            doClick(element);
-
-        } catch (NoSuchElementException e) {
-            throw new TestToolException("Some exception occurred while moving or clicking to the web element: " + element + ": " + e.getCause());
-        }
-    }
-
-    /**
-     * Move to the defined web-element by using "Action Class"
-     * @param element - web element
-     */
-    public static void moveToElement(WebElement element) {
-        try {
-            actions.moveToElement(element).pause(Duration.ofMillis(1000)).build().perform();
-        } catch (NoSuchElementException e) {
-            throw new TestToolException("Some exception occurred while moving  to the web element: " + element + ": " + e.getCause());
-
-        }
-    }
+    public static By getXpath(String webELementName) {return By.xpath(webELementName);}
 
     /**
      * Get Page Title
@@ -213,33 +103,23 @@ public class HelperMethods {
     }
 
     /**
-     * Refresh Page and wait till the page is loaded to avoid potential exception error
-     */
-    public static void refreshPage() {
-        try {
-            driver.navigate().refresh();
-            driver.manage().timeouts().implicitlyWait(Constants.PAGE_LOAD_WAIT_TIME, TimeUnit.SECONDS);
-        } catch (NoSuchContextException e) {
-            throw new TestToolException("Some exception occurred while refreshing the page: " + driver.getCurrentUrl() + ": " + e.getCause());
-
-        }
-    }
-
-    /**
      * Navigate to the page and wait till the page is loaded to avoid potential exception error
      */
-    public static void navigateToBackPage() {
+
+    public static void navigateToPage(String URL) {
         try {
-            driver.navigate().back();
-            driver.manage().timeouts().implicitlyWait(1200, TimeUnit.MILLISECONDS);
+            driver.navigate().to(URL);
+            driver.manage().timeouts().pageLoadTimeout(Constants.PAGE_LOAD_WAIT_TIME, TimeUnit.MILLISECONDS);
         } catch (NoSuchContextException e) {
             throw new TestToolException("Some exception occurred while navigating the the page: " + driver.getCurrentUrl() + ": " + e.getCause());
 
         }
+
     }
 
     /**
      * Get text from the element
+     *
      * @param element - web element
      * @return - element
      */
@@ -253,79 +133,236 @@ public class HelperMethods {
     }
 
     /**
-     * Verify if the element is displayed
-     * @param element - web element
-     * @return - element
-     */
-    public static boolean isDisplayed(WebElement element) {
-        try {
-            getWaitObject();
-            return element.isDisplayed();
-        } catch (NoSuchContextException e) {
-            throw new TestToolException("Some exception occurred while verifying if the element is displayed: " + element + ": " + e.getCause());
-        }
-
-    }
-
-    /**
-     * Verify if there is no duplicated name in the list
-     * @param list - list
-     * @return verification result as true or false
-     */
-    public static boolean verifyIfThereIsNoDuplicatedNameInList(List<WebElement> list) {
-        HashMap<Integer, String> hMap = new HashMap<Integer, String>();
-        for (int i = 0; i < list.size(); i++) {
-            //hashmap doesn't contain any value if the condition is true
-            if (!(hMap.containsValue(list.get(i).getText()))) {
-                hMap.put(i, list.get(i).getText());
-            } else {
-                printInfo("Duplicate value in the List: " + list.get(i).getText());
-                hMap.put(list.size() + 1, "The list has a duplicated value");
-            }
-        }
-        return Objects.isNull(hMap.get(list.size() + 1));
-
-    }
-
-    /**
-     * Verify if there is no duplicated value in the list
-     * @param list - list
-     * @return verification result as true or false
-     */
-    public static boolean findNotDuplicatedValueInList(List<WebElement> list, String name) {
-        HashMap<Integer, String> hMap = new HashMap<>();
-        for (int i = 0; i < list.size(); i++) {
-            //hashmap doesn't contain any value if the condition is true
-            if (!(hMap.containsValue(list.get(i).getText()))) {
-                hMap.put(i, list.get(i).getText());
-            } else {
-                printInfo("Duplicate value in the List: " + list.get(i).getText());
-                hMap.put(list.size() + 2, list.get(i).getText());
-
-            }
-        }
-        return Objects.equals(hMap.get(list.size() + 2), name);
-    }
-
-    /**
-     * Find the duplicate value by set
+     * Find the duplicate names in the list
+     *
      * @param list - list name
-     * @param <T> - Object Type
-     * @return - duplicated names
      */
-    public static <T> Set<T> findDuplicateBySetAdd(List<T> list) {
-        Set<T> items = new HashSet<>();
-        return list.stream()
-                .filter(n -> !items.add(n)) // Set.add() returns false if the element was already in the set.
-                .collect(Collectors.toSet());
+    public static void findAndPrintDuplicateNamesInTheList(List<String> list) {
+        Map<String, Long> frequencies = list.stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
+        System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
+
+        //   filter only the inputs which have frequency equal to 2
+        frequencies.entrySet().stream()
+                .filter(entry -> entry.getValue() == 2)
+                .forEach(entry -> System.out.println("Duplicate Names: " + Collections.singletonList(entry.getKey())));
+        System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
+
+    }
+
+    /**
+     * Find the triplicate names in the list
+     *
+     * @param list - list name
+     */
+    public static void findAndPrintTriplicateNamesInTheList(List<String> list) {
+        Map<String, Long> frequencies = list.stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        //filter only the inputs which have frequency equal to 3
+        frequencies.entrySet().stream()
+                .filter(entry -> entry.getValue() == 3)
+                .forEach(entry -> System.out.println("Triplicate Names: " + Collections.singletonList(entry.getKey())));
+        System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
+
+
+    }
+
+
+    /**
+     * Print "System.out.println" in a shorter way
+     *
+     * @param line - line that will be printed
+     */
+    public HelperMethods printInfo(Object line) {System.out.println(line);return this;}
+
+    /**
+     * Print system.info in a shorter way to define that the functional operation is started!
+     *
+     * @param line - line that will be printed
+     */
+    public HelperMethods printInfoMethodStarted(Object line) {System.out.println(line + "start!");return this;}
+
+    /**
+     * Print system.info in a shorter way to declare that the functional operation is ended!
+     *
+     * @param line - line that will be printed
+     */
+    public HelperMethods printInfoMethodEnded(Object line) {System.out.println(line + "end!");return this;}
+
+    /**
+     * Wait until the element is presented
+     *
+     * @param element - web element
+     */
+    public HelperMethods waitForVisibility(WebElement element) {
+        try {
+
+            final FluentWait<WebDriver> webDriverFluentWait = wait.withTimeout(5000, TimeUnit.MILLISECONDS);
+            webDriverFluentWait.pollingEvery(250, TimeUnit.MILLISECONDS);
+            wait.ignoring(NoSuchElementException.class);
+            wait.ignoring(TimeoutException.class);
+            wait.until(ExpectedConditions.visibilityOf(element));
+
+        } catch (NoSuchElementException e) {
+            throw new TestToolException(element + " is not visible!");
+        }
+        return this;
+    }
+
+    /**
+     * Wait until the element is clickable
+     *
+     * @param element - web element
+     */
+    public HelperMethods waitForClickability(WebElement element) {
+        try {
+            final FluentWait<WebDriver> webDriverFluentWait = wait.withTimeout(5000, TimeUnit.MILLISECONDS);
+            webDriverFluentWait.pollingEvery(250, TimeUnit.MILLISECONDS);
+            wait.ignoring(NoSuchElementException.class);
+            wait.ignoring(TimeoutException.class);
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+
+        } catch (NoSuchElementException e) {
+            throw new TestToolException(element + " is not clickable!");
+        }
+        return this;
+    }
+
+    /**
+     * Send text to the element
+     *
+     * @param element - web element
+     * @param text    - text
+     */
+    public HelperMethods sendText(WebElement element, String text) {
+        try {
+            doClick(element);
+            waitForClickability(element);
+            element.clear();
+            waitForClickability(element);
+            element.sendKeys(text);
+            waitForVisibility(element);
+        } catch (NoSuchElementException e) {
+            throw new TestToolException("Some exception got occurred while getting the web element: " + element + ": " + e.getCause());
+        }
+        return this;
+
+    }
+
+    /**
+     * Send text and press Enter by using Robot Class
+     *
+     * @param element - web element
+     * @param text    - text
+     */
+    public HelperMethods doSendTextAndPressEnter(WebElement element, String text) {
+        try {
+            Robot robot = new Robot();
+            waitForVisibility(element);
+            element.click();
+            element.clear();
+            element.sendKeys(text);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            getWaitObject();
+            robot.keyRelease(KeyEvent.VK_ENTER);
+            getWaitObject();
+
+        } catch (AWTException e) {
+            e.printStackTrace();
+            throw new TestToolException("Error occurred while pressing sending and pressing enter to value: " + text);
+        }
+        return this;
+    }
+
+    /**
+     * Refresh the page by using Selenium Send Key Method
+     *
+     * @param element - web element
+     */
+    public HelperMethods refreshPageByWebElement(WebElement element) {
+        try {
+            doClick(element);
+            waitForClickability(element);
+            element.sendKeys(Keys.F5);
+            waitForVisibility(element);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new TestToolException("Error occurred while pressing refreshing the page with element: " + element + ": " + e.getCause());
+        }
+        return this;
+
+    }
+
+    /**
+     * Click on the web-element by using "Action Class"
+     *
+     * @param element - web element
+     */
+    public HelperMethods doClick(WebElement element) {
+        try {
+            waitForVisibility(element);
+            waitForClickability(element);
+            actions.moveToElement(element).pause(50).click(element).build().perform();
+        } catch (NoSuchContextException e) {
+            throw new TestToolException("Some exception occurred while clicking to the web element: " + element + ": " + e.getCause());
+
+        }
+        return this;
+    }
+
+    /**
+     * Move and Click the web-element by using "Action Class"
+     *
+     * @param element - web element
+     */
+
+    public HelperMethods moveToElementAndClick(WebElement element) {
+        try {
+            moveToElement(element);
+            doClick(element);
+
+        } catch (NoSuchElementException e) {
+            throw new TestToolException("Some exception occurred while moving or clicking to the web element: " + element + ": " + e.getCause());
+        }
+        return this;
+    }
+
+    /**
+     * Move to the defined web-element by using "Action Class"
+     *
+     * @param element - web element
+     */
+    public HelperMethods moveToElement(WebElement element) {
+        try {
+            actions.moveToElement(element).pause(Duration.ofMillis(1000)).build().perform();
+        } catch (NoSuchElementException e) {
+            throw new TestToolException("Some exception occurred while moving  to the web element: " + element + ": " + e.getCause());
+
+        }
+        return this;
+    }
+
+
+    /**
+     * Navigate to the page and wait till the page is loaded to avoid potential exception error
+     */
+    public HelperMethods navigateToBackPage() {
+        try {
+            driver.navigate().back();
+            getWaitObject();
+        } catch (NoSuchContextException e) {
+            throw new TestToolException("Some exception occurred while navigating the the page: " + driver.getCurrentUrl() + ": " + e.getCause());
+
+        }
+        return this;
     }
 
     /**
      * Set browser size to medium
      * Dimension can be modified from configuration.properties file
      */
-    public static void setBrowserSizeAsMedium() {
+    public HelperMethods setBrowserSizeAsMedium() {
         try {
             int width = Integer.parseInt(ConfigReader.getProperty("width"));
             int height = Integer.parseInt(ConfigReader.getProperty("height"));
@@ -334,12 +371,14 @@ public class HelperMethods {
         } catch (NoSuchContextException e) {
             throw new TestToolException("Some exception occurred while setting the window size " + ": " + e.getCause());
         }
+        return this;
     }
+
     /**
      * Set browser size to maximize
      * Dimension can be modified from configuration.properties file
      */
-    public static void setBrowserSizeToMaximize() {
+    public HelperMethods setBrowserSizeToMaximize() {
         try {
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(Constants.IMPLICIT_WAIT_TIME, TimeUnit.SECONDS);
@@ -347,9 +386,46 @@ public class HelperMethods {
         } catch (NoSuchContextException e) {
             throw new TestToolException("Some exception occurred while setting the window maximize " + ": " + e.getCause());
         }
-
+        return this;
     }
 
+    /**
+     * Close cookies if they are appeared during the test execution
+     */
+    public HelperMethods closeCookies() {
+        final String methodName = "MenuPage.closeCookies: ";
+        printInfoMethodStarted(methodName);
+        try {
+            if (driver.findElements(By.xpath("//*[@id='CybotCookiebotDialogBodyButtonAccept']")).size() == 1) {
+                clickElementByJS(acceptCookies);
+                printInfo(methodName + "are closed by clicking on the accept button!");
+            }
+            if (driver.findElements(By.xpath("//*[contains(@id,'leadinModal')]/div[2]/button")).size() == 1) {
+                clickElementByJS(closeTabOnCookies);
+                printInfo(methodName + " are disabled!");
+            }
+        } catch (TestToolException e) {
+            e.printStackTrace();
+            printInfo(methodName + "is failed: " + e.getCause());
+        }
+        printInfoMethodEnded(methodName);
+        return this;
+    }
+
+    /**
+     * Get Random int Number
+     *
+     * @param min - min value
+     * @param max - max value
+     * @return - random number in the range of min and max
+     */
+    public int getRandomNumberUsingNextInt(int min, int max) {
+        Random random = new Random();
+        return random.nextInt(max - min) + min;
+    }
 
 }
+
+
+
 

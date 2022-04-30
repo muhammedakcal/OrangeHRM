@@ -179,7 +179,6 @@ public class JavaScriptUtil {
     public static void checkPageIsReady(String methodName) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         if (js.executeScript("return document.readyState").toString().equals("complete")) {
-            HelperMethods.printInfo(methodName + " is loaded!");
         }
 
     }
