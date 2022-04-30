@@ -38,8 +38,7 @@ Feature: Assignment Part 2: Automate All The Listed Challenges
     When GateKeeper: I see the section with name: "<Section Name>"
     And GateKeeper: I see the icon "Plus" on defined section: "<Section Name>"
     And GateKeeper: I see the icon "Equals" on defined section: "<Section Name>"
-    Then GateKeeper: I execute a performance test by sending 10 different sorts of random data and verifying the results in less than 5 seconds on defined section: "<Section Name>"
-   # Then GateKeeper: I execute a performance test by sending 50 different sorts of random data and verifying the results in less than 55 seconds on defined section: "<Section Name>"
+    Then GateKeeper: I execute a performance test by sending 5 different sorts of random data and verifying the results in less than 10 seconds on defined section: "<Section Name>"
     And GateKeeper: I see the icon "Calculator" on defined section: "<Section Name>"
     Examples:
       | Section Name                                                                                     |

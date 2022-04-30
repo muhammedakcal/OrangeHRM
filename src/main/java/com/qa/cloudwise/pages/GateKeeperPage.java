@@ -348,9 +348,9 @@ public class GateKeeperPage {
         helperMethods.printInfo(timeDifferenceAfterPerformanceTest + " seconds passed after the peformance Test: ");
 
             if(timeDifferenceAfterPerformanceTest >= expectedTime) {
-                throw new TestToolException(methodName + " failed! [" + timeDifferenceAfterPerformanceTest + "] seconds took to verify "
-                        + numberOfData + " different sorts of random data->" +
-                        " [Expected Time: " + expectedTime + " seconds] -  [Actual Time: " + timeDifferenceAfterPerformanceTest + " seconds]!");
+                throw new TestToolException(methodName + "failed! [" + timeDifferenceAfterPerformanceTest + " seconds] took to verify "
+                        + numberOfData + " different sorts of random data ->" +
+                        " [Expected Time: " + expectedTime + " seconds] -  [Actual Time: " + timeDifferenceAfterPerformanceTest + " seconds]");
 
             }
     }
