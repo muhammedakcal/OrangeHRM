@@ -355,13 +355,7 @@ public class HelperMethods<statıc> {
             }else{
                 printInfo(methodName + " Cookie is not visible");
             }
-//            if (driver.findElements(By.xpath("//*[contains(@id,'leadinModal')]/div[2]/button")).size() >= 1) {
-//                closeTabOnCookies.click();
-//                printInfo(methodName + " are disabled!");
-//            }
-//            else{
-//                printInfo(methodName + " Cookie is not visible");
-//            }
+
         } catch (TestToolException e) {
             e.printStackTrace();
             printInfo(methodName + "is failed: " + e.getCause());
