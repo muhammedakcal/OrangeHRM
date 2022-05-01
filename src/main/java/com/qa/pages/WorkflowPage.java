@@ -34,9 +34,10 @@ public class WorkflowPage {
         return doGetText(sectionElement);
     }
     /**
-     * This function will visit each department and print duplicate names
+     * This function will visit each department and print duplicate or triplicate names
+     * @param condition - duplicate/triplicate
      */
-    public static void visitDepartmentsAndPrintDuplicateAndTriplicateNames(String condition) {
+    public static void visitDepartmentsAndPrintDuplicateOrTriplicateNames(String condition) {
         final String methodName = "WorkflowPage.visitDepartmentsAndPrintDuplicateNames: ";
         final By flipBox = By.xpath(".//a[@class='nectar-button large see-through']//span");
         final By department = By.xpath("//div[@class='flip-box-front']//h3");
@@ -60,7 +61,7 @@ public class WorkflowPage {
                 helperMethods.printInfo(departmentName + ": --> " + singleDepartmentEmployeeList).and().navigateToBackPage();
             }
 
-            findAndPrintDuplicateOrTriplicateNamesInTheList("duplicate",employeeListInCloudWise);
+            findAndPrintDuplicateOrTriplicateNamesInTheList(condition,employeeListInCloudWise);
             helperMethods.printInfo("").and().printInfoMethodEnded(methodName);
 
         } catch (Exception e) {

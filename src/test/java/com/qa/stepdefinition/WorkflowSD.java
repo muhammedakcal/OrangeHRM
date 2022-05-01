@@ -25,8 +25,8 @@ public class WorkflowSD {
      * @param condition - duplicate/triplicate
      */
     @And("^Workflow: I visit departments and print duplicate/triplicate: \"([^\"]*)\" employee names$")
-    public void bddvisitDepartmentsAndPrintDuplicateNamest(String condition) {
-        WorkflowPage.visitDepartmentsAndPrintDuplicateAndTriplicateNames(condition);
+    public void bddvisitDepartmentsAndPrintDuplicateOrTriplicateNames(String condition) {
+        WorkflowPage.visitDepartmentsAndPrintDuplicateOrTriplicateNames(condition);
     }
 
 
