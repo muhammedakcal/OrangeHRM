@@ -1,5 +1,4 @@
-package com.qa.cloudwise.base;
-
+package com.qa.base;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;

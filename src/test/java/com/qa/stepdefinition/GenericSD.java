@@ -1,11 +1,12 @@
-package com.qa.cloudwise.stepdefinitions;
+package com.qa.stepdefinition;
 
 
-import com.qa.cloudwise.utils.HelperMethods;
-import com.qa.cloudwise.utils.JavaScriptUtil;
+import com.qa.utils.HelperMethods;
+import com.qa.utils.JavaScriptUtil;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 
 
 import static org.junit.Assert.assertEquals;
@@ -18,16 +19,14 @@ public class GenericSD {
      */
     @Given("^Generic: I see the page title with name: \"([^\"]*)\"$")
     public void bddVerifyPageTitle(String expectedTitleName) {
-        assertEquals(HelperMethods.doGetPageTitle(), expectedTitleName);
-    }
+        Assert.assertEquals(HelperMethods.doGetPageTitle(), expectedTitleName);}
 
     /**
      * Scroll page down by 450 pixel
      */
     @When("^Generic: I scroll page down$")
     public void bddScrollPageDown() {
-        JavaScriptUtil.scrollPageDown();
-    }
+        JavaScriptUtil.scrollPageDown();}
 
     /**
      * Scroll page till the end
@@ -39,12 +38,10 @@ public class GenericSD {
 
     /**
      * Generate an alert
-     *
      * @param message - alert message
      */
     @And("^Generic: I generate a message with text: \"([^\"]*)\"$")
     public void bddGenerateAlertMessage(String message) {JavaScriptUtil.generateAlert(message);
-
 
     }
 }

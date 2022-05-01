@@ -1,11 +1,8 @@
-package com.qa.cloudwise.base;
-
-
-
-import com.qa.cloudwise.pages.GateKeeperPage;
-import com.qa.cloudwise.pages.MenuPage;
-import com.qa.cloudwise.pages.WaitingPage;
-import com.qa.cloudwise.pages.WorkflowPage;
+package com.qa.base;
+import com.qa.pages.GateKeeperPage;
+import com.qa.pages.MenuPage;
+import com.qa.pages.WaitingPage;
+import com.qa.pages.WorkflowPage;
 
 
 public class PageManager {

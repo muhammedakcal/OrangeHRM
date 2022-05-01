@@ -1,6 +1,6 @@
-package com.qa.cloudwise.testutilities;
+package com.qa.testutilities;
 
-import com.qa.cloudwise.base.PageManager;
+import com.qa.base.PageManager;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.qa.cloudwise.base.BasePage.driver;
+import static com.qa.base.BasePage.driver;
 
 public class TestUtil extends PageManager {
 

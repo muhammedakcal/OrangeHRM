@@ -1,7 +1,7 @@
-package com.qa.cloudwise.runners;
+package com.qa.runners;
 
-import com.qa.cloudwise.base.BasePage;
-import com.qa.cloudwise.testutilities.TestUtil;
+import com.qa.testutilities.TestUtil;
+import com.qa.base.BasePage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;

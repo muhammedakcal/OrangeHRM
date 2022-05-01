@@ -1,18 +1,12 @@
-package com.qa.cloudwise.base;
-
-
-import com.qa.cloudwise.utils.Constants;
+package com.qa.base;
+import com.qa.utils.Constants;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.opera.OperaDriver;
-
-
 import java.util.concurrent.TimeUnit;
 
 public class BasePage {
-
 
     public static boolean highlightElement;
     public static boolean drowBorderOnElement;

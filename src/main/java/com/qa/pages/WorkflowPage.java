@@ -1,32 +1,18 @@
-package com.qa.cloudwise.pages;
-
-
-import com.qa.cloudwise.TestToolException;
-import com.qa.cloudwise.utils.HelperMethods;
-import com.qa.cloudwise.utils.JavaScriptUtil;
+package com.qa.pages;
+import com.qa.utils.HelperMethods;
+import com.qa.utils.JavaScriptUtil;
+import com.qa.TestToolException;
 import org.openqa.selenium.By;
-
 import org.openqa.selenium.support.PageFactory;
-
 import java.util.*;
-
-
-import static com.qa.cloudwise.base.BasePage.driver;
-import static com.qa.cloudwise.utils.HelperMethods.*;
+import static com.qa.base.BasePage.driver;
 
 
 public class WorkflowPage {
-
     private static final List<String> employeeListInCloudWise = new ArrayList<>();
     public static HelperMethods helperMethods = new HelperMethods();
-
-
     public WorkflowPage() {
         PageFactory.initElements(driver, this);
-    }
-
-    private static String sectionXpathGenerator(String sectionName) {
-        return ".//div[h1='" + sectionName + "' or h2='" + sectionName + "' or h3='" + sectionName + "']";
     }
 
     /**
@@ -36,16 +22,13 @@ public class WorkflowPage {
      */
     public static void verifySectionVisibility(String sectionName) {
         final String methodName = "WorkflowPage.verifySectionVisibility: ";
-
         try {
             JavaScriptUtil.checkPageIsReady(methodName + sectionName);
             helperMethods.printInfoMethodStarted(methodName).and().printInfoMethodEnded(methodName);
-
         } catch (NoSuchElementException e) {
             throw new TestToolException("method + sectionName + failed!" + e.getCause());
         }
     }
-
     /**
      * This function will visit each department and print duplicate names
      */
@@ -70,16 +53,12 @@ public class WorkflowPage {
                     singleDepartmentEmployeeList.add((driver.findElements((employees)).get(y).getText()));
                     employeeListInCloudWise.add((driver.findElements(employees)).get(y).getText());
                 }
-
                 helperMethods.printInfo(departmentName + ": --> " + singleDepartmentEmployeeList).and().navigateToBackPage();
-
             }
-
-            findAndPrintDuplicateNamesInTheList(employeeListInCloudWise);
-            findAndPrintTriplicateNamesInTheList(employeeListInCloudWise);
+            HelperMethods.findAndPrintDuplicateNamesInTheList(employeeListInCloudWise);
+            HelperMethods.findAndPrintTriplicateNamesInTheList(employeeListInCloudWise);
             helperMethods.printInfo("").printInfoMethodEnded(methodName);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new TestToolException(methodName + " failed: " + e.getCause());
         }
 

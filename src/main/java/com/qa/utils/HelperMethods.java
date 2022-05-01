@@ -1,24 +1,18 @@
-package com.qa.cloudwise.utils;
-
+package com.qa.utils;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.*;
 
-
-import com.qa.cloudwise.base.ConfigReader;
-import com.qa.cloudwise.TestToolException;
+import com.qa.base.ConfigReader;
+import com.qa.TestToolException;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import static com.qa.cloudwise.base.BasePage.*;
-
-
+import static com.qa.base.BasePage.*;
 import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -27,19 +21,14 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 
-
-import static com.qa.cloudwise.utils.JavaScriptUtil.clickElementByJS;
-import static com.qa.cloudwise.utils.JavaScriptUtil.flash;
+import static com.qa.pages.WaitingPage.waitForSeconds;
 import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class HelperMethods<statıc> {
-
     @FindBy(xpath = "//*[@id='CybotCookiebotDialogBodyButtonAccept']")
     private static WebElement acceptCookies;
     @FindBy(xpath = "//*[contains(@id,'leadinModal')]/div[2]/button")
     private static WebElement closeTabOnCookies;
-
-
     public Actions actions = new Actions(driver);
     FluentWait<WebDriver> wait = new FluentWait<>(driver);
 
@@ -47,7 +36,6 @@ public class HelperMethods<statıc> {
      * Create Public and Useful Methods in order to use in "Pages Package"
      */
     public HelperMethods() {initElements(driver, this);}
-    public HelperMethods then() {return this;}
     public HelperMethods and() {return this;}
 
     /**
@@ -67,10 +55,10 @@ public class HelperMethods<statıc> {
         WebElement element = null;
 
         try {
-            getWaitObject();
+            JavaScriptUtil.helperMethods.waitForVisibility(driver.findElement(locator));
             element = driver.findElement(locator);
             if (highlightElement) {
-                flash(element);
+                JavaScriptUtil.flash(element);
             }
             if (drowBorderOnElement) {
                 JavaScriptUtil.drawBorder(element);
@@ -114,90 +102,71 @@ public class HelperMethods<statıc> {
             throw new TestToolException("Some exception occurred while navigating the the page: " + driver.getCurrentUrl() + ": " + e.getCause());
 
         }
-
     }
-
     /**
      * Get text from the element
-     *
      * @param element - web element
      * @return - element
      */
     public static String doGetText(WebElement element) {
         try {
+            if (highlightElement) {
+                JavaScriptUtil.flash(element);
+            }
+            if (drowBorderOnElement) {
+                JavaScriptUtil.drawBorder(element);
+            }
             return element.getText();
         } catch (NoSuchElementException e) {
             throw new TestToolException("Some exception occurred while getting the text from the element: " + element + ": " + e.getCause());
 
         }
     }
-
     /**
      * Find the duplicate names in the list
-     *
      * @param list - list name
      */
     public static void findAndPrintDuplicateNamesInTheList(List<String> list) {
-        Map<String, Long> frequencies = list.stream()
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-
+        Map<String, Long> frequencies = list.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
-
         //   filter only the inputs which have frequency equal to 2
-        frequencies.entrySet().stream()
-                .filter(entry -> entry.getValue() == 2)
-                .forEach(entry -> System.out.println("Duplicate Names: " + Collections.singletonList(entry.getKey())));
+        frequencies.entrySet().stream().filter(entry -> entry.getValue() == 2).forEach(entry -> System.out.println("Duplicate Names: " + Collections.singletonList(entry.getKey())));
         System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
-
     }
-
     /**
      * Find the triplicate names in the list
-     *
      * @param list - list name
      */
     public static void findAndPrintTriplicateNamesInTheList(List<String> list) {
-        Map<String, Long> frequencies = list.stream()
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        Map<String, Long> frequencies = list.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         //filter only the inputs which have frequency equal to 3
-        frequencies.entrySet().stream()
-                .filter(entry -> entry.getValue() == 3)
-                .forEach(entry -> System.out.println("Triplicate Names: " + Collections.singletonList(entry.getKey())));
+        frequencies.entrySet().stream().filter(entry -> entry.getValue() == 3).forEach(entry -> System.out.println("Triplicate Names: " + Collections.singletonList(entry.getKey())));
         System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
-
-
     }
-
-
     /**
      * Print "System.out.println" in a shorter way
-     *
      * @param line - line that will be printed
      */
     public HelperMethods printInfo(Object line) {System.out.println(line);return this;}
 
     /**
      * Print system.info in a shorter way to define that the functional operation is started!
-     *
      * @param line - line that will be printed
      */
     public HelperMethods printInfoMethodStarted(Object line) {System.out.println(line + "start!");return this;}
 
     /**
      * Print system.info in a shorter way to declare that the functional operation is ended!
-     *
      * @param line - line that will be printed
      */
     public HelperMethods printInfoMethodEnded(Object line) {System.out.println(line + "end!");return this;}
 
     /**
      * Wait until the element is presented
-     *
      * @param element - web element
      */
     public HelperMethods waitForVisibility(WebElement element) {
         try {
-
             final FluentWait<WebDriver> webDriverFluentWait = wait.withTimeout(5000, TimeUnit.MILLISECONDS);
             webDriverFluentWait.pollingEvery(250, TimeUnit.MILLISECONDS);
             wait.ignoring(NoSuchElementException.class);
@@ -222,27 +191,22 @@ public class HelperMethods<statıc> {
             wait.ignoring(NoSuchElementException.class);
             wait.ignoring(TimeoutException.class);
             wait.until(ExpectedConditions.elementToBeClickable(element));
-
         } catch (NoSuchElementException e) {
             throw new TestToolException(element + " is not clickable!");
         }
         return this;
     }
-
     /**
      * Send text to the element
-     *
      * @param element - web element
      * @param text    - text
      */
     public HelperMethods sendText(WebElement element, String text) {
         try {
             doClick(element);
-            waitForClickability(element);
             element.clear();
-            waitForClickability(element);
+            printInfo( text + " has been sent to the element: " + doGetText(element));
             element.sendKeys(text);
-            waitForVisibility(element);
         } catch (NoSuchElementException e) {
             throw new TestToolException("Some exception got occurred while getting the web element: " + element + ": " + e.getCause());
         }
@@ -252,7 +216,6 @@ public class HelperMethods<statıc> {
 
     /**
      * Send text and press Enter by using Robot Class
-     *
      * @param element - web element
      * @param text    - text
      */
@@ -263,13 +226,11 @@ public class HelperMethods<statıc> {
             element.click();
             element.clear();
             element.sendKeys(text);
+            waitForClickability(element);
             robot.keyPress(KeyEvent.VK_ENTER);
-            getWaitObject();
+            waitForClickability(element);
             robot.keyRelease(KeyEvent.VK_ENTER);
-            getWaitObject();
-
         } catch (AWTException e) {
-            e.printStackTrace();
             throw new TestToolException("Error occurred while pressing sending and pressing enter to value: " + text);
         }
         return this;
@@ -283,11 +244,9 @@ public class HelperMethods<statıc> {
     public HelperMethods refreshPageByWebElement(WebElement element) {
         try {
             doClick(element);
-            waitForClickability(element);
             element.sendKeys(Keys.F5);
             waitForVisibility(element);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new TestToolException("Error occurred while pressing refreshing the page with element: " + element + ": " + e.getCause());
         }
         return this;
@@ -296,24 +255,21 @@ public class HelperMethods<statıc> {
 
     /**
      * Click on the web-element by using "Action Class"
-     *
      * @param element - web element
      */
     public HelperMethods doClick(WebElement element) {
         try {
             waitForVisibility(element);
             waitForClickability(element);
-            actions.moveToElement(element).pause(50).click(element).build().perform();
+            actions.click(element).build().perform();
         } catch (NoSuchContextException e) {
             throw new TestToolException("Some exception occurred while clicking to the web element: " + element + ": " + e.getCause());
 
         }
         return this;
     }
-
     /**
      * Move and Click the web-element by using "Action Class"
-     *
      * @param element - web element
      */
 
@@ -327,10 +283,8 @@ public class HelperMethods<statıc> {
         }
         return this;
     }
-
     /**
      * Move to the defined web-element by using "Action Class"
-     *
      * @param element - web element
      */
     public HelperMethods moveToElement(WebElement element) {
@@ -342,8 +296,6 @@ public class HelperMethods<statıc> {
         }
         return this;
     }
-
-
     /**
      * Navigate to the page and wait till the page is loaded to avoid potential exception error
      */
@@ -396,14 +348,20 @@ public class HelperMethods<statıc> {
         final String methodName = "MenuPage.closeCookies: ";
         printInfoMethodStarted(methodName);
         try {
-            if (driver.findElements(By.xpath("//*[@id='CybotCookiebotDialogBodyButtonAccept']")).size() == 1) {
-                clickElementByJS(acceptCookies);
+            if (driver.findElements(By.xpath("//*[@id='CybotCookiebotDialogBodyButtonAccept']")).size() >= 1) {
+                JavaScriptUtil.clickElementByJS(acceptCookies);
+                waitForSeconds(3);
                 printInfo(methodName + "are closed by clicking on the accept button!");
+            }else{
+                printInfo(methodName + " Cookie is not visible");
             }
-            if (driver.findElements(By.xpath("//*[contains(@id,'leadinModal')]/div[2]/button")).size() == 1) {
-                clickElementByJS(closeTabOnCookies);
-                printInfo(methodName + " are disabled!");
-            }
+//            if (driver.findElements(By.xpath("//*[contains(@id,'leadinModal')]/div[2]/button")).size() >= 1) {
+//                closeTabOnCookies.click();
+//                printInfo(methodName + " are disabled!");
+//            }
+//            else{
+//                printInfo(methodName + " Cookie is not visible");
+//            }
         } catch (TestToolException e) {
             e.printStackTrace();
             printInfo(methodName + "is failed: " + e.getCause());
@@ -414,7 +372,6 @@ public class HelperMethods<statıc> {
 
     /**
      * Get Random int Number
-     *
      * @param min - min value
      * @param max - max value
      * @return - random number in the range of min and max
