@@ -38,123 +38,8 @@ public class HelperMethods<statıc> {
     /**
      * Create Public and Useful Methods in order to use in "Pages Package"
      */
-    public HelperMethods() {
-        initElements(driver, this);
-    }
+    public HelperMethods() {initElements(driver, this);}
 
-    /**
-     * General Selenium Wait that can be modified in Constants by changing the "EXPLICIT_WAIT_TIME"
-     *
-     * @return - web element
-     */
-    public static WebDriverWait getWaitObject() {
-        return new WebDriverWait(driver, Constants.EXPLICIT_WAIT_TIME);
-    }
-
-    /**
-     * Get Element and use flash and draw if it's selected as 'yes' in the configuration.properties file
-     *
-     * @param locator - web element locator
-     * @return - locator
-     */
-    public static WebElement getElement(By locator) {
-        WebElement element = null;
-
-        try {
-            JavaScriptUtil.helperMethods.waitForVisibility(driver.findElement(locator));
-            element = driver.findElement(locator);
-            if (highlightElement) {
-                JavaScriptUtil.flash(element);
-            }
-            if (drowBorderOnElement) {
-                JavaScriptUtil.drawBorder(element);
-            }
-
-        } catch (NoSuchElementException e) {
-            throw new TestToolException("Some exception got occurred while getting the web element: " + element + ": " + e.getCause());
-        }
-
-        return element;
-    }
-
-    /**
-     * Get Element and use flash and draw if it's selected as 'yes' in the configuration.properties file
-     *
-     * @return - locator
-     */
-    public static By getXpath(String webELementName) {
-        return By.xpath(webELementName);
-    }
-
-    /**
-     * Get Page Title
-     */
-    public static String doGetPageTitle() {
-        try {
-            return driver.getTitle();
-        } catch (NoSuchContextException e) {
-            throw new TestToolException("Some exception occurred while getting the page title: " + e.getCause());
-
-        }
-    }
-
-    /**
-     * Navigate to the page and wait till the page is loaded to avoid potential exception error
-     */
-
-    public static void navigateToPage(String URL) {
-        try {
-            driver.navigate().to(URL);
-            driver.manage().timeouts().pageLoadTimeout(Constants.PAGE_LOAD_WAIT_TIME, TimeUnit.MILLISECONDS);
-        } catch (NoSuchContextException e) {
-            throw new TestToolException("Some exception occurred while navigating the the page: " + driver.getCurrentUrl() + ": " + e.getCause());
-
-        }
-    }
-
-    /**
-     * Get text from the element
-     *
-     * @param element - web element
-     * @return - element
-     */
-    public static String doGetText(WebElement element) {
-        try {
-            if (highlightElement) {
-                JavaScriptUtil.flash(element);
-            }
-            if (drowBorderOnElement) {
-                JavaScriptUtil.drawBorder(element);
-            }
-            return element.getText();
-        } catch (NoSuchElementException e) {
-            throw new TestToolException("Some exception occurred while getting the text from the element: " + element + ": " + e.getCause());
-
-        }
-    }
-
-    /**
-     * Find the duplicate/triplicate names in the list
-     *
-     * @param list - list name
-     */
-    public static void findAndPrintDuplicateOrTriplicateNamesInTheList(String condition, List<String> list) {
-        int filterValue;
-        if (condition.equalsIgnoreCase("duplicate")) {
-            filterValue = 2;
-        } else if (condition.equalsIgnoreCase("triplicate")) {
-            filterValue = 3;
-        } else {
-            throw new TestToolException("Condition should be duplicate or triplicate --> " + condition);
-        }
-
-        Map<String, Long> frequencies = list.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
-        //   filter only the inputs which have frequency equal to filterValue
-        frequencies.entrySet().stream().filter(entry -> entry.getValue() ==
-                filterValue).forEach(entry -> System.out.println(condition + " names: " + Collections.singletonList(entry.getKey())));
-        System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
-    }
 
     public HelperMethods and() {
         return this;
@@ -401,6 +286,121 @@ public class HelperMethods<statıc> {
         }
         printInfoMethodEnded(methodName);
         return this;
+    }
+
+
+    /**
+     * General Selenium Wait that can be modified in Constants by changing the "EXPLICIT_WAIT_TIME"
+     *
+     * @return - web element
+     */
+    public static WebDriverWait getWaitObject() {
+        return new WebDriverWait(driver, Constants.EXPLICIT_WAIT_TIME);
+    }
+
+    /**
+     * Get Element and use flash and draw if it's selected as 'yes' in the configuration.properties file
+     *
+     * @param locator - web element locator
+     * @return - locator
+     */
+    public static WebElement getElement(By locator) {
+        WebElement element = null;
+
+        try {
+            JavaScriptUtil.helperMethods.waitForVisibility(driver.findElement(locator));
+            element = driver.findElement(locator);
+            if (highlightElement) {
+                JavaScriptUtil.flash(element);
+            }
+            if (drowBorderOnElement) {
+                JavaScriptUtil.drawBorder(element);
+            }
+
+        } catch (NoSuchElementException e) {
+            throw new TestToolException("Some exception got occurred while getting the web element: " + element + ": " + e.getCause());
+        }
+
+        return element;
+    }
+
+    /**
+     * Get Element and use flash and draw if it's selected as 'yes' in the configuration.properties file
+     *
+     * @return - locator
+     */
+    public static By getXpath(String webELementName) {
+        return By.xpath(webELementName);
+    }
+
+    /**
+     * Get Page Title
+     */
+    public static String doGetPageTitle() {
+        try {
+            return driver.getTitle();
+        } catch (NoSuchContextException e) {
+            throw new TestToolException("Some exception occurred while getting the page title: " + e.getCause());
+
+        }
+    }
+
+    /**
+     * Navigate to the page and wait till the page is loaded to avoid potential exception error
+     */
+
+    public static void navigateToPage(String URL) {
+        try {
+            driver.navigate().to(URL);
+            driver.manage().timeouts().pageLoadTimeout(Constants.PAGE_LOAD_WAIT_TIME, TimeUnit.MILLISECONDS);
+        } catch (NoSuchContextException e) {
+            throw new TestToolException("Some exception occurred while navigating the the page: " + driver.getCurrentUrl() + ": " + e.getCause());
+
+        }
+    }
+
+    /**
+     * Get text from the element
+     *
+     * @param element - web element
+     * @return - element
+     */
+    public static String doGetText(WebElement element) {
+        try {
+            if (highlightElement) {
+                JavaScriptUtil.flash(element);
+            }
+            if (drowBorderOnElement) {
+                JavaScriptUtil.drawBorder(element);
+            }
+            return element.getText();
+        } catch (NoSuchElementException e) {
+            throw new TestToolException("Some exception occurred while getting the text from the element: " + element + ": " + e.getCause());
+
+        }
+    }
+
+    /**
+     * Find the duplicate/triplicate names in the list
+     *
+     * @param list - list name
+     */
+    public static void findAndPrintDuplicateOrTriplicateNamesInTheList(String condition, List<String> list) {
+        int filterValue;
+        if (condition.equalsIgnoreCase("duplicate")) {
+            filterValue = 2;
+        } else if (condition.equalsIgnoreCase("triplicate")) {
+            filterValue = 3;
+        } else {
+            throw new TestToolException("Condition should be duplicate or triplicate --> " + condition);
+        }
+
+        Map<String, Long> frequencies = list.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
+        //   filter only the inputs which have frequency equal to filterValue
+        frequencies.entrySet().stream().filter(entry -> entry.getValue() ==
+                filterValue).forEach(entry -> System.out.println(condition + " names: " + Collections.singletonList(entry.getKey())));
+        System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
     }
 
     /**
