@@ -1,6 +1,7 @@
 package com.qa.stepdefinition;
 
 
+import com.qa.pages.WaitingPage;
 import com.qa.utils.HelperMethods;
 import com.qa.utils.JavaScriptUtil;
 import io.cucumber.java.en.And;
@@ -37,11 +38,11 @@ public class GenericSD {
     }
 
     /**
-     * Generate an alert
-     * @param message - alert message
+     * Wait for a certain number of seconds
+     * @param time - seconds
      */
-    @And("^Generic: I generate a message with text: \"([^\"]*)\"$")
-    public void bddGenerateAlertMessage(String message) {JavaScriptUtil.generateAlert(message);
+    @And("Generic: I wait for {int} seconds")
+    public void bddGenerateAlertMessage(Integer time) {WaitingPage.waitForSeconds(time);
 
     }
 }

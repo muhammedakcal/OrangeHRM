@@ -123,26 +123,27 @@ public class HelperMethods<statıc> {
         }
     }
     /**
-     * Find the duplicate names in the list
+     * Find the duplicate/triplicate names in the list
      * @param list - list name
      */
-    public static void findAndPrintDuplicateNamesInTheList(List<String> list) {
+    public static void findAndPrintDuplicateOrTriplicateNamesInTheList(String condition,List<String> list) {
+        int filterValue;
+        if(condition.equalsIgnoreCase("duplicate")){
+            filterValue=2;
+        }else if(condition.equalsIgnoreCase("triplicate")){
+            filterValue=3;
+        }else{
+            throw new TestToolException("Condition should be duplicate or triplicate --> " + condition);
+        }
+
         Map<String, Long> frequencies = list.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
-        //   filter only the inputs which have frequency equal to 2
-        frequencies.entrySet().stream().filter(entry -> entry.getValue() == 2).forEach(entry -> System.out.println("Duplicate Names: " + Collections.singletonList(entry.getKey())));
+        //   filter only the inputs which have frequency equal to filterValue
+        frequencies.entrySet().stream().filter(entry -> entry.getValue() ==
+                filterValue).forEach(entry -> System.out.println(condition + " names: " + Collections.singletonList(entry.getKey())));
         System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
     }
-    /**
-     * Find the triplicate names in the list
-     * @param list - list name
-     */
-    public static void findAndPrintTriplicateNamesInTheList(List<String> list) {
-        Map<String, Long> frequencies = list.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        //filter only the inputs which have frequency equal to 3
-        frequencies.entrySet().stream().filter(entry -> entry.getValue() == 3).forEach(entry -> System.out.println("Triplicate Names: " + Collections.singletonList(entry.getKey())));
-        System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
-    }
+
     /**
      * Print "System.out.println" in a shorter way
      * @param line - line that will be printed

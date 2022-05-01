@@ -141,14 +141,7 @@ public class JavaScriptUtil {
         JavascriptExecutor js = ((JavascriptExecutor) driver);
         js.executeScript("document.getElementByName('" + name + "').value='" + value + "'");
     }
-    /**
-     * Check if the page is ready
-     * @param methodName - method name to be added into the print message to identify the elements during or after the test execution
-     */
-    public static void checkPageIsReady(String methodName) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        if (js.executeScript("return document.readyState").toString().equals("complete")) {
-        }
+
 
     }
-}
+

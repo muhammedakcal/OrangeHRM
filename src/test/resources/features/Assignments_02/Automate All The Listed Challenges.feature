@@ -7,12 +7,6 @@ Feature: Assignment Part 2: Automate All The Listed Challenges
   Background: User is in the Gatekeeper Page
     Given Menu: I navigate to the page: "https://gatekeeper.codeshake.dev/test"
 
-  @VerifyCompanyAddress
-  Scenario: Verify Company Address:
-    Given Generic: I see the page title with name: "Gatekeeper"
-    And GateKeeper: I see the section with name: "Please extract and verify our address to the following:"
-    Then GateKeeper: I extract and verify the address with text: "Vefabey Sokak, No:16 D:11, 34349, Gayrettepe/Istanbul/Turkey"
-
   @DefeatCosts
   Scenario: Open the pop-up, and then defeat it all cost!
     Given Generic: I see the page title with name: "Gatekeeper"
@@ -20,6 +14,12 @@ Feature: Assignment Part 2: Automate All The Listed Challenges
     When GateKeeper: I see 9 thermal exhaust ports in the main port
     And GateKeeper: I defeat the cost in the thermal exhaust port
     Then GateKeeper: I defeat the cost for 30 times, and print out the ports information
+
+  @VerifyCompanyAddress
+  Scenario: Verify Company Address:
+    Given Generic: I see the page title with name: "Gatekeeper"
+    When GateKeeper: I see the section with name: "Please extract and verify our address to the following:"
+    Then GateKeeper: I extract and verify the address with text: "Vefabey Sokak, No:16 D:11, 34349, Gayrettepe/Istanbul/Turkey"
 
   @VerifyUnicorn
   Scenario: Use the following search unicorn field and assert that it is found

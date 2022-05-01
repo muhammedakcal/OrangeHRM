@@ -32,7 +32,9 @@ public class MenuPage {
         try {
             helperMethods.closeCookies().doClick(menuNavigator);
             WebElement languageElement = getElement(getXpath(languageFlagXpath));
-            helperMethods.waitForClickability(languageElement).doClick(languageElement).setBrowserSizeToMaximize().printInfoMethodEnded(methodName);
+            helperMethods.waitForClickability(languageElement).doClick(languageElement)
+                    .and().setBrowserSizeToMaximize().printInfoMethodEnded(methodName);
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new TestToolException(methodName + " failed! " + e.getCause());
@@ -55,8 +57,10 @@ public class MenuPage {
             menuXpath = "//*[@id='mobile-menu']/div/ul/li//a[normalize-space()='" + menuOption + "']";
         }
         try {
-            helperMethods.printInfoMethodStarted(methodName).setBrowserSizeAsMedium().doClick(menuNavigator).doClick(getElement(getXpath(menuIconAngleDownXpath)))
-                    .and().moveToElementAndClick(getElement(getXpath(menuXpath))).setBrowserSizeToMaximize().printInfoMethodEnded(methodName);
+            helperMethods.printInfoMethodStarted(methodName).setBrowserSizeAsMedium().doClick(menuNavigator)
+                    .and().doClick(getElement(getXpath(menuIconAngleDownXpath))).moveToElementAndClick(getElement(getXpath(menuXpath)))
+                    .and().setBrowserSizeToMaximize().printInfoMethodEnded(methodName);
+
         } catch (TestToolException e) {
             e.printStackTrace();
             throw new TestToolException(methodName + "is failed: " + e.getCause());
@@ -68,9 +72,11 @@ public class MenuPage {
     public static void navigateToBackPage() {
         final String methodName = "MenuPage.navigatingToBackPage: ";
         try {
-            helperMethods.printInfoMethodStarted(methodName).and().navigateToBackPage().printInfoMethodEnded(methodName);
-            JavaScriptUtil.checkPageIsReady(methodName + "Page Title: " + doGetPageTitle() + "Page Url: " + driver.getCurrentUrl() + ": ");
+            helperMethods.printInfoMethodStarted(methodName).navigateToBackPage()
+                    .and().printInfoMethodEnded(methodName);
+
         } catch (TestToolException e) {
+
             throw new TestToolException(methodName + "is failed: " + e.getCause());
         }
 

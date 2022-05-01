@@ -56,7 +56,7 @@ public class GateKeeperPageSD {
      * Defeat/Click & Cost/Element which will be presented in the popup
      */
     @And("^GateKeeper: I defeat the cost in the thermal exhaust port$")
-    public void bddDefeatCostInTheThermalExhaustPort() {GateKeeperPage.defeatCostInTheThermalExhaustPort();}
+    public void bddDefeatCostInTheThermalExhaustPort() {GateKeeperPage.defeatCostInTheThermalExhaustPort(1);}
 
     /**
      * Performance/ Functional Method to defeat cost as much as wanted in the function

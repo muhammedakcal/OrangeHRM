@@ -3,9 +3,11 @@ import com.qa.utils.HelperMethods;
 import com.qa.utils.JavaScriptUtil;
 import com.qa.TestToolException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import java.util.*;
 import static com.qa.base.BasePage.driver;
+import static com.qa.utils.HelperMethods.*;
 
 
 public class WorkflowPage {
@@ -16,23 +18,25 @@ public class WorkflowPage {
     }
 
     /**
-     * Verify if the section is visible
-     *
+     * Get text from Section
      * @param sectionName - that will be using in the x-path to verify section
      */
-    public static void verifySectionVisibility(String sectionName) {
+    public static String getTextFromTabSection(String sectionName) {
         final String methodName = "WorkflowPage.verifySectionVisibility: ";
+        final String sectionXpath = "//h1[normalize-space()='" + sectionName + "']";
+        WebElement sectionElement;
         try {
-            JavaScriptUtil.checkPageIsReady(methodName + sectionName);
+            sectionElement = getElement(getXpath(sectionXpath));
             helperMethods.printInfoMethodStarted(methodName).and().printInfoMethodEnded(methodName);
         } catch (NoSuchElementException e) {
             throw new TestToolException("method + sectionName + failed!" + e.getCause());
         }
+        return doGetText(sectionElement);
     }
     /**
      * This function will visit each department and print duplicate names
      */
-    public static void visitDepartmentsAndPrintDuplicateNames() {
+    public static void visitDepartmentsAndPrintDuplicateAndTriplicateNames(String condition) {
         final String methodName = "WorkflowPage.visitDepartmentsAndPrintDuplicateNames: ";
         final By flipBox = By.xpath(".//a[@class='nectar-button large see-through']//span");
         final By department = By.xpath("//div[@class='flip-box-front']//h3");
@@ -55,9 +59,10 @@ public class WorkflowPage {
                 }
                 helperMethods.printInfo(departmentName + ": --> " + singleDepartmentEmployeeList).and().navigateToBackPage();
             }
-            HelperMethods.findAndPrintDuplicateNamesInTheList(employeeListInCloudWise);
-            HelperMethods.findAndPrintTriplicateNamesInTheList(employeeListInCloudWise);
-            helperMethods.printInfo("").printInfoMethodEnded(methodName);
+
+            findAndPrintDuplicateOrTriplicateNamesInTheList("duplicate",employeeListInCloudWise);
+            helperMethods.printInfo("").and().printInfoMethodEnded(methodName);
+
         } catch (Exception e) {
             throw new TestToolException(methodName + " failed: " + e.getCause());
         }
