@@ -173,7 +173,6 @@ public class HelperMethods<statıc> {
 
     /**
      * Click on the web-element by using "Action Class"
-     *
      * @param element - web element
      */
     public HelperMethods doClick(WebElement element) {
@@ -190,7 +189,6 @@ public class HelperMethods<statıc> {
 
     /**
      * Move and Click the web-element by using "Action Class"
-     *
      * @param element - web element
      */
 
@@ -207,7 +205,6 @@ public class HelperMethods<statıc> {
 
     /**
      * Move to the defined web-element by using "Action Class"
-     *
      * @param element - web element
      */
     public HelperMethods moveToElement(WebElement element) {
@@ -291,8 +288,6 @@ public class HelperMethods<statıc> {
 
     /**
      * General Selenium Wait that can be modified in Constants by changing the "EXPLICIT_WAIT_TIME"
-     *
-     * @return - web element
      */
     public static WebDriverWait getWaitObject() {
         return new WebDriverWait(driver, Constants.EXPLICIT_WAIT_TIME);
@@ -300,7 +295,6 @@ public class HelperMethods<statıc> {
 
     /**
      * Get Element and use flash and draw if it's selected as 'yes' in the configuration.properties file
-     *
      * @param locator - web element locator
      * @return - locator
      */
@@ -326,7 +320,6 @@ public class HelperMethods<statıc> {
 
     /**
      * Get Element and use flash and draw if it's selected as 'yes' in the configuration.properties file
-     *
      * @return - locator
      */
     public static By getXpath(String webELementName) {
@@ -361,7 +354,6 @@ public class HelperMethods<statıc> {
 
     /**
      * Get text from the element
-     *
      * @param element - web element
      * @return - element
      */
@@ -382,7 +374,6 @@ public class HelperMethods<statıc> {
 
     /**
      * Find the duplicate/triplicate names in the list
-     *
      * @param list - list name
      */
     public static void findAndPrintDuplicateOrTriplicateNamesInTheList(String condition, List<String> list) {
@@ -405,7 +396,6 @@ public class HelperMethods<statıc> {
 
     /**
      * Get Random int Number
-     *
      * @param min - min value
      * @param max - max value
      * @return - random number in the range of min and max
