@@ -1,4 +1,5 @@
 package com.qa.utils;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.*;
@@ -12,7 +13,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import static com.qa.base.BasePage.*;
+
 import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -35,15 +38,18 @@ public class HelperMethods<statıc> {
     /**
      * Create Public and Useful Methods in order to use in "Pages Package"
      */
-    public HelperMethods() {initElements(driver, this);}
-    public HelperMethods and() {return this;}
+    public HelperMethods() {
+        initElements(driver, this);
+    }
 
     /**
      * General Selenium Wait that can be modified in Constants by changing the "EXPLICIT_WAIT_TIME"
      *
      * @return - web element
      */
-    public static WebDriverWait getWaitObject() {return new WebDriverWait(driver, Constants.EXPLICIT_WAIT_TIME);}
+    public static WebDriverWait getWaitObject() {
+        return new WebDriverWait(driver, Constants.EXPLICIT_WAIT_TIME);
+    }
 
     /**
      * Get Element and use flash and draw if it's selected as 'yes' in the configuration.properties file
@@ -76,7 +82,9 @@ public class HelperMethods<statıc> {
      *
      * @return - locator
      */
-    public static By getXpath(String webELementName) {return By.xpath(webELementName);}
+    public static By getXpath(String webELementName) {
+        return By.xpath(webELementName);
+    }
 
     /**
      * Get Page Title
@@ -103,8 +111,10 @@ public class HelperMethods<statıc> {
 
         }
     }
+
     /**
      * Get text from the element
+     *
      * @param element - web element
      * @return - element
      */
@@ -122,17 +132,19 @@ public class HelperMethods<statıc> {
 
         }
     }
+
     /**
      * Find the duplicate/triplicate names in the list
+     *
      * @param list - list name
      */
-    public static void findAndPrintDuplicateOrTriplicateNamesInTheList(String condition,List<String> list) {
+    public static void findAndPrintDuplicateOrTriplicateNamesInTheList(String condition, List<String> list) {
         int filterValue;
-        if(condition.equalsIgnoreCase("duplicate")){
-            filterValue=2;
-        }else if(condition.equalsIgnoreCase("triplicate")){
-            filterValue=3;
-        }else{
+        if (condition.equalsIgnoreCase("duplicate")) {
+            filterValue = 2;
+        } else if (condition.equalsIgnoreCase("triplicate")) {
+            filterValue = 3;
+        } else {
             throw new TestToolException("Condition should be duplicate or triplicate --> " + condition);
         }
 
@@ -144,26 +156,43 @@ public class HelperMethods<statıc> {
         System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
     }
 
+    public HelperMethods and() {
+        return this;
+    }
+
     /**
      * Print "System.out.println" in a shorter way
+     *
      * @param line - line that will be printed
      */
-    public HelperMethods printInfo(Object line) {System.out.println(line);return this;}
+    public HelperMethods printInfo(Object line) {
+        System.out.println(line);
+        return this;
+    }
 
     /**
      * Print system.info in a shorter way to define that the functional operation is started!
+     *
      * @param line - line that will be printed
      */
-    public HelperMethods printInfoMethodStarted(Object line) {System.out.println(line + "start!");return this;}
+    public HelperMethods printInfoMethodStarted(Object line) {
+        System.out.println(line + "start!");
+        return this;
+    }
 
     /**
      * Print system.info in a shorter way to declare that the functional operation is ended!
+     *
      * @param line - line that will be printed
      */
-    public HelperMethods printInfoMethodEnded(Object line) {System.out.println(line + "end!");return this;}
+    public HelperMethods printInfoMethodEnded(Object line) {
+        System.out.println(line + "end!");
+        return this;
+    }
 
     /**
      * Wait until the element is presented
+     *
      * @param element - web element
      */
     public HelperMethods waitForVisibility(WebElement element) {
@@ -197,8 +226,10 @@ public class HelperMethods<statıc> {
         }
         return this;
     }
+
     /**
      * Send text to the element
+     *
      * @param element - web element
      * @param text    - text
      */
@@ -206,7 +237,7 @@ public class HelperMethods<statıc> {
         try {
             doClick(element);
             element.clear();
-            printInfo( text + " has been sent to the element: " + doGetText(element));
+            printInfo(text + " has been sent to the element: " + doGetText(element));
             element.sendKeys(text);
         } catch (NoSuchElementException e) {
             throw new TestToolException("Some exception got occurred while getting the web element: " + element + ": " + e.getCause());
@@ -217,6 +248,7 @@ public class HelperMethods<statıc> {
 
     /**
      * Send text and press Enter by using Robot Class
+     *
      * @param element - web element
      * @param text    - text
      */
@@ -238,7 +270,7 @@ public class HelperMethods<statıc> {
     }
 
     /**
-     * Refresh the page by using Selenium Send Key Method
+     * Refresh the page by using Selenium Send Keys Method
      *
      * @param element - web element
      */
@@ -256,6 +288,7 @@ public class HelperMethods<statıc> {
 
     /**
      * Click on the web-element by using "Action Class"
+     *
      * @param element - web element
      */
     public HelperMethods doClick(WebElement element) {
@@ -269,8 +302,10 @@ public class HelperMethods<statıc> {
         }
         return this;
     }
+
     /**
      * Move and Click the web-element by using "Action Class"
+     *
      * @param element - web element
      */
 
@@ -284,8 +319,10 @@ public class HelperMethods<statıc> {
         }
         return this;
     }
+
     /**
      * Move to the defined web-element by using "Action Class"
+     *
      * @param element - web element
      */
     public HelperMethods moveToElement(WebElement element) {
@@ -297,6 +334,7 @@ public class HelperMethods<statıc> {
         }
         return this;
     }
+
     /**
      * Navigate to the page and wait till the page is loaded to avoid potential exception error
      */
@@ -353,7 +391,7 @@ public class HelperMethods<statıc> {
                 JavaScriptUtil.clickElementByJS(acceptCookies);
                 waitForSeconds(3);
                 printInfo(methodName + "are closed by clicking on the accept button!");
-            }else{
+            } else {
                 printInfo(methodName + " Cookie is not visible");
             }
 
@@ -367,6 +405,7 @@ public class HelperMethods<statıc> {
 
     /**
      * Get Random int Number
+     *
      * @param min - min value
      * @param max - max value
      * @return - random number in the range of min and max
