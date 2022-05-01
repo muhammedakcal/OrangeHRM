@@ -5,6 +5,8 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.testng.Assert;
+
 import java.util.List;
 import java.util.Map;
 
@@ -12,11 +14,12 @@ public class GateKeeperPageSD {
 
     /**
      * Get text from the field in the page and assert with the expected value
-     * @param address - which is located on gatekeeper page
+     * @param expectedAddress - expected address which is located in the page
      */
     @Given("^GateKeeper: I extract and verify the address with text: \"([^\"]*)\"$")
-    public void bddVerifyTextIsLocatedOnFieldPage(String address) {
-     GateKeeperPage.extractAddressAndVerify(address);
+    public void bddVerifyTextIsLocatedOnFieldPage(String expectedAddress) {
+        Assert.assertEquals(expectedAddress ,GateKeeperPage.extractAddress());
+
     }
 
     /**

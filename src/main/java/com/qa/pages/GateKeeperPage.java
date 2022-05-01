@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import java.util.*;
 import static com.qa.base.BasePage.driver;
+import static com.qa.utils.HelperMethods.getElement;
 import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class GateKeeperPage {
@@ -43,7 +44,7 @@ public class GateKeeperPage {
         if (iconName.equalsIgnoreCase("Calculator")) {
             iconName = iconName + "-alt";
         }
-        return HelperMethods.getElement(By.xpath("//i[@class='fal fa-" + iconName.toLowerCase(Locale.ROOT) + "']"));
+        return getElement(By.xpath("//i[@class='fal fa-" + iconName.toLowerCase(Locale.ROOT) + "']"));
     }
     /**
      * X path Generator For Section Element
@@ -51,7 +52,7 @@ public class GateKeeperPage {
      * @return - Customized x path
      */
     private static WebElement section(String sectionName) {
-        return HelperMethods.getElement(By.xpath("//p[contains(text(),'" + sectionName + "')]"));
+        return getElement(By.xpath("//p[contains(text(),'" + sectionName + "')]"));
     }
     /**
      * Verify Section Name
@@ -79,19 +80,19 @@ public class GateKeeperPage {
         }
     }
     /**
-     * Get text from the field in the page
-     * @param address - text name
+     * Extract address from Gatekeeper Page
      * @return - text
      */
-    public static String extractAddressAndVerify(String address) {
+    public static String extractAddress() {
         final String methodName = "GateKeeperPage.getTextFromFieldInPage: ";
-        final String addressXpath = ".//span[not (contains(@class, 'color')) and contains(text(),'" + address + "')]";
+        final String addressXpath = "//span[contains(text(),'Vefabey Sokak, No:16 D:11, 34349, Gayrettepe/Istan')]";
         try {
-            helperMethods.printInfoMethodStarted(methodName).waitForVisibility(HelperMethods.getElement(HelperMethods.getXpath(addressXpath))).and().printInfoMethodEnded(methodName);
+            helperMethods.printInfoMethodStarted(methodName).waitForVisibility(getElement(HelperMethods.getXpath(addressXpath)))
+                    .and().printInfoMethodEnded(methodName);
         } catch (NoSuchElementException e) {
             throw new TestToolException(methodName + "failed! " + e.getCause());
         }
-        return HelperMethods.doGetText(HelperMethods.getElement(HelperMethods.getXpath(addressXpath)));
+        return HelperMethods.doGetText(getElement(HelperMethods.getXpath(addressXpath)));
     }
     /**
      * Click on Pop-up
@@ -101,8 +102,8 @@ public class GateKeeperPage {
         final String methodName = "GateKeeperPage.clickOnPopup: ";
         final String popupXpath = "//span[@class='mat-button-wrapper' and text()='" + popupName + "']";
         try {
-            helperMethods.printInfoMethodStarted(methodName).waitForVisibility(HelperMethods.getElement(HelperMethods.getXpath(popupXpath)))
-                    .and().doClick(HelperMethods.getElement(HelperMethods.getXpath(popupXpath))).printInfoMethodEnded(methodName);
+            helperMethods.printInfoMethodStarted(methodName).waitForVisibility(getElement(HelperMethods.getXpath(popupXpath)))
+                    .and().doClick(getElement(HelperMethods.getXpath(popupXpath))).printInfoMethodEnded(methodName);
         } catch (Exception e) {
             e.printStackTrace();
             throw new TestToolException(methodName + " failed! " + e.getCause());

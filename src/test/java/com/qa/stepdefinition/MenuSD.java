@@ -34,7 +34,7 @@ public class MenuSD {
     /**
      * This step selects the menu option from main menu
      * @param menuOption - which will be selected by identifying x-paths
-     * @param menuOption - (->) character has been configured to select sub-menu options which are located under the arrow
+     * (->) character has been configured to select sub-menu options which are located under the arrow
      */
     @And("^Menu: I select the menu option: \"([^\"]*)\"$")
     public void bddSelectMenuOpion(String menuOption) {
