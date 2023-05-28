@@ -1,7 +1,7 @@
 package com.qa.stepdefinition;
 
 
-import com.qa.pages.WaitingPage;
+import com.qa.utils.Waiting;
 import com.qa.utils.HelperMethods;
 import com.qa.utils.JavaScriptUtil;
 import io.cucumber.java.en.And;
@@ -10,7 +10,8 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 
-import static org.junit.Assert.assertEquals;
+
+
 
 
 public class GenericSD {
@@ -20,7 +21,8 @@ public class GenericSD {
      */
     @Given("^Generic: I see the page title with name: \"([^\"]*)\"$")
     public void bddVerifyPageTitle(String expectedTitleName) {
-        Assert.assertEquals(HelperMethods.doGetPageTitle(), expectedTitleName);}
+        Assert.assertEquals(HelperMethods.doGetPageTitle(), expectedTitleName);
+    }
 
     /**
      * Scroll page down by 450 pixel
@@ -42,7 +44,8 @@ public class GenericSD {
      * @param time - seconds
      */
     @And("Generic: I wait for {int} seconds")
-    public void bddGenerateAlertMessage(Integer time) {WaitingPage.waitForSeconds(time);
+    public void bddGenerateAlertMessage(Integer time) {
+        Waiting.waitForSeconds(time);
 
     }
 }

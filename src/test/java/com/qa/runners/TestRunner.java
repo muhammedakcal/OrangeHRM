@@ -16,7 +16,8 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
         monochrome = false,
         features = "src/test/resources/features/Assignment_01/OutputDuplicateNamesWithinCloudwise.feature",
         tags = "@Assignment_01_OutputDuplicateNames",
-        glue = "com.cloudWise.stepdefinition" // Specify step definition package name (Note: make sure to have this package on current directory)
+        glue = "com.cloudWise.stepdefinition" // Specify step definition
+        // package name (Note: make sure to have this package on current directory)
 
 )
 

@@ -2,14 +2,12 @@ package com.qa.utils;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.*;
 
 import com.qa.base.ConfigReader;
 import com.qa.TestToolException;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,33 +15,106 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static com.qa.base.BasePage.*;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 
-import static com.qa.pages.WaitingPage.waitForSeconds;
 import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class HelperMethods<statıc> {
-    @FindBy(xpath = "//*[@id='CybotCookiebotDialogBodyButtonAccept']")
-    private static WebElement acceptCookies;
-    @FindBy(xpath = "//*[contains(@id,'leadinModal')]/div[2]/button")
-    private static WebElement closeTabOnCookies;
+
     public Actions actions = new Actions(driver);
     FluentWait<WebDriver> wait = new FluentWait<>(driver);
 
     /**
      * Create Public and Useful Methods in order to use in "Pages Package"
      */
-    public HelperMethods() {initElements(driver, this);}
-
-
-    public HelperMethods and() {
-        return this;
+    public HelperMethods() {
+        initElements(driver, this);
     }
+
+    /**
+     * General Selenium Wait that can be modified in Constants by changing the "EXPLICIT_WAIT_TIME"
+     */
+    public static WebDriverWait getWaitObject() {
+        return new WebDriverWait(driver, Constants.EXPLICIT_WAIT_TIME);
+    }
+
+    /**
+     * Get Element and use flash and draw if it's selected as 'yes' in the configuration.properties file
+     *
+     * @param element - web element
+     * @return - locator
+     */
+    public static WebElement getElement(WebElement element) {
+
+        try {
+            JavaScriptUtil.helperMethods.waitForVisibility(element);
+            if (highlightElement) {
+                JavaScriptUtil.flash(element);
+            }
+            if (drowBorderOnElement) {
+                JavaScriptUtil.drawBorder(element);
+            }
+
+        } catch (NoSuchElementException e) {
+            throw new TestToolException("Some exception got occurred while getting the web element: " + element + ": " + e.getCause());
+        }
+
+        return element;
+    }
+
+    /**
+     * Get Element and use flash and draw if it's selected as 'yes' in the configuration.properties file
+     *
+     * @return - locator
+     */
+    public static By getXpath(String webELementName) {
+        return By.xpath(webELementName);
+    }
+
+    /**
+     * Get Page Title
+     */
+    public static String doGetPageTitle() {
+        try {
+            return driver.getTitle();
+        } catch (NoSuchContextException e) {
+            throw new TestToolException("Some exception occurred while getting the page title: " + e.getCause());
+
+        }
+    }
+
+    /**
+     * Navigate to the page and wait till the page is loaded to avoid potential exception error
+     */
+
+    public static void navigateToPage(String URL) {
+        try {
+            driver.navigate().to(URL);
+            driver.manage().timeouts().pageLoadTimeout(Constants.PAGE_LOAD_WAIT_TIME, TimeUnit.MILLISECONDS);
+        } catch (NoSuchContextException e) {
+            throw new TestToolException("Some exception occurred while navigating the the page: " + driver.getCurrentUrl() + ": " + e.getCause());
+
+        }
+    }
+
+    /**
+     * Get text from the element
+     *
+     * @param element - web element
+     * @return - element
+     */
+    public static String doGetText(WebElement element) {
+        try {
+            return element.getText();
+        } catch (NoSuchElementException e) {
+            throw new TestToolException("Some exception occurred while getting the text from the element: " + element + ": " + e.getCause());
+
+        }
+    }
+
+    public HelperMethods and() {return this;}
 
     /**
      * Print "System.out.println" in a shorter way
@@ -88,6 +159,7 @@ public class HelperMethods<statıc> {
             wait.ignoring(TimeoutException.class);
             wait.until(ExpectedConditions.visibilityOf(element));
 
+
         } catch (NoSuchElementException e) {
             throw new TestToolException(element + " is not visible!");
         }
@@ -106,6 +178,7 @@ public class HelperMethods<statıc> {
             wait.ignoring(NoSuchElementException.class);
             wait.ignoring(TimeoutException.class);
             wait.until(ExpectedConditions.elementToBeClickable(element));
+
         } catch (NoSuchElementException e) {
             throw new TestToolException(element + " is not clickable!");
         }
@@ -146,8 +219,6 @@ public class HelperMethods<statıc> {
             element.sendKeys(text);
             waitForClickability(element);
             robot.keyPress(KeyEvent.VK_ENTER);
-            waitForClickability(element);
-            robot.keyRelease(KeyEvent.VK_ENTER);
         } catch (AWTException e) {
             throw new TestToolException("Error occurred while pressing sending and pressing enter to value: " + text);
         }
@@ -173,6 +244,7 @@ public class HelperMethods<statıc> {
 
     /**
      * Click on the web-element by using "Action Class"
+     *
      * @param element - web element
      */
     public HelperMethods doClick(WebElement element) {
@@ -262,148 +334,6 @@ public class HelperMethods<statıc> {
         return this;
     }
 
-    /**
-     * Close cookies if they are appeared during the test execution
-     */
-    public HelperMethods closeCookies() {
-        final String methodName = "MenuPage.closeCookies: ";
-        printInfoMethodStarted(methodName);
-        try {
-            if (driver.findElements(By.xpath("//*[@id='CybotCookiebotDialogBodyButtonAccept']")).size() >= 1) {
-                JavaScriptUtil.clickElementByJS(acceptCookies);
-                waitForSeconds(3);
-                printInfo(methodName + "are closed by clicking on the accept button!");
-            } else {
-                printInfo(methodName + " Cookie is not visible");
-            }
-
-        } catch (TestToolException e) {
-            e.printStackTrace();
-            printInfo(methodName + "is failed: " + e.getCause());
-        }
-        printInfoMethodEnded(methodName);
-        return this;
-    }
-
-
-    /**
-     * General Selenium Wait that can be modified in Constants by changing the "EXPLICIT_WAIT_TIME"
-     */
-    public static WebDriverWait getWaitObject() {
-        return new WebDriverWait(driver, Constants.EXPLICIT_WAIT_TIME);
-    }
-
-    /**
-     * Get Element and use flash and draw if it's selected as 'yes' in the configuration.properties file
-     * @param locator - web element locator
-     * @return - locator
-     */
-    public static WebElement getElement(By locator) {
-        WebElement element = null;
-
-        try {
-            JavaScriptUtil.helperMethods.waitForVisibility(driver.findElement(locator));
-            element = driver.findElement(locator);
-            if (highlightElement) {
-                JavaScriptUtil.flash(element);
-            }
-            if (drowBorderOnElement) {
-                JavaScriptUtil.drawBorder(element);
-            }
-
-        } catch (NoSuchElementException e) {
-            throw new TestToolException("Some exception got occurred while getting the web element: " + element + ": " + e.getCause());
-        }
-
-        return element;
-    }
-
-    /**
-     * Get Element and use flash and draw if it's selected as 'yes' in the configuration.properties file
-     * @return - locator
-     */
-    public static By getXpath(String webELementName) {
-        return By.xpath(webELementName);
-    }
-
-    /**
-     * Get Page Title
-     */
-    public static String doGetPageTitle() {
-        try {
-            return driver.getTitle();
-        } catch (NoSuchContextException e) {
-            throw new TestToolException("Some exception occurred while getting the page title: " + e.getCause());
-
-        }
-    }
-
-    /**
-     * Navigate to the page and wait till the page is loaded to avoid potential exception error
-     */
-
-    public static void navigateToPage(String URL) {
-        try {
-            driver.navigate().to(URL);
-            driver.manage().timeouts().pageLoadTimeout(Constants.PAGE_LOAD_WAIT_TIME, TimeUnit.MILLISECONDS);
-        } catch (NoSuchContextException e) {
-            throw new TestToolException("Some exception occurred while navigating the the page: " + driver.getCurrentUrl() + ": " + e.getCause());
-
-        }
-    }
-
-    /**
-     * Get text from the element
-     * @param element - web element
-     * @return - element
-     */
-    public static String doGetText(WebElement element) {
-        try {
-            if (highlightElement) {
-                JavaScriptUtil.flash(element);
-            }
-            if (drowBorderOnElement) {
-                JavaScriptUtil.drawBorder(element);
-            }
-            return element.getText();
-        } catch (NoSuchElementException e) {
-            throw new TestToolException("Some exception occurred while getting the text from the element: " + element + ": " + e.getCause());
-
-        }
-    }
-
-    /**
-     * Find the duplicate/triplicate names in the list
-     * @param list - list name
-     */
-    public static void findAndPrintDuplicateOrTriplicateNamesInTheList(String condition, List<String> list) {
-        int filterValue;
-        if (condition.equalsIgnoreCase("duplicate")) {
-            filterValue = 2;
-        } else if (condition.equalsIgnoreCase("triplicate")) {
-            filterValue = 3;
-        } else {
-            throw new TestToolException("Condition should be duplicate or triplicate --> " + condition);
-        }
-
-        Map<String, Long> frequencies = list.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
-        //   filter only the inputs which have frequency equal to filterValue
-        frequencies.entrySet().stream().filter(entry -> entry.getValue() ==
-                filterValue).forEach(entry -> System.out.println(condition + " names: " + Collections.singletonList(entry.getKey())));
-        System.out.println("<----------------------------------------------------------------------------------------------------------------------->");
-    }
-
-    /**
-     * Get Random int Number
-     * @param min - min value
-     * @param max - max value
-     * @return - random number in the range of min and max
-     */
-    public int getRandomNumberUsingNextInt(int min, int max) {
-        Random random = new Random();
-        return random.nextInt(max - min) + min;
-    }
 
 }
 

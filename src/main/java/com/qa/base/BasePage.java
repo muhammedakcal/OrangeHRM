@@ -15,7 +15,6 @@ public class BasePage {
     /**
      * - Driver Initializing to execute the test on selected browser
      * - Please take in account that, this configuration can not be supported by the remote webdriver which is used for the pipeline execution
-     * - This project was created for the Cloudwise Company's Assignment
      *
      * @return - driver
      * @author - Muhammed Akcal
@@ -51,7 +50,10 @@ public class BasePage {
 
 
     public static void tearDown() {
-        driver.quit();
+        if (driver != null){
+            driver.quit();
+        }
+
     }
 
 }

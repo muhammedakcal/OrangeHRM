@@ -31,7 +31,8 @@ public class ConfigReader {
      *
      * @param key - Key data which will be retrieved
      */
-    public static String getProperty(String key) {
+    public static String getProperty(String key)
+    {
         return properties.getProperty(key);
     }
 

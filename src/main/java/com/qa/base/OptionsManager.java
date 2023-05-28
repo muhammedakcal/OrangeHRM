@@ -10,7 +10,6 @@ public class OptionsManager {
 
     /**
      * Set your Chrome Options
-     *
      * @return - options
      */
     public static ChromeOptions getChromeOptions() {
@@ -18,6 +17,7 @@ public class OptionsManager {
         if (ConfigReader.getProperty("incognito").equals("yes")) co.addArguments("--incognito");
         if (ConfigReader.getProperty("headless").equals("yes")) co.addArguments("--headless");
         co.setAcceptInsecureCerts(true);
+        System.out.println(co.getBrowserName());
         return co;
     }
 

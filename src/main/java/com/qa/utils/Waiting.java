@@ -1,8 +1,8 @@
-package com.qa.pages;
+package com.qa.utils;
 
 import com.qa.TestToolException;
 
-public class WaitingPage {
+public class Waiting {
 
     /**
      * Wait for a certain number of seconds

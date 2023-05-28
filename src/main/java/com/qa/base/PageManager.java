@@ -1,27 +1,23 @@
 package com.qa.base;
-import com.qa.pages.GateKeeperPage;
-import com.qa.pages.MenuPage;
-import com.qa.pages.WaitingPage;
-import com.qa.pages.WorkflowPage;
+import com.qa.pages.LoginPage;
+import com.qa.utils.Waiting;
 
 
 public class PageManager {
 
 
-    public static MenuPage menuPage;
-    public static WaitingPage waitingPage;
-    public static WorkflowPage workflowPage;
-    public static GateKeeperPage gatekeeperPage;
+    public static LoginPage loginPage;
+    public static Waiting waiting;
+
 
 
     /**
      * Initialize pages
      */
     public static void initialize() {
-        menuPage = new MenuPage();
-        waitingPage = new WaitingPage();
-        workflowPage = new WorkflowPage();
-        gatekeeperPage = new GateKeeperPage();
+        loginPage = new LoginPage();
+        waiting = new Waiting ();
+
 
     }
 }

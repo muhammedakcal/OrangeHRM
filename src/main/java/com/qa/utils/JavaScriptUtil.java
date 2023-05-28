@@ -4,7 +4,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebElement;
 import static com.qa.base.BasePage.driver;
-import static com.qa.pages.WaitingPage.waitForSeconds;
+import static com.qa.utils.Waiting.waitForSeconds;
 
 public class JavaScriptUtil {
     static HelperMethods helperMethods = new HelperMethods();
