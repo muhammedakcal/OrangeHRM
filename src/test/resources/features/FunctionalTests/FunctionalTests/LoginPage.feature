@@ -6,6 +6,7 @@
 @FunctionalTest_LoginPage  
 Feature: Login Test
 
+  @FunctionalTests_LoginPositiveTest
   Scenario: Login Positive Test
     Given Generic: I see the page title with name: "OrangeHRM"
     When Login Page: I enter the username/password: "username" with: "Admin"
@@ -13,7 +14,7 @@ Feature: Login Test
     Then Login Page: I click on the Login button
     And Login Page: I verify if the logo is present
 
-
+  @FunctionalTests_LoginNegativeTest
   Scenario: Login Negative Test
     Given Generic: I see the page title with name: "OrangeHRM"
     When Login Page: I enter the username/password: "username" with: "Admin"

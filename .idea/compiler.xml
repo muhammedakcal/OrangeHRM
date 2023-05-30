@@ -8,8 +8,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="BDDCucumberFramework-master" />
-        <module name="OrangeHRMSampleProject" />
         <module name="BDDCucumberFramework" />
+        <module name="OrangeHRMSampleProject" />
+        <module name="OrangeHrm" />
       </profile>
     </annotationProcessing>
   </component>

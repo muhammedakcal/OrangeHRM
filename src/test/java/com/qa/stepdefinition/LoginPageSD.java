@@ -18,24 +18,17 @@ public class LoginPageSD {
     }
 
     @When("^Login Page: I click on the Login button$")
-    public void bddClickOnLoginButton() {
-        LoginPage.clickOnLoginButton();
-
-
-    }
+    public void bddClickOnLoginButton() { LoginPage.clickOnLoginButton();}
 
     @And("^Login Page: I verify if the logo is present$")
-    public void bddVerifyLogo() {
-        LoginPage.verifyLogo();
-
-    }
+    public void bddVerifyLogo() {LoginPage.verifyLogo();}
 
     @And("^Login Page: I verify the error message with: \"([^\"]*)\"$")
     public void bddVerifyErrorMessage(String expected) {
        String actual = LoginPage.verifyErrorMessage();
-       assertEquals(actual,expected);
+       assertEquals(actual,expected);  }
 
 
-    }
+
 
 }

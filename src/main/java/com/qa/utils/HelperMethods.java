@@ -1,43 +1,41 @@
 package com.qa.utils;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-
-import com.qa.base.ConfigReader;
 import com.qa.TestToolException;
-import org.openqa.selenium.*;
+import com.qa.base.ConfigReader;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static com.qa.base.BasePage.*;
-
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
-
+import static com.qa.base.BasePage.*;
 import static org.openqa.selenium.support.PageFactory.initElements;
 
-public class HelperMethods<statıc> {
+public class HelperMethods< statıc > {
 
-    public Actions actions = new Actions(driver);
-    FluentWait<WebDriver> wait = new FluentWait<>(driver);
+    public Actions actions = new Actions (driver);
+    FluentWait < WebDriver > wait = new FluentWait <> (driver);
+
 
     /**
      * Create Public and Useful Methods in order to use in "Pages Package"
      */
-    public HelperMethods() {
-        initElements(driver, this);
+    public HelperMethods () {
+        initElements (driver, this);
     }
 
     /**
      * General Selenium Wait that can be modified in Constants by changing the "EXPLICIT_WAIT_TIME"
      */
-    public static WebDriverWait getWaitObject() {
-        return new WebDriverWait(driver, Constants.EXPLICIT_WAIT_TIME);
+    public static WebDriverWait getWaitObject () {
+        return new WebDriverWait (driver, Constants.EXPLICIT_WAIT_TIME);
     }
 
     /**
@@ -46,19 +44,22 @@ public class HelperMethods<statıc> {
      * @param element - web element
      * @return - locator
      */
-    public static WebElement getElement(WebElement element) {
+
+    public static WebElement getElement (WebElement element) {
 
         try {
-            JavaScriptUtil.helperMethods.waitForVisibility(element);
+
             if (highlightElement) {
-                JavaScriptUtil.flash(element);
+                JavaScriptUtil.flash (element);
             }
+
             if (drowBorderOnElement) {
-                JavaScriptUtil.drawBorder(element);
+                JavaScriptUtil.drawBorder (element);
+
             }
 
         } catch (NoSuchElementException e) {
-            throw new TestToolException("Some exception got occurred while getting the web element: " + element + ": " + e.getCause());
+            throw new TestToolException ("Some exception got occurred while getting the web element: " + element + ": " + e.getCause ());
         }
 
         return element;
@@ -69,136 +70,156 @@ public class HelperMethods<statıc> {
      *
      * @return - locator
      */
-    public static By getXpath(String webELementName) {
-        return By.xpath(webELementName);
+    public static By getXpath (String webELementName) {
+        return By.xpath (webELementName);
     }
 
     /**
      * Get Page Title
      */
-    public static String doGetPageTitle() {
+    public static String doGetPageTitle () {
+
         try {
-            return driver.getTitle();
+
+            return driver.getTitle ();
+
         } catch (NoSuchContextException e) {
-            throw new TestToolException("Some exception occurred while getting the page title: " + e.getCause());
+
+            throw new TestToolException ("Some exception occurred while getting the page title: " + e.getCause ());
 
         }
     }
 
     /**
      * Navigate to the page and wait till the page is loaded to avoid potential exception error
+     * @param URL = the page navigation URL
      */
 
-    public static void navigateToPage(String URL) {
+    public static void navigateToPage (String URL) {
+
         try {
-            driver.navigate().to(URL);
-            driver.manage().timeouts().pageLoadTimeout(Constants.PAGE_LOAD_WAIT_TIME, TimeUnit.MILLISECONDS);
+
+            driver.navigate ().to (URL);
+            driver.manage ().timeouts ().pageLoadTimeout (Constants.PAGE_LOAD_WAIT_TIME, TimeUnit.MILLISECONDS);
+
         } catch (NoSuchContextException e) {
-            throw new TestToolException("Some exception occurred while navigating the the page: " + driver.getCurrentUrl() + ": " + e.getCause());
+
+            throw new TestToolException ("Some exception occurred while navigating the the page: " + driver.getCurrentUrl () + ": " + e.getCause ());
 
         }
     }
 
     /**
      * Get text from the element
-     *
      * @param element - web element
      * @return - element
      */
-    public static String doGetText(WebElement element) {
+    public static String doGetText ( WebElement element ) {
+
         try {
-            return element.getText();
+
+            return element.getText ();
+
         } catch (NoSuchElementException e) {
-            throw new TestToolException("Some exception occurred while getting the text from the element: " + element + ": " + e.getCause());
+
+            throw new TestToolException ("Some exception occurred while getting the text from the element: " + element + ": " + e.getCause ());
 
         }
     }
 
+    /** The chain readability function in the BDD Format */
     public HelperMethods and() {return this;}
+
 
     /**
      * Print "System.out.println" in a shorter way
-     *
      * @param line - line that will be printed
      */
     public HelperMethods printInfo(Object line) {
+
         System.out.println(line);
         return this;
     }
 
     /**
      * Print system.info in a shorter way to define that the functional operation is started!
-     *
      * @param line - line that will be printed
      */
-    public HelperMethods printInfoMethodStarted(Object line) {
-        System.out.println(line + "start!");
+    public HelperMethods printInfoMethodStarted ( Object line ) {
+
+        System.out.println (line + "start!");
         return this;
     }
 
     /**
      * Print system.info in a shorter way to declare that the functional operation is ended!
-     *
      * @param line - line that will be printed
      */
-    public HelperMethods printInfoMethodEnded(Object line) {
-        System.out.println(line + "end!");
+    public HelperMethods printInfoMethodEnded ( Object line ) {
+        System.out.println (line + "end!");
         return this;
     }
 
     /**
      * Wait until the element is presented
-     *
      * @param element - web element
      */
-    public HelperMethods waitForVisibility(WebElement element) {
+    public HelperMethods waitForVisibility ( WebElement element ) {
         try {
-            final FluentWait<WebDriver> webDriverFluentWait = wait.withTimeout(5000, TimeUnit.MILLISECONDS);
-            webDriverFluentWait.pollingEvery(250, TimeUnit.MILLISECONDS);
-            wait.ignoring(NoSuchElementException.class);
-            wait.ignoring(TimeoutException.class);
-            wait.until(ExpectedConditions.visibilityOf(element));
 
+            final FluentWait < WebDriver > webDriverFluentWait = wait.withTimeout (5000, TimeUnit.MILLISECONDS);
+            webDriverFluentWait.pollingEvery (250, TimeUnit.MILLISECONDS);
+            wait.ignoring (NoSuchElementException.class);
+            wait.ignoring (TimeoutException.class);
+            wait.until (ExpectedConditions.visibilityOf (element));
+            getElement (element);
 
         } catch (NoSuchElementException e) {
-            throw new TestToolException(element + " is not visible!");
+
+            throw new TestToolException (element + " is not visible!");
         }
+
         return this;
     }
 
     /**
      * Wait until the element is clickable
-     *
      * @param element - web element
      */
-    public HelperMethods waitForClickability(WebElement element) {
+    public HelperMethods waitForClickability ( WebElement element ) {
         try {
-            final FluentWait<WebDriver> webDriverFluentWait = wait.withTimeout(5000, TimeUnit.MILLISECONDS);
-            webDriverFluentWait.pollingEvery(250, TimeUnit.MILLISECONDS);
-            wait.ignoring(NoSuchElementException.class);
-            wait.ignoring(TimeoutException.class);
-            wait.until(ExpectedConditions.elementToBeClickable(element));
+
+            final FluentWait < WebDriver > webDriverFluentWait = wait.withTimeout (5000, TimeUnit.MILLISECONDS);
+            webDriverFluentWait.pollingEvery (250, TimeUnit.MILLISECONDS);
+            wait.ignoring (NoSuchElementException.class);
+            wait.ignoring (TimeoutException.class);
+            wait.until (ExpectedConditions.elementToBeClickable (element));
+            getElement (element);
 
         } catch (NoSuchElementException e) {
-            throw new TestToolException(element + " is not clickable!");
+            throw new TestToolException (element + " is not clickable!");
         }
+
         return this;
     }
 
     /**
      * Send text to the element
-     *
      * @param element - web element
      * @param text    - text
      */
-    public HelperMethods sendText(WebElement element, String text) {
+    public HelperMethods sendText ( WebElement element, String text ) {
+
         try {
-            doClick(element);
-            element.clear();
-            printInfo(text + " has been sent to the element: " + doGetText(element));
-            element.sendKeys(text);
+
+            doClick (element);
+            element.clear ();
+            printInfo (text + " has been sent to the element: " + doGetText (element));
+            element.sendKeys (text);
+
         } catch (NoSuchElementException e) {
-            throw new TestToolException("Some exception got occurred while getting the web element: " + element + ": " + e.getCause());
+
+            throw new TestToolException ("Some exception got occurred while getting the web element: " + element + ": " + e.getCause ());
         }
         return this;
 
@@ -206,37 +227,42 @@ public class HelperMethods<statıc> {
 
     /**
      * Send text and press Enter by using Robot Class
-     *
      * @param element - web element
      * @param text    - text
      */
-    public HelperMethods doSendTextAndPressEnter(WebElement element, String text) {
+    public HelperMethods doSendTextAndPressEnter ( WebElement element, String text ) {
         try {
-            Robot robot = new Robot();
-            waitForVisibility(element);
-            element.click();
-            element.clear();
-            element.sendKeys(text);
-            waitForClickability(element);
-            robot.keyPress(KeyEvent.VK_ENTER);
+
+            Robot robot = new Robot ();
+            waitForVisibility (element);
+            element.click ();
+            element.clear ();
+            element.sendKeys (text);
+            waitForClickability (element);
+            robot.keyPress (KeyEvent.VK_ENTER);
+
         } catch (AWTException e) {
-            throw new TestToolException("Error occurred while pressing sending and pressing enter to value: " + text);
+
+            throw new TestToolException ("Error occurred while pressing sending and pressing enter to value: " + text);
         }
         return this;
     }
 
     /**
      * Refresh the page by using Selenium Send Keys Method
-     *
      * @param element - web element
      */
-    public HelperMethods refreshPageByWebElement(WebElement element) {
+    public HelperMethods refreshPageByWebElement ( WebElement element ) {
+
         try {
-            doClick(element);
-            element.sendKeys(Keys.F5);
-            waitForVisibility(element);
+
+            doClick (element);
+            element.sendKeys (Keys.F5);
+            waitForVisibility (element);
+
         } catch (Exception e) {
-            throw new TestToolException("Error occurred while pressing refreshing the page with element: " + element + ": " + e.getCause());
+
+            throw new TestToolException ("Error occurred while pressing refreshing the page with element: " + element + ": " + e.getCause ());
         }
         return this;
 
@@ -244,18 +270,22 @@ public class HelperMethods<statıc> {
 
     /**
      * Click on the web-element by using "Action Class"
-     *
      * @param element - web element
      */
-    public HelperMethods doClick(WebElement element) {
+    public HelperMethods doClick ( WebElement element ) {
+
         try {
-            waitForVisibility(element);
-            waitForClickability(element);
-            actions.click(element).build().perform();
+
+            waitForVisibility (element);
+            waitForClickability (element);
+            actions.click (element).build ().perform ();
+
         } catch (NoSuchContextException e) {
-            throw new TestToolException("Some exception occurred while clicking to the web element: " + element + ": " + e.getCause());
+
+            throw new TestToolException ("Some exception occurred while clicking to the web element: " + element + ": " + e.getCause ());
 
         }
+
         return this;
     }
 
@@ -263,14 +293,16 @@ public class HelperMethods<statıc> {
      * Move and Click the web-element by using "Action Class"
      * @param element - web element
      */
+    public HelperMethods moveToElementAndClick (WebElement element) {
 
-    public HelperMethods moveToElementAndClick(WebElement element) {
         try {
-            moveToElement(element);
-            doClick(element);
+
+            moveToElement (element);
+            doClick (element);
 
         } catch (NoSuchElementException e) {
-            throw new TestToolException("Some exception occurred while moving or clicking to the web element: " + element + ": " + e.getCause());
+
+            throw new TestToolException ("Some exception occurred while moving or clicking to the web element: " + element + ": " + e.getCause ());
         }
         return this;
     }
@@ -279,27 +311,37 @@ public class HelperMethods<statıc> {
      * Move to the defined web-element by using "Action Class"
      * @param element - web element
      */
-    public HelperMethods moveToElement(WebElement element) {
+    public HelperMethods moveToElement ( WebElement element ) {
+
         try {
-            actions.moveToElement(element).pause(Duration.ofMillis(1000)).build().perform();
+
+            actions.moveToElement (element).pause (Duration.ofMillis (1000)).build().perform();
+
         } catch (NoSuchElementException e) {
-            throw new TestToolException("Some exception occurred while moving  to the web element: " + element + ": " + e.getCause());
+
+            throw new TestToolException ("Some exception occurred while moving  to the web element: " + element + ": " + e.getCause ());
 
         }
+
         return this;
     }
 
     /**
      * Navigate to the page and wait till the page is loaded to avoid potential exception error
      */
-    public HelperMethods navigateToBackPage() {
+    public HelperMethods navigateToBackPage () {
+
         try {
-            driver.navigate().back();
-            getWaitObject();
+
+            driver.navigate ().back ();
+            getWaitObject ();
+
         } catch (NoSuchContextException e) {
-            throw new TestToolException("Some exception occurred while navigating the the page: " + driver.getCurrentUrl() + ": " + e.getCause());
+
+            throw new TestToolException ("Some exception occurred while navigating the the page: " + driver.getCurrentUrl () + ": " + e.getCause ());
 
         }
+
         return this;
     }
 
@@ -307,15 +349,20 @@ public class HelperMethods<statıc> {
      * Set browser size to medium
      * Dimension can be modified from configuration.properties file
      */
-    public HelperMethods setBrowserSizeAsMedium() {
+    public HelperMethods setBrowserSizeAsMedium () {
+
         try {
-            int width = Integer.parseInt(ConfigReader.getProperty("width"));
-            int height = Integer.parseInt(ConfigReader.getProperty("height"));
-            Dimension dimension = new Dimension(width, height);
-            driver.manage().window().setSize(dimension);
+
+            int width = Integer.parseInt (ConfigReader.getProperty ("width"));
+            int height = Integer.parseInt (ConfigReader.getProperty ("height"));
+            Dimension dimension = new Dimension (width, height);
+            driver.manage ().window ().setSize (dimension);
+
         } catch (NoSuchContextException e) {
-            throw new TestToolException("Some exception occurred while setting the window size " + ": " + e.getCause());
+
+            throw new TestToolException ("Some exception occurred while setting the window size " + ": " + e.getCause ());
         }
+
         return this;
     }
 
@@ -323,14 +370,19 @@ public class HelperMethods<statıc> {
      * Set browser size to maximize
      * Dimension can be modified from configuration.properties file
      */
-    public HelperMethods setBrowserSizeToMaximize() {
+    public HelperMethods setBrowserSizeToMaximize () {
+
         try {
-            driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(Constants.IMPLICIT_WAIT_TIME, TimeUnit.SECONDS);
-            driver.manage().timeouts().pageLoadTimeout(Constants.PAGE_LOAD_WAIT_TIME, TimeUnit.SECONDS);
+
+            driver.manage ().window ().maximize ();
+            driver.manage ().timeouts ().implicitlyWait (Constants.IMPLICIT_WAIT_TIME, TimeUnit.SECONDS);
+            driver.manage ().timeouts ().pageLoadTimeout (Constants.PAGE_LOAD_WAIT_TIME, TimeUnit.SECONDS);
+
         } catch (NoSuchContextException e) {
-            throw new TestToolException("Some exception occurred while setting the window maximize " + ": " + e.getCause());
+
+            throw new TestToolException ("Some exception occurred while setting the window maximize " + ": " + e.getCause ());
         }
+
         return this;
     }
 

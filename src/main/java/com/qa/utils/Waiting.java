@@ -15,6 +15,8 @@ public class Waiting {
             throw new TestToolException("Some error occured while waiting for " + waitingTime + "seconds: " + e.getCause());
         }
     }
+
+
     /**
      * Wait for a certain number of minutes
      * @param waitingTime - minutes

@@ -14,8 +14,8 @@ public class JavaScriptUtil {
      * @param element - web element
      */
     public static void flash(WebElement element) {
+
         JavascriptExecutor js = ((JavascriptExecutor) driver);
-        helperMethods.waitForVisibility(element);
         String bgcolor = element.getCssValue("backgroundColor");
         for (int i = 0; i < 10; i++) {
             changeColor("rgb(0,200,0)", element);// 1
@@ -30,22 +30,24 @@ public class JavaScriptUtil {
     public static void changeColor(String color, WebElement element) {
         JavascriptExecutor js = ((JavascriptExecutor) driver);
         try {
-            helperMethods.waitForVisibility(element);
+
             js.executeScript("arguments[0].style.backgroundColor = '" + color + "'", element);
             Thread.sleep(20);
         } catch (InterruptedException e) {
 
             throw new TestToolException("Some error occured while changing the coler: " + e.getCause());
         }}
+
     /**
      * Draw a border to surrend a web element
      * @param element - web element
      */
     public static void drawBorder(WebElement element) {
         JavascriptExecutor js = ((JavascriptExecutor) driver);
-        helperMethods.waitForVisibility(element);
+
         js.executeScript("arguments[0].style.border='3px solid red'", element);
     }
+
     /**
      * Generate an alert message
      * @param message - alert message
@@ -61,6 +63,8 @@ public class JavaScriptUtil {
             throw new TestToolException("Error occurred while creating or handling alert! " + message + ": " + e.getCause());
         }
     }
+
+
     /**
      * Click an element by JS
      * @param element - web element
@@ -85,6 +89,8 @@ public class JavaScriptUtil {
         JavascriptExecutor js = ((JavascriptExecutor) driver);
         return js.executeScript("return document.title;").toString();
     }
+
+
     /**
      * Get Page Inner Text by JS
      */
@@ -92,6 +98,8 @@ public class JavaScriptUtil {
         JavascriptExecutor js = ((JavascriptExecutor) driver);
         return js.executeScript("return document.documentElement.innerText;").toString();
     }
+
+
     /**
      * Scroll page down by 450 pixel
      */
@@ -99,6 +107,8 @@ public class JavaScriptUtil {
         JavascriptExecutor js = ((JavascriptExecutor) driver);
         js.executeScript("window.scrollBy(0,-450)");
     }
+
+
     /**
      * Scroll page till the end
      */
@@ -106,6 +116,8 @@ public class JavaScriptUtil {
         JavascriptExecutor js = ((JavascriptExecutor) driver);
         ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
+
+
     /**
      * Scroll to the element
      * @param element - web element
@@ -114,6 +126,8 @@ public class JavaScriptUtil {
         JavascriptExecutor js = ((JavascriptExecutor) driver);
         js.executeScript("arguments[0].scrollIntoView(true);", element);
     }
+
+
     /**
      * Get Browser Info
      * @return - browser information
@@ -122,6 +136,8 @@ public class JavaScriptUtil {
         JavascriptExecutor js = ((JavascriptExecutor) driver);
         return js.executeScript("return navigator.userAgent;").toString();
     }
+
+
     /**
      * Send keys by using web element's id
      * @param id    - web element's id

@@ -1,4 +1,5 @@
 package com.qa.base;
+import com.qa.pages.LoginPage;
 import com.qa.utils.Constants;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -37,13 +38,12 @@ public class BasePage {
                 break;
 
             default:
-                throw new RuntimeException("Invalid browser name...!");
+                throw new RuntimeException("Invalid browser name...! Please check the browser in the configuration/configuration.properties.");
         }
-
+        driver.get(ConfigReader.getProperty("url"));
         driver.manage().timeouts().implicitlyWait(Constants.IMPLICIT_WAIT_TIME, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(Constants.PAGE_LOAD_WAIT_TIME, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.get(ConfigReader.getProperty("url"));
         PageManager.initialize();
         return driver;
     }

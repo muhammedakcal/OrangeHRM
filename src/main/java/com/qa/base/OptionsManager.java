@@ -23,7 +23,6 @@ public class OptionsManager {
 
     /**
      * Set your Firefox Options
-     *
      * @return - options
      */
     public static FirefoxOptions getFirefoxOptions() {
@@ -33,6 +32,7 @@ public class OptionsManager {
         profile.setPreference("dom.ipc.plugins.enabled.libflashplayer.so", "false");
         fo.setProfile(profile);
         fo.setAcceptInsecureCerts(true);
+        System.out.println(fo.getBrowserName());
         return fo;
     }
 
