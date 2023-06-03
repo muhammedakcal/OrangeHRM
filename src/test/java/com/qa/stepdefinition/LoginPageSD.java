@@ -20,7 +20,7 @@ public class LoginPageSD {
     @When("^Login Page: I click on the Login button$")
     public void bddClickOnLoginButton() { LoginPage.clickOnLoginButton();}
 
-    @And("^Login Page: I verify if the logo is present$")
+    @And("^Login Page: I verify if the app logo appears on the home page$")
     public void bddVerifyLogo() {LoginPage.verifyLogo();}
 
     @And("^Login Page: I verify the error message with: \"([^\"]*)\"$")
@@ -29,6 +29,7 @@ public class LoginPageSD {
        assertEquals(actual,expected);  }
 
 
-
+    @And("^Login Page: I logout from the application$")
+    public void bddLogOut() {LoginPage.logOut ();}
 
 }

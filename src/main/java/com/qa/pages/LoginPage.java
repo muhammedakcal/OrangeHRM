@@ -2,6 +2,7 @@ package com.qa.pages;
 
 import com.qa.TestToolException;
 import com.qa.utils.HelperMethods;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -22,10 +23,10 @@ public class LoginPage {
      * @param value - username/password
      * @param credential - username or password credential
      */
-    @FindBy(xpath = "//input[@name='username']")
-    private static WebElement usernameXpath;
-    @FindBy(xpath = "//input[@name='password']")
-    private static WebElement passwordXpath;
+    @FindBy(id = "user-name")
+    private static WebElement usernameID;
+    @FindBy(id = "password")
+    private static WebElement passwordID;
 
     public static void enterCredentials (String value, String credential) {
 
@@ -34,15 +35,15 @@ public class LoginPage {
         try {
 
             helperMethods.printInfoMethodStarted (methodName)
-                    .waitForVisibility (usernameXpath)
+                    .waitForVisibility (usernameID)
                     .and ()
-                    .waitForVisibility (passwordXpath);
+                    .waitForVisibility (passwordID);
 
             if (value.equals ("username")) {
-                helperMethods.sendText (usernameXpath, credential);
+                helperMethods.sendText (usernameID, credential);
 
             } else if (value.equals ("password")) {
-                helperMethods.sendText (passwordXpath, credential);
+                helperMethods.sendText (passwordID, credential);
 
             } else {
 
@@ -61,8 +62,8 @@ public class LoginPage {
     /**
      * This function clicks on the Login Button
      */
-    @FindBy(xpath = "//button[@type='submit']")
-    private static WebElement buttonLogin;
+    @FindBy(id = "login-button")
+    private static WebElement buttonLoginID;
 
     public static void clickOnLoginButton () {
         final String methodName = "LoginPage.clickOnLoginButton: ";
@@ -70,9 +71,9 @@ public class LoginPage {
         try {
 
             helperMethods.printInfoMethodStarted (methodName)
-                    .waitForClickability (buttonLogin)
+                    .waitForClickability (buttonLoginID)
                     .and ()
-                    .doClick (buttonLogin)
+                    .doClick (buttonLoginID)
                     .and ()
                     .printInfoMethodEnded (methodName);
 
@@ -86,7 +87,7 @@ public class LoginPage {
     /**
      * Verify the OrangeHRM Logo after the login
      */
-    @FindBy(xpath = "//a[@class='oxd-brand']")
+    @FindBy(xpath = "//div[@class='app_logo']")
     private static WebElement logoXpath;
 
     public static void verifyLogo () {
@@ -107,13 +108,14 @@ public class LoginPage {
     /**
      * Verify the Error Message on the Login Page
      */
-    @FindBy(xpath = "//p[@class='oxd-text oxd-text--p oxd-alert-content-text']")
+    @FindBy(xpath = "//div[@class='error-message-container error']")
     private static WebElement errorMessageXpath;
 
     public static String verifyErrorMessage () {
         final String methodName = "LoginPage.verifyErrorMessage: ";
 
         try {
+
             helperMethods.printInfoMethodStarted (methodName)
                     .waitForVisibility (errorMessageXpath)
                     .printInfoMethodEnded (methodName);
@@ -126,9 +128,41 @@ public class LoginPage {
             throw new TestToolException (methodName + "is failed: " + e.getCause ());
 
         }
+    }
+
+    /**
+     * Log out from the application
+     */
+    public static void logOut(){
+        final String methodName = "LoginPage.logOut: ";
+        final String menuButtonClassName = "bm-burger-button";
+        final String logOutButtonCSS = "a#logout_sidebar_link";
+        try {
+            WebElement menuButtonElement = driver.findElement(By.className (menuButtonClassName));
+            WebElement logOutButtonElement = driver.findElement(By.cssSelector(logOutButtonCSS));
+            helperMethods.printInfoMethodStarted (methodName)
+
+                    .moveToElementAndClick (menuButtonElement)
+                    .and ()
+                    .moveToElementAndClick (logOutButtonElement)
+                    .printInfoMethodEnded (methodName);
+
+        } catch (TestToolException e) {
+
+            throw new TestToolException (methodName + "is failed: " + e.getCause ());
+        }
 
     }
-}
+
+    }
+
+
+
+
+
+
+
+
 
 
 

@@ -31,6 +31,7 @@ public class Hook {
         scenario.attach(picture, "image/png", scenario.getName());
         BasePage.tearDown();
 
+
     }
 
 }

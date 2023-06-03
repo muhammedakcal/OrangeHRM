@@ -99,6 +99,13 @@ public class JavaScriptUtil {
         return js.executeScript("return document.documentElement.innerText;").toString();
     }
 
+    /**
+     * Scroll page up
+     */
+    public static void scrollPageUp() {
+        JavascriptExecutor js = ((JavascriptExecutor) driver);
+        js.executeScript("window.scrollTo(0, 0);");
+    }
 
     /**
      * Scroll page down by 450 pixel

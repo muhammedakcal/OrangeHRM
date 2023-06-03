@@ -7,6 +7,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
@@ -18,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 import static com.qa.base.BasePage.*;
 import static org.openqa.selenium.support.PageFactory.initElements;
 
-public class HelperMethods< statıc > {
+public class HelperMethods {
 
     public Actions actions = new Actions (driver);
     FluentWait < WebDriver > wait = new FluentWait <> (driver);
@@ -45,7 +46,7 @@ public class HelperMethods< statıc > {
      * @return - locator
      */
 
-    public static WebElement getElement (WebElement element) {
+    public HelperMethods getElement (WebElement element) {
 
         try {
 
@@ -62,7 +63,7 @@ public class HelperMethods< statıc > {
             throw new TestToolException ("Some exception got occurred while getting the web element: " + element + ": " + e.getCause ());
         }
 
-        return element;
+        return this;
     }
 
     /**
@@ -70,8 +71,8 @@ public class HelperMethods< statıc > {
      *
      * @return - locator
      */
-    public static By getXpath (String webELementName) {
-        return By.xpath (webELementName);
+    public static By getXpath (String webElementName) {
+        return By.xpath (webElementName);
     }
 
     /**
@@ -272,7 +273,7 @@ public class HelperMethods< statıc > {
      * Click on the web-element by using "Action Class"
      * @param element - web element
      */
-    public HelperMethods doClick ( WebElement element ) {
+    public HelperMethods  doClick ( WebElement element ) {
 
         try {
 
@@ -315,7 +316,7 @@ public class HelperMethods< statıc > {
 
         try {
 
-            actions.moveToElement (element).pause (Duration.ofMillis (1000)).build().perform();
+            actions.moveToElement (element).pause (Duration.ofMillis (3000)).build().perform();
 
         } catch (NoSuchElementException e) {
 
@@ -385,6 +386,29 @@ public class HelperMethods< statıc > {
 
         return this;
     }
+
+    /**
+     * Dropdown Selector By Visible Text
+     * @param dropdownXPath - add the dropdown class x-path
+     * @param optionText - filter text
+     */
+    public HelperMethods selectDropdownOptionByText (WebDriver driver,String dropdownXPath, String optionText ) {
+
+        try {
+
+            WebElement dropdownElement = driver.findElement(By.xpath(dropdownXPath));
+            Select dropdown = new Select (dropdownElement);
+            dropdown.selectByVisibleText(optionText);
+
+        } catch (NoSuchContextException e) {
+
+            throw new TestToolException ("Some exception occurred while selecting the text: " + optionText + ": " + e.getCause ());
+
+        }
+
+        return this;
+    }
+
 
 
 }

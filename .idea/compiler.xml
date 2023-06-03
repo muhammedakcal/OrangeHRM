@@ -10,7 +10,7 @@
         <module name="BDDCucumberFramework-master" />
         <module name="BDDCucumberFramework" />
         <module name="OrangeHRMSampleProject" />
-        <module name="OrangeHrm" />
+        <module name="SauceDemo" />
       </profile>
     </annotationProcessing>
   </component>
