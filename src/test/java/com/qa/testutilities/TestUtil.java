@@ -14,15 +14,8 @@ import static com.qa.base.BasePage.driver;
 
 public class TestUtil extends PageManager {
 
-    /**
-     * Get time stamp
-     * @return - formatted time stamp
-     */
     private static String getTimeStamp() {
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-        return sdf.format(date.getTime());
-
+        return new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date());
     }
 
     /**
